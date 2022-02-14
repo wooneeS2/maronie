@@ -1,4 +1,4 @@
-import { DetailPage } from "./pages/detailPage";
+import { DetailPage } from "./pages/DetailPage";
 
 function App() {
   return (
