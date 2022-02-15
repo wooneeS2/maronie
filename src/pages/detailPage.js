@@ -3,7 +3,6 @@ import LiquorInformation from "../components/detailPage/LiquorInformation";
 import ParingInformation from "../components/detailPage/ParingInformation";
 import CocktailInformation from "../components/detailPage/CocktailInformation";
 import LiquorReview from "../components/detailPage/LiquorReview";
-import { LocalFireDepartment } from "@mui/icons-material";
 
 const liquorInfo = {
   img: "https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_812159_15967844304309365.jpg",

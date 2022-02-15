@@ -6,7 +6,7 @@ export function CocktailInformation({ cocktails }) {
   return (
     <>
       <div id="cocktailInformation">
-        {cocktails.map(i => {
+        {cocktails.map((i) => {
           return (
             <div key={i.img}>
               <button>
