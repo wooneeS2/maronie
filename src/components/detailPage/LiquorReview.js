@@ -1,6 +1,7 @@
 import React from "react";
 import { MdOutlineCreate, MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { Rating } from "@mui/material";
+import ReviewModal from "../reviewModal/reviewModal";
 
 const liquorRatingMessage = {
   1: "매니아들만 찾아요.",
@@ -44,6 +45,7 @@ export function LiquorReview({ liquorReviews }) {
         </div>
         <button>
           <MdOutlineCreate />
+          <ReviewModal />
         </button>
       </div>
     </>
