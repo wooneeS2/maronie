@@ -25,19 +25,6 @@ function SearchPage() {
     }
   }, [curSearchTab]);
 
-  const exampleClick1 = () => {
-    console.log("exam 1");
-  };
-
-  const exampleClick2 = (e) => {
-    e.stopPropagation();
-    console.log("exam 2");
-  };
-
-  const exampleClick3 = () => {
-    console.log("exam 3");
-  };
-
   return (
     <div>
       <div className="menuBar">
@@ -46,11 +33,6 @@ function SearchPage() {
           <li data-value="text">텍스트</li>
           <li data-value="theme">테마</li>
         </ul>
-      </div>
-
-      <div onClick={exampleClick3}>
-        <div onClick={exampleClick2}>exam2</div>
-        <div onClick={exampleClick1}>exam1</div>
       </div>
 
       <div className="contentArea">{renderContent()}</div>
