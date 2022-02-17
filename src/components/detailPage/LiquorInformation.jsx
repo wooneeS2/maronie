@@ -12,6 +12,7 @@ import {
   Typography,
   CardMedia,
   Rating,
+  styled,
 } from "@mui/material";
 
 const liquorRatingMessage = {
@@ -19,11 +20,11 @@ const liquorRatingMessage = {
   2: "호불호가 갈려요.",
   3: "평범해요!",
   4: "대부분 좋아해요.",
-  4.5: "대부분 좋아해요.",
   5: "이 술 싫어하는 사람을 본적이 없어요!",
 };
 
 export function LiquorInformation({ liquor }) {
+  let liquorRating = Math.round(liquor.rating);
   return (
     <>
       <Card sx={{ display: "flex", margin: "2rem" }}>
@@ -65,7 +66,7 @@ export function LiquorInformation({ liquor }) {
                 color="theme.primary.main"
                 component="div"
               >
-                " {liquorRatingMessage[liquor.rating]}"({liquor.rating}점)
+                " {liquorRatingMessage[liquorRating]}" ({liquor.rating}점)
               </Typography>
               <Rating
                 sx={{ color: "primary.main" }}
@@ -77,11 +78,7 @@ export function LiquorInformation({ liquor }) {
                 readOnly
               />
             </Box>
-            <Typography
-              variant="subtitle1"
-              color="secondary.main"
-              component="div"
-            >
+            <Typography variant="subtitle1" color="text.main" component="div">
               {liquor.description}
             </Typography>
           </CardContent>
