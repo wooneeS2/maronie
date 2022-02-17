@@ -6,9 +6,7 @@ function App() {
     <div className="App">
       <header className="App-header"></header>
       <DetailPage />
-      <BrowserRouter>
-        
-
+      {/* <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<IntroPage />}></Route>
           <Route exact path="/search" element={<SearchPage />}></Route>
@@ -17,7 +15,7 @@ function App() {
           <Route exact path="/sing-in" element={<SignInPage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
 
       <footer></footer>
     </div>
