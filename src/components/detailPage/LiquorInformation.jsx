@@ -12,7 +12,6 @@ import {
   Typography,
   CardMedia,
   Rating,
-  styled,
 } from "@mui/material";
 
 const liquorRatingMessage = {
@@ -55,7 +54,7 @@ export function LiquorInformation({ liquor }) {
                   </Typography>
                 </Typography>
               </Box>
-              <Box sx={{ marginRight: "1rem" }}>
+              <Box sx={{ marginRight: "0.5rem" }}>
                 <StarBorderOutlinedIcon sx={{ marginRight: "1rem" }} />
                 <LocalBarOutlinedIcon />
               </Box>
