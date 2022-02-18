@@ -9,7 +9,7 @@ function ImageSearch() {
 
   const handleUploadedFile = (e) => {
     let file;
-    if (e.type == "drop") {
+    if (e.type === "drop") {
       setUploadedFile(e.dataTransfer.files[0]);
       file = e.dataTransfer.files[0];
     } else {
@@ -73,15 +73,7 @@ function ImageSearch() {
 
   return (
     <div>
-      <h1
-        style={
-          isDragging
-            ? { backgroundColor: "pink" }
-            : { backgroundColor: "green" }
-        }
-      >
-        이미지를 업로드하세요!
-      </h1>
+      <h1>이미지를 업로드해서 검색할 수 있어요!</h1>
       {uploadedFile ? (
         <img src={thumbnail} style={{ width: "500px", height: "500px" }} />
       ) : (

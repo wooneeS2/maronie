@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import ImageSearch from "../components/Search/ImageSearch";
 import TextSearch from "../components/Search/TextSearch";
-
+import { TabComponent } from "../design/SearchPage/SearchPageStyles";
 function SearchPage() {
   const [curSearchTab, setCurSearchTab] = useState("image");
 
-  const handleTabClick = React.useCallback((e) => {
+  const handleTabClick = useCallback((e) => {
     const target = e.target;
     const value = target.getAttribute("data-value");
     setCurSearchTab(value);
   }, []);
 
-  const renderContent = React.useCallback(() => {
+  const renderContent = useCallback(() => {
     switch (curSearchTab) {
       case "image": {
         return <ImageSearch />;
@@ -27,13 +27,11 @@ function SearchPage() {
 
   return (
     <div>
-      <div className="menuBar">
-        <ul className="tabs" onClick={handleTabClick}>
-          <li data-value="image">이미지</li>
-          <li data-value="text">텍스트</li>
-          <li data-value="theme">테마</li>
-        </ul>
-      </div>
+      <TabComponent onClick={handleTabClick}>
+        <button data-value="image">이미지</button>
+        <button data-value="text">텍스트</button>
+        <button data-value="theme">테마</button>
+      </TabComponent>
 
       <div className="contentArea">{renderContent()}</div>
     </div>
