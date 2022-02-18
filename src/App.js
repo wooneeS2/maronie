@@ -24,10 +24,9 @@ function App() {
   );
 }
 
-const BodyComponent = styled.body`
+const BodyComponent = styled.div`
   margin: 0 auto;
   background-color: ${mainWhite};
-  width: 100vw;
   @media screen and (max-width: 600px) {
     body {
       max-width: 786px;

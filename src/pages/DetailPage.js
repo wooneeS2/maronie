@@ -73,12 +73,12 @@ const liquorReviewInfo = [
 
 export function DetailPage() {
   return (
-    <div>
+    <>
       <LiquorInformation liquor={liquorInfo} />
       <ParingInformation parings={paringInfo} />
       {/* <CocktailInformation cocktails={cocktailInfo} />
       <LiquorReview liquorReviews={liquorReviewInfo} /> */}
-    </div>
+    </>
   );
 }
 
