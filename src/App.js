@@ -1,9 +1,10 @@
 import { DetailPage } from "./pages/DetailPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { mainWhite } from "./design/colorPalette";
 
 function App() {
   return (
-    <div className="App">
+    <BodyComponent className="App">
       <header className="App-header"></header>
       <DetailPage />
       {/* <BrowserRouter>
@@ -18,8 +19,18 @@ function App() {
       </BrowserRouter> */}
 
       <footer></footer>
-    </div>
+    </BodyComponent>
   );
 }
+
+const BodyComponent = styled.div`
+  margin: 0 auto;
+  background-color: ${mainWhite};
+  @media screen and (max-width: 600px) {
+    body {
+      max-width: 786px;
+    }
+  }
+`;
 
 export default App;
