@@ -1,4 +1,5 @@
 import React from "react";
+
 import LiquorInformation from "../components/detailPage/LiquorInformation";
 import ParingInformation from "../components/detailPage/ParingInformation";
 import CocktailInformation from "../components/detailPage/CocktailInformation";

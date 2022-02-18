@@ -1,4 +1,5 @@
-import { Box, makeStyles } from "@mui/material";
+import { Box } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const pcStyles = makeStyles(theme => ({
   root: {
@@ -8,9 +9,13 @@ const pcStyles = makeStyles(theme => ({
   },
 }));
 
-function BaseComponent() {
+function BaseComponent({ children }) {
   const classes = pcStyles();
-  return <Box sx={{ margin: "0 auto" }} className={classes.root}></Box>;
+  return (
+    <Box sx={{ margin: "0 auto" }} className={classes.root}>
+      {children}
+    </Box>
+  );
 }
 
 export default BaseComponent;
