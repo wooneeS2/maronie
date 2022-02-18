@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { mainWhite } from "./design/colorPalette";
-
+import SearchPage from "./pages/SearchPage";
+import GlobalStyle from "./design/GlobalStyles";
 function App() {
   return (
-    <BodyComponent className="App">
+    <>
+      <GlobalStyle />
       <BrowserRouter>
         <header className="App-header"></header>
 
@@ -18,18 +19,8 @@ function App() {
       </BrowserRouter>
 
       <footer></footer>
-    </BodyComponent>
+    </>
   );
 }
-
-const BodyComponent = styled.div`
-  margin: 0 auto;
-  background-color: ${mainWhite};
-  @media screen and (max-width: 600px) {
-    body {
-      max-width: 786px;
-    }
-  }
-`;
 
 export default App;
