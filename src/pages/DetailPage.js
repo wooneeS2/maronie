@@ -4,7 +4,6 @@ import LiquorInformation from "../components/detailPage/LiquorInformation";
 import ParingInformation from "../components/detailPage/ParingInformation";
 import CocktailInformation from "../components/detailPage/CocktailInformation";
 import LiquorReview from "../components/detailPage/LiquorReview";
-import BaseComponent from "../design/BaseComponent";
 
 const liquorInfo = {
   img: "https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_812159_15967844304309365.jpg",
@@ -74,12 +73,12 @@ const liquorReviewInfo = [
 
 export function DetailPage() {
   return (
-    <BaseComponent>
+    <div>
       <LiquorInformation liquor={liquorInfo} />
       <ParingInformation parings={paringInfo} />
-      <CocktailInformation cocktails={cocktailInfo} />
-      <LiquorReview liquorReviews={liquorReviewInfo} />
-    </BaseComponent>
+      {/* <CocktailInformation cocktails={cocktailInfo} />
+      <LiquorReview liquorReviews={liquorReviewInfo} /> */}
+    </div>
   );
 }
 

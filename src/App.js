@@ -1,6 +1,7 @@
 import { DetailPage } from "./pages/DetailPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { mainWhite } from "./design/colorPalette";
+import styled from "styled-components";
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
   );
 }
 
-const BodyComponent = styled.div`
+const BodyComponent = styled.body`
   margin: 0 auto;
   background-color: ${mainWhite};
+  width: 100vw;
   @media screen and (max-width: 600px) {
     body {
       max-width: 786px;
