@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
-
+import GlobalStyle from "./design/GlobalStyles";
 function App() {
   return (
-    <div className="App">
+    <>
+      <GlobalStyle />
       <BrowserRouter>
         <header className="App-header"></header>
         <Routes>
@@ -17,7 +18,8 @@ function App() {
       </BrowserRouter>
 
       <footer></footer>
-    </div>
+    </>
   );
 }
+
 export default App;
