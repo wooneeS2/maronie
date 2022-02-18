@@ -1,14 +1,14 @@
 import { DetailPage } from "./pages/DetailPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { mainWhite } from "./design/colorPalette";
-import styled from "styled-components";
-
+import SearchPage from "./pages/SearchPage";
+import GlobalStyle from "./design/GlobalStyles";
 function App() {
   return (
-    <BodyComponent className="App">
-      <header className="App-header"></header>
-      <DetailPage />
-      {/* <BrowserRouter>
+    <>
+      <GlobalStyle />
+      <BrowserRouter>
+        <header className="App-header"></header>
+
         <Routes>
           <Route exact path="/" element={<IntroPage />}></Route>
           <Route exact path="/search" element={<SearchPage />}></Route>
@@ -17,21 +17,11 @@ function App() {
           <Route exact path="/sing-in" element={<SignInPage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
 
       <footer></footer>
-    </BodyComponent>
+    </>
   );
 }
-
-const BodyComponent = styled.div`
-  margin: 0 auto;
-  background-color: ${mainWhite};
-  @media screen and (max-width: 600px) {
-    body {
-      max-width: 786px;
-    }
-  }
-`;
 
 export default App;
