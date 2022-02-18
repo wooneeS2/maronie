@@ -1,7 +1,11 @@
 import React, { useState, useCallback } from "react";
 import ImageSearch from "../components/SearchPage/ImageSearch";
 import TextSearch from "../components/SearchPage/TextSearch";
-import { TabButton, TabComponent } from "../design/SearchPage/SearchPageStyles";
+import {
+  TabButton,
+  TabComponent,
+  SearchContentsWrapper,
+} from "../design/SearchPage/SearchPageStyles";
 import { BsCardImage, BsChatTextFill, BsHash } from "react-icons/bs";
 function SearchPage() {
   const [curSearchTab, setCurSearchTab] = useState("image");
@@ -27,7 +31,7 @@ function SearchPage() {
   }, [curSearchTab]);
 
   return (
-    <div>
+    <>
       <TabComponent onClick={handleTabClick}>
         <TabButton isSelected={curSearchTab === "image"} data-value="image">
           <BsCardImage size="20" />
@@ -43,8 +47,10 @@ function SearchPage() {
         </TabButton>
       </TabComponent>
 
-      <div className="contentArea">{renderContent()}</div>
-    </div>
+      <SearchContentsWrapper className="contentArea">
+        {renderContent()}
+      </SearchContentsWrapper>
+    </>
   );
 }
 

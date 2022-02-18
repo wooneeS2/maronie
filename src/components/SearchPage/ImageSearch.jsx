@@ -2,8 +2,11 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
   DragFileSpace,
   FileUploadBtn,
+  ImageSearchContents,
+  SearchDescription,
   SearchTitle,
 } from "../../design/SearchPage/SearchPageStyles";
+import { FaWineBottle, FaCocktail } from "react-icons/fa";
 function ImageSearch() {
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(null);
@@ -76,8 +79,7 @@ function ImageSearch() {
   }, [initDragEvents]);
 
   return (
-    <div>
-      <SearchTitle>이미지를 업로드해서 검색할 수 있어요!</SearchTitle>
+    <>
       {uploadedFile ? (
         <img
           src={thumbnail}
@@ -85,21 +87,34 @@ function ImageSearch() {
           alt="이미지 업로드 테스트용 미리보기"
         />
       ) : (
-        <DragFileSpace isDragging={isDragging} ref={dragRef}>
-          <p>드래그해서 파일을 업로드 해보세요</p>
-          <FileUploadBtn htmlFor="imageUpload">
-            파일 선택하기
-            <input
-              type="file"
-              id="imageUpload"
-              accept="image/*"
-              onChange={handleUploadedFile}
-              style={{ display: "none" }}
-            />
-          </FileUploadBtn>
-        </DragFileSpace>
+        <>
+          <DragFileSpace isDragging={isDragging} ref={dragRef}>
+            <p>이미지를 드래그해서 올릴수 있어요!</p>
+          </DragFileSpace>
+          <ImageSearchContents>
+            <div>
+              <FaWineBottle size={60} />
+              <FaCocktail size={60} />
+            </div>
+            <SearchTitle>이미지를 업로드해서 검색</SearchTitle>
+            <SearchDescription>
+              갤러리에서 사진을 선택하거나, 직접 촬영해서 검색해보세요! 한 번에
+              한 장씩, 이미지 파일만 검색 가능합니다 🔍
+            </SearchDescription>
+            <FileUploadBtn htmlFor="imageUpload">
+              사진 선택하기
+              <input
+                type="file"
+                id="imageUpload"
+                accept="image/*"
+                onChange={handleUploadedFile}
+                style={{ display: "none" }}
+              />
+            </FileUploadBtn>
+          </ImageSearchContents>
+        </>
       )}
-    </div>
+    </>
   );
 }
 export default ImageSearch;
