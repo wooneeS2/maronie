@@ -1,5 +1,9 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-
+import {
+  DragFileSpace,
+  FileUploadBtn,
+  SearchTitle,
+} from "../../design/SearchPage/SearchPageStyles";
 function ImageSearch() {
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef(null);
@@ -73,21 +77,27 @@ function ImageSearch() {
 
   return (
     <div>
-      <h1>이미지를 업로드해서 검색할 수 있어요!</h1>
+      <SearchTitle>이미지를 업로드해서 검색할 수 있어요!</SearchTitle>
       {uploadedFile ? (
-        <img src={thumbnail} style={{ width: "500px", height: "500px" }} />
+        <img
+          src={thumbnail}
+          style={{ width: "100%", height: "100%" }}
+          alt="이미지 업로드 테스트용 미리보기"
+        />
       ) : (
-        <div id="dragFile">
-          <label htmlFor="imageUpload" ref={dragRef}>
-            드래그
+        <DragFileSpace isDragging={isDragging} ref={dragRef}>
+          <p>드래그해서 파일을 업로드 해보세요</p>
+          <FileUploadBtn htmlFor="imageUpload">
+            파일 선택하기
             <input
               type="file"
               id="imageUpload"
               accept="image/*"
               onChange={handleUploadedFile}
+              style={{ display: "none" }}
             />
-          </label>
-        </div>
+          </FileUploadBtn>
+        </DragFileSpace>
       )}
     </div>
   );
