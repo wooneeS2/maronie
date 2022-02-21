@@ -1,3 +1,4 @@
+import { style } from "@mui/system";
 import styled from "styled-components";
 import { mainOrange, mainWhite } from "../colorPalette";
 export const TabComponent = styled.ul`
@@ -39,7 +40,7 @@ export const ImageSearchContents = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const TextSearchContents = styled.div`
+export const TextSearchInputContents = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -76,6 +77,7 @@ export const SearchTextInput = styled.input`
   background: transparent;
   transition: border-color 0.2s;
 `;
-export const TextSearchEnterButton = styled.button`
-  width: 10px;
+export const Stack = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
