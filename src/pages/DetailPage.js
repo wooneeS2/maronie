@@ -2,13 +2,13 @@ import React from "react";
 
 import LiquorInformation from "../components/detailPage/LiquorInformation";
 import ParingInformation from "../components/detailPage/ParingInformation";
-import CocktailInformation from "../components/detailPage/CocktailInformation";
+import CocktailImformation from "../components/detailPage/CocktailInformation";
 import LiquorReview from "../components/detailPage/LiquorReview";
 
 const liquorInfo = {
   img: "https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_812159_15967844304309365.jpg",
   name: "엑스레이티드",
-  rating: 4.5,
+  rating: 4.8,
   classfication: "럼",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum tempora architecto veritatis aliquid ea magni cum libero molestiae facilis maxime dolore odio ipsum natus dignissimos non veniam, quisquam beatae nihil! ",
@@ -76,8 +76,9 @@ export function DetailPage() {
     <>
       <LiquorInformation liquor={liquorInfo} />
       <ParingInformation parings={paringInfo} />
-      {/* <CocktailInformation cocktails={cocktailInfo} />
-      <LiquorReview liquorReviews={liquorReviewInfo} /> */}
+      <CocktailImformation cocktails={cocktailInfo} />
+
+      {/* <LiquorReview liquorReviews={liquorReviewInfo} /> */}
     </>
   );
 }

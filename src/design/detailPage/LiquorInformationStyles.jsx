@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const LiquorBox = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: 1rem;
   img {
     height: 300px;
@@ -20,7 +20,7 @@ export const RatingBox = styled.div`
   margin-top: 3rem;
   text-align: center;
   p {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: bold;
   }
   .rating {
