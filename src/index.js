@@ -2,10 +2,32 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#E55132",
+    },
+    orange: {
+      main: "#EF9734",
+    },
+    yellow: {
+      dark: "#F1BD3D",
+      light: "#F2C744",
+    },
+    text: {
+      light: "#FEFDFC",
+      main: "#191919",
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
