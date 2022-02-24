@@ -15,8 +15,18 @@ function TextSearch() {
   let [textSearchValue, setTextSearchValue] = React.useState("");
   const [searchTextList, setSearchTextList] = React.useState([]);
 
-  const handleDeleteSearchKeyword = () => {
+  const handleDeleteSearchKeyword = (idx) => {
     console.info("검색어 삭제 버튼 클릭함");
+    const textSearchRecordList =
+      JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
+
+    if (textSearchRecordList.length > 0) {
+      const targetWord = textSearchRecordList[idx];
+      const newList = textSearchRecordList.filter(
+        (word) => word !== targetWord
+      );
+      setSearchTextList(newList);
+    }
   };
 
   const afterEnterSearchKeyword = () => {
@@ -34,6 +44,15 @@ function TextSearch() {
       JSON.stringify(textSearchRecordList)
     );
   };
+
+  React.useEffect(() => {
+    /**
+     * 검색 텍스트 초기화
+     */
+    const textSearchRecordList =
+      JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
+    setSearchTextList(textSearchRecordList);
+  }, []);
 
   return (
     <>
@@ -73,12 +92,13 @@ function TextSearch() {
         </button>
         <h4>최근 검색어</h4>
         <Stack>
-          {searchTextList.map((item) => (
+          {searchTextList.map((item, idx) => (
             <Chip
+              key={`text-${idx}`}
               label={item}
               size="small"
               variant="outlined"
-              onDelete={handleDeleteSearchKeyword}
+              onDelete={() => handleDeleteSearchKeyword(idx)}
             />
           ))}
         </Stack>
