@@ -15,8 +15,12 @@ function TextSearch() {
   let [textSearchValue, setTextSearchValue] = React.useState("");
   let textSearchRecordList =
     JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
+  const handleDeleteSearchKeyword = () => {
+    console.info("검색어 삭제 버튼 클릭함");
+  };
 
   const afterEnterSearchKeyword = () => {
+    if (textSearchValue === "") return;
     navigate(`/text-search-result/${textSearchValue}`);
     textSearchRecordList.push(textSearchValue);
     window.localStorage.setItem(
@@ -36,7 +40,6 @@ function TextSearch() {
             onChange={(e) => setTextSearchValue(e.target.value)}
             sx={{ m: 1 }}
             onKeyDown={(e) => {
-              // TODO: 빈칸인지 검사
               if (e.key === "Enter") {
                 afterEnterSearchKeyword();
               }
@@ -64,7 +67,12 @@ function TextSearch() {
         <h4>최근 검색어</h4>
         <Stack>
           {textSearchRecordList.map((item) => (
-            <Chip label={item} size="small" variant="outlined" />
+            <Chip
+              label={item}
+              size="small"
+              variant="outlined"
+              onDelete={handleDeleteSearchKeyword}
+            />
           ))}
         </Stack>
         <h4>추천 검색어</h4>
