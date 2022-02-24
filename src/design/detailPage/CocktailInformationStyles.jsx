@@ -4,7 +4,6 @@ import { mainRed } from "../colorPalette";
 export const CocktailImg = styled.img`
   width: 300px;
   height: 300px;
-  margin: 1rem;
 `;
 
 export const CocktailSliderContainer = styled.div`
