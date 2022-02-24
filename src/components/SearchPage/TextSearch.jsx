@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 function TextSearch() {
   let navigate = useNavigate();
   let [textSearchValue, setTextSearchValue] = React.useState("");
-  let textSearchRecordList =
-    JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
+  const [searchTextList, setSearchTextList] = React.useState([]);
+
   const handleDeleteSearchKeyword = () => {
     console.info("검색어 삭제 버튼 클릭함");
   };
@@ -22,12 +22,19 @@ function TextSearch() {
   const afterEnterSearchKeyword = () => {
     if (textSearchValue === "") return;
     navigate(`/text-search-result/${textSearchValue}`);
+
+    const textSearchRecordList =
+      JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
     textSearchRecordList.push(textSearchValue);
+
+    setSearchTextList([...textSearchRecordList]);
+
     window.localStorage.setItem(
       "textSearchValue",
       JSON.stringify(textSearchRecordList)
     );
   };
+
   return (
     <>
       <ImageSearchContents>
@@ -66,7 +73,7 @@ function TextSearch() {
         </button>
         <h4>최근 검색어</h4>
         <Stack>
-          {textSearchRecordList.map((item) => (
+          {searchTextList.map((item) => (
             <Chip
               label={item}
               size="small"
