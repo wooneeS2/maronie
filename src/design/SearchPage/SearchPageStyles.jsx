@@ -1,4 +1,3 @@
-import { style } from "@mui/system";
 import styled from "styled-components";
 import { mainOrange, mainWhite } from "../colorPalette";
 export const TabComponent = styled.ul`
@@ -14,6 +13,8 @@ export const TabComponent = styled.ul`
   margin: 0;
   z-index: 1000;
   cursor: pointer;
+  max-width: 786px;
+  margin: 0 auto;
 `;
 
 export const SearchTitle = styled.h2`

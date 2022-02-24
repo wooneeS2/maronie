@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   DragFileSpace,
   FileUploadBtn,
@@ -7,12 +7,13 @@ import {
   SearchTitle,
 } from "../../design/SearchPage/SearchPageStyles";
 import { FaWineBottle, FaCocktail } from "react-icons/fa";
+
 function ImageSearch() {
-  const [isDragging, setIsDragging] = useState(false);
+  const [isDragging, setIsDragging] = React.useState(false);
   const dragRef = useRef(null);
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [uploadedFile, setUploadedFile] = React.useState(null);
   // 이미지 확인 test 코드
-  const [thumbnail, setThumbnail] = useState(null);
+  const [thumbnail, setThumbnail] = React.useState(null);
 
   const handleUploadedFile = (e) => {
     let file;
@@ -33,35 +34,34 @@ function ImageSearch() {
       }
     };
   };
-
-  const handleDragIn = (e) => {
+  const handleDragIn = React.useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
-  };
+  }, []);
 
-  const handleDragOut = (e) => {
+  const handleDragOut = React.useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
-  };
+  }, []);
 
-  const handleDragOver = (e) => {
+  const handleDragOver = React.useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (e.dataTransfer.items.length) {
       setIsDragging(true);
     }
-  };
+  }, []);
 
-  const handleDrop = (e) => {
+  const handleDrop = React.useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     handleUploadedFile(e);
     setIsDragging(false);
-  };
+  }, []);
 
-  const initDragEvents = useCallback(
+  const initDragEvents = React.useCallback(
     () => {
       if (dragRef.current !== null) {
         dragRef.current.addEventListener("dragenter", handleDragIn);

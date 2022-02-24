@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import ImageSearch from "../components/SearchPage/ImageSearch";
 import TextSearch from "../components/SearchPage/TextSearch";
 import {
@@ -8,15 +8,15 @@ import {
 } from "../design/SearchPage/SearchPageStyles";
 import { BsCardImage, BsChatTextFill, BsHash } from "react-icons/bs";
 function SearchPage() {
-  const [curSearchTab, setCurSearchTab] = useState("image");
+  const [curSearchTab, setCurSearchTab] = React.useState("image");
 
-  const handleTabClick = useCallback((e) => {
+  const handleTabClick = React.useCallback((e) => {
     const target = e.target;
     const value = target.getAttribute("data-value");
     setCurSearchTab(value);
   }, []);
 
-  const renderContent = useCallback(() => {
+  const renderContent = React.useCallback(() => {
     switch (curSearchTab) {
       case "image": {
         return <ImageSearch />;

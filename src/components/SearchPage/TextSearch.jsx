@@ -1,3 +1,4 @@
+import React from "react";
 import {
   ImageSearchContents,
   SearchDescription,
@@ -10,8 +11,19 @@ import { IoSearch } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 function TextSearch() {
-  // TODO: 원희님하고 route 얘기 나눠보기
   let navigate = useNavigate();
+  let [textSearchValue, setTextSearchValue] = React.useState("");
+  let textSearchRecordList =
+    JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
+
+  const afterEnterSearchKeyword = () => {
+    navigate(`/text-search-result/${textSearchValue}`);
+    textSearchRecordList.push(textSearchValue);
+    window.localStorage.setItem(
+      "textSearchValue",
+      JSON.stringify(textSearchRecordList)
+    );
+  };
   return (
     <>
       <ImageSearchContents>
@@ -21,34 +33,42 @@ function TextSearch() {
         </SearchDescription>
         <TextSearchInputContents>
           <TextField
-            id="textSearch"
+            onChange={(e) => setTextSearchValue(e.target.value)}
             sx={{ m: 1 }}
             onKeyDown={(e) => {
+              // TODO: 빈칸인지 검사
               if (e.key === "Enter") {
-                alert("엔터!");
+                afterEnterSearchKeyword();
               }
             }}
             InputProps={{
               endAdornment: (
-                <InputAdornment
-                  position="end"
-                  onClick={() => navigate(`/text-result`)}
-                >
-                  <IoSearch style={{ cursor: "pointer" }} />
+                <InputAdornment position="end">
+                  <IoSearch
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      afterEnterSearchKeyword();
+                    }}
+                  />
                 </InputAdornment>
               ),
             }}
           />
         </TextSearchInputContents>
-        {/* TODO: 반복문으로 수정하기 */}
         {/* TODO: 간격 수정하기 */}
+        <button
+          onClick={() => window.localStorage.removeItem("textSearchValue")}
+        >
+          검색어 삭제하기
+        </button>
         <h4>최근 검색어</h4>
         <Stack>
-          <Chip label="로컬스토리지" size="small" variant="outlined" />
-          <Chip label="불러와서" size="small" variant="outlined" />
-          <Chip label="만들계획" size="small" variant="outlined" />
+          {textSearchRecordList.map((item) => (
+            <Chip label={item} size="small" variant="outlined" />
+          ))}
         </Stack>
         <h4>추천 검색어</h4>
+        {/* TODO: 반복문으로 수정하기 */}
         <Stack>
           <Chip label="샐러드" size="small" variant="outlined" />
           <Chip label="경량패딩조끼" size="small" variant="outlined" />
