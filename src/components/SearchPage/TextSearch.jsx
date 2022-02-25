@@ -5,6 +5,7 @@ import {
   SearchTitle,
   TextSearchInputContents,
   Stack,
+  SearchHistoryDeleteButton,
 } from "../../design/SearchPage/SearchPageStyles";
 import { TextField, InputAdornment, Chip } from "@mui/material";
 import { IoSearch } from "react-icons/io5";
@@ -40,13 +41,12 @@ function TextSearch() {
 
     const textSearchRecordList =
       JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
-    textSearchRecordList.push(textSearchValue);
-
-    setSearchTextList([...textSearchRecordList]);
-
+    let temp = new Set([...textSearchRecordList, textSearchValue]);
+    let newTextSearchRecordList = [...temp];
+    setSearchTextList(newTextSearchRecordList);
     window.localStorage.setItem(
       "textSearchValue",
-      JSON.stringify(textSearchRecordList)
+      JSON.stringify(newTextSearchRecordList)
     );
   };
 
@@ -104,14 +104,16 @@ function TextSearch() {
                 (window.location.href = `/text-search-result/${item}`)
               }
               clickable
-            >
-              hi
-            </Chip>
+            />
           ))}
         </Stack>
-        <button onClick={() => handleDeleteAllSearchKeyword()}>
-          검색어 삭제하기
-        </button>
+        <div>
+          <SearchHistoryDeleteButton
+            onClick={() => handleDeleteAllSearchKeyword()}
+          >
+            전체 삭제
+          </SearchHistoryDeleteButton>
+        </div>
         <h4>추천 검색어</h4>
         <Stack>
           {searchRecommendKeywords.map((item, idx) => (

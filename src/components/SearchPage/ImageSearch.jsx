@@ -28,6 +28,7 @@ function ImageSearch() {
     }
 
     if (file) {
+      sessionStorage.setItem("image", file);
       navigate(`/image-search-result`);
     }
     // }

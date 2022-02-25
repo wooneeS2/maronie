@@ -81,4 +81,13 @@ export const SearchTextInput = styled.input`
 export const Stack = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+export const SearchHistoryDeleteButton = styled.button`
+  float: right;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  color: gray;
 `;
