@@ -1,4 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
+import { useRecoilState } from "recoil";
+import { imageState } from "../../data/state";
+import { useNavigate } from "react-router";
 import {
   DragFileSpace,
   FileUploadBtn,
@@ -9,11 +12,10 @@ import {
 import { FaWineBottle, FaCocktail } from "react-icons/fa";
 
 function ImageSearch() {
+  const navigate = useNavigate();
   const [isDragging, setIsDragging] = React.useState(false);
-  const dragRef = useRef(null);
-  const [uploadedFile, setUploadedFile] = React.useState(null);
-  // 이미지 확인 test 코드
-  const [thumbnail, setThumbnail] = React.useState(null);
+  const dragRef = React.useRef(null);
+  const [uploadedFile, setUploadedFile] = useRecoilState(imageState);
 
   const handleUploadedFile = (e) => {
     let file;
@@ -24,16 +26,13 @@ function ImageSearch() {
       setUploadedFile(e.target.files[0]);
       file = e.target.files[0];
     }
-    //이미지 인코딩
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      if (base64) {
-        setThumbnail(base64.toString());
-      }
-    };
+
+    if (file) {
+      navigate(`/image-search-result`);
+    }
+    // }
   };
+
   const handleDragIn = React.useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -74,46 +73,36 @@ function ImageSearch() {
     { once: true }
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     initDragEvents();
   }, [initDragEvents]);
 
   return (
     <>
-      {uploadedFile ? (
-        <img
-          src={thumbnail}
-          style={{ width: "100%", height: "100%" }}
-          alt="이미지 업로드 테스트용 미리보기"
-        />
-      ) : (
-        <>
-          <DragFileSpace isDragging={isDragging} ref={dragRef}>
-            <p>이미지를 드래그해서 올릴수 있어요!</p>
-          </DragFileSpace>
-          <ImageSearchContents>
-            <div>
-              <FaWineBottle size={60} />
-              <FaCocktail size={60} />
-            </div>
-            <SearchTitle>이미지를 업로드해서 검색</SearchTitle>
-            <SearchDescription>
-              갤러리에서 사진을 선택하거나, 직접 촬영해서 검색해보세요! 한 번에
-              한 장씩, 이미지 파일만 검색 가능합니다 🔍
-            </SearchDescription>
-            <FileUploadBtn htmlFor="imageUpload">
-              사진 선택하기
-              <input
-                type="file"
-                id="imageUpload"
-                accept="image/*"
-                onChange={handleUploadedFile}
-                style={{ display: "none" }}
-              />
-            </FileUploadBtn>
-          </ImageSearchContents>
-        </>
-      )}
+      <DragFileSpace isDragging={isDragging} ref={dragRef}>
+        <p>이미지를 드래그해서 올릴수 있어요!</p>
+      </DragFileSpace>
+      <ImageSearchContents>
+        <div>
+          <FaWineBottle size={60} />
+          <FaCocktail size={60} />
+        </div>
+        <SearchTitle>이미지를 업로드해서 검색</SearchTitle>
+        <SearchDescription>
+          갤러리에서 사진을 선택하거나, 직접 촬영해서 검색해보세요! 한 번에 한
+          장씩, 이미지 파일만 검색 가능합니다 🔍
+        </SearchDescription>
+        <FileUploadBtn htmlFor="imageUpload">
+          사진 선택하기
+          <input
+            type="file"
+            id="imageUpload"
+            accept="image/*"
+            onChange={handleUploadedFile}
+            style={{ display: "none" }}
+          />
+        </FileUploadBtn>
+      </ImageSearchContents>
     </>
   );
 }
