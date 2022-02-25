@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   ImageSearchContents,
   SearchDescription,
@@ -9,14 +10,13 @@ import {
 import { TextField, InputAdornment, Chip } from "@mui/material";
 import { IoSearch } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-
+import { searchRecommendKeywords } from "../../data/searchRecommendKeyword";
 function TextSearch() {
   let navigate = useNavigate();
   let [textSearchValue, setTextSearchValue] = React.useState("");
   const [searchTextList, setSearchTextList] = React.useState([]);
 
   const handleDeleteSearchKeyword = (idx) => {
-    console.info("검색어 삭제 버튼 클릭함");
     const textSearchRecordList =
       JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
 
@@ -26,7 +26,13 @@ function TextSearch() {
         (word) => word !== targetWord
       );
       setSearchTextList(newList);
+      window.localStorage.setItem("textSearchValue", JSON.stringify(newList));
     }
+  };
+
+  const handleDeleteAllSearchKeyword = () => {
+    window.localStorage.removeItem("textSearchValue");
+    setSearchTextList([]);
   };
 
   const afterEnterSearchKeyword = () => {
@@ -85,11 +91,7 @@ function TextSearch() {
           />
         </TextSearchInputContents>
         {/* TODO: 간격 수정하기 */}
-        <button
-          onClick={() => window.localStorage.removeItem("textSearchValue")}
-        >
-          검색어 삭제하기
-        </button>
+
         <h4>최근 검색어</h4>
         <Stack>
           {searchTextList.map((item, idx) => (
@@ -99,15 +101,30 @@ function TextSearch() {
               size="small"
               variant="outlined"
               onDelete={() => handleDeleteSearchKeyword(idx)}
-            />
+              onClick={() =>
+                (window.location.href = `/text-search-result/${item}`)
+              }
+              clickable
+            >
+              hi
+            </Chip>
           ))}
         </Stack>
+        <button onClick={() => handleDeleteAllSearchKeyword()}>
+          검색어 삭제하기
+        </button>
         <h4>추천 검색어</h4>
-        {/* TODO: 반복문으로 수정하기 */}
         <Stack>
-          <Chip label="샐러드" size="small" variant="outlined" />
-          <Chip label="경량패딩조끼" size="small" variant="outlined" />
-          <Chip label="다우니" size="small" variant="outlined" />
+          {searchRecommendKeywords.map((item, idx) => (
+            <Chip
+              component="a"
+              key={`recommend-${idx}`}
+              label={item}
+              size="small"
+              variant="outlined"
+              href={`/text-search-result/${item}`}
+            />
+          ))}
         </Stack>
       </ImageSearchContents>
     </>
