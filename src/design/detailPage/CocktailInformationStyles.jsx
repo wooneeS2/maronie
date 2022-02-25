@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { mainRed } from "../colorPalette";
 
+//TODO safari 설정 추가하기
+
 export const CocktailImg = styled.img`
   width: 300px;
   height: 300px;
