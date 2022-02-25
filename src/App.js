@@ -3,6 +3,7 @@ import DetailPage from "./pages/DetailPage";
 import ReviewPage from "./pages/ReviewPage";
 
 import GlobalStyle from "./design/GlobalStyles";
+import CocktailDetailPage from "./pages/CocktailDetailPage";
 function App() {
   return (
     <>
@@ -14,6 +15,10 @@ function App() {
           <Route exact path="/search" element={<SearchPage />}></Route> */}
           <Route path="/liquor" element={<DetailPage />}></Route>
           <Route path="/liquor/review" element={<ReviewPage />}></Route>
+          <Route
+            path="/cocktail/detail"
+            element={<CocktailDetailPage />}
+          ></Route>
 
           {/* <Route exact path="/sing-up" element={<SignUpPage />}></Route>
           <Route exact path="/sing-in" element={<SignInPage />}></Route>
