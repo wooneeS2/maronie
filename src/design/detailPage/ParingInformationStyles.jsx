@@ -16,6 +16,7 @@ export const ParingBox = styled.div`
   .imageList {
     margin-top: 0.5rem;
     flex-grow: 1;
+    width: 33.3334%;
   }
 
   .paringImage img {

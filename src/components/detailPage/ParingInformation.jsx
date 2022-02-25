@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import ParingBox from "../../design/detailPage/ParingInformationStyles";
 
 export function ParingInformation({ parings }) {
@@ -11,7 +12,8 @@ export function ParingInformation({ parings }) {
           {parings.map((i, index) => {
             return (
               <div key={i.img} className="imageList">
-                <img src={i.img} alt={`parings${index + 1}`} />
+                <ImgWrapper image={i.img} />
+                {/* <img src={i.img} alt={`parings${index + 1}`} /> */}
                 <p sx={{ textAlign: "center" }} id={`parings${index + 1}`}>
                   {i.name}
                 </p>
@@ -23,5 +25,12 @@ export function ParingInformation({ parings }) {
     </ParingBox>
   );
 }
+
+const ImgWrapper = styled.div`
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  background-image: ${({ image }) => `url(${image})`};
+`;
 
 export default ParingInformation;
