@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { mainOrange, mainWhite } from "../colorPalette";
+import { TextField } from "@mui/material";
+
 export const TabComponent = styled.ul`
   padding-left: 0;
   list-style: none;
@@ -93,4 +95,8 @@ export const SearchHistoryDeleteButton = styled.button`
   outline: 0;
   background-color: transparent;
   color: gray;
+`;
+
+export const StyledTextField = styled(TextField)`
+  width: 85%;
 `;

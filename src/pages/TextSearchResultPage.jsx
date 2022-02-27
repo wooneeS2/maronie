@@ -1,9 +1,16 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Tab, Tabs } from "@mui/material";
 import TextSearchInput from "../components/SearchPage/TextSearchInput";
 import { TextSearchResultWrapper } from "../design/SearchPage/SearchPageStyles";
+import {
+  TextResultItemTitle,
+  StyledLink,
+  TextResultItemPrice,
+  TextResultItemDescription,
+} from "../design/SearchResultPage/TextSearchResultPageStyles";
 import NoSearchResult from "../components/SearchResultPage/NoSearchResult";
+import { AiOutlineRight } from "react-icons/ai";
 function TextSearchResultPage() {
   const params = useParams();
   const searchKeyword = params.keyword;
@@ -13,16 +20,22 @@ function TextSearchResultPage() {
         name: "술이름1",
         price: 100,
         url: "https://products0.imgix.drizly.com/ci-bombay-sapphire-4967085f606d9efa.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fm=jpg&h=240&q=20",
+        description:
+          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, nulla voluptas necessitatibus odit nemo odio ullam impedit velit iste facere cum accusantium beatae perferendis consectetur quia repellendus minima veniam quibusdam.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, nulla voluptas necessitatibus odit nemo odio ullam impedit velit iste facere cum accusantium beatae perferendis consectetur quia repellendus minima veniam quibusdam.(약 470자)",
       },
       {
         name: "술이름2",
         price: 100,
         url: "https://products0.imgix.drizly.com/ci-bombay-sapphire-4967085f606d9efa.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fm=jpg&h=240&q=20",
+        description:
+          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, nulla voluptas necessitatibus odit nemo odio ullam impedit velit iste facere cum accusantium beatae perferendis consectetur quia repellendus minima veniam quibusdam.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, nulla voluptas necessitatibus odit nemo odio ull(약 350자)",
       },
       {
         name: "술이름3",
         price: 100,
         url: "https://products0.imgix.drizly.com/ci-bombay-sapphire-4967085f606d9efa.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fm=jpg&h=240&q=20",
+        description:
+          "Lorem ipsum dolor sit, amet consectetur adipi Lorem ipsum dolor sit, amet consectetur adipi Lorem ipsum dolor sit, amet consectetur adipi a;jj(약 150자)",
       },
       {
         name: "술이름4",
@@ -69,7 +82,7 @@ function TextSearchResultPage() {
         <TextSearchResultWrapper className="contentArea">
           {dummy[currentTab].map((item) => (
             // TODO  상세페이지 주소 확정되면 넣기
-            <Link to="/각각의 아이템 상세페이지">
+            <StyledLink to="/각각의 아이템 상세페이지">
               <div
                 style={{
                   margin: "0 10px",
@@ -79,7 +92,7 @@ function TextSearchResultPage() {
               >
                 {
                   <img
-                    style={{ height: "200px" }}
+                    style={{ height: "200px", margin: "auto 0" }}
                     src={item["url"]}
                     alt="술 검색결과"
                   />
@@ -92,11 +105,23 @@ function TextSearchResultPage() {
                   }}
                 >
                   {/* TODO 간격 및 폰트 크기 조절 */}
-                  <span>{item["name"]}</span>
-                  <span>{item["price"]}원</span>
+                  <TextResultItemTitle>{item["name"]}</TextResultItemTitle>
+                  <TextResultItemPrice>{item["price"]}원</TextResultItemPrice>
+                  <TextResultItemDescription>
+                    {item["description"]}
+                  </TextResultItemDescription>
+                </div>
+                <div
+                  style={{
+                    marginLeft: "auto",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <AiOutlineRight size={20} />
                 </div>
               </div>
-            </Link>
+            </StyledLink>
           ))}
         </TextSearchResultWrapper>
       ) : (

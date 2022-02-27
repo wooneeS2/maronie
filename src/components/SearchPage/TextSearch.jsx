@@ -3,7 +3,6 @@ import {
   ImageSearchContents,
   SearchDescription,
   SearchTitle,
-  TextSearchInputContents,
   Stack,
   SearchHistoryDeleteButton,
 } from "../../design/SearchPage/SearchPageStyles";
@@ -42,9 +41,7 @@ function TextSearch() {
         <SearchDescription>
           양주와 칵테일 이름을 검색할 수 있어요!
         </SearchDescription>
-        <TextSearchInputContents>
-          <TextSearchInput />
-        </TextSearchInputContents>
+        <TextSearchInput />
         {/* TODO: 간격 수정하기 */}
 
         <h4>최근 검색어</h4>
