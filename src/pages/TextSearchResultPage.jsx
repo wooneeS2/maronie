@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Tab, Tabs } from "@mui/material";
-import { useParams } from "react-router-dom";
+import TextSearchInput from "../components/SearchPage/TextSearchInput";
 import { TextSearchResultWrapper } from "../design/SearchPage/SearchPageStyles";
 import NoSearchResult from "../components/SearchResultPage/NoSearchResult";
 function TextSearchResultPage() {
+  const params = useParams();
+  const searchKeyword = params.keyword;
   let dummy = {
     liquor: [
       {
@@ -36,9 +38,19 @@ function TextSearchResultPage() {
       },
     ],
   };
+  React.useEffect(() => {
+    /**
+     * 검색 텍스트 초기화
+     */
+    const textSearchRecordList =
+      JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
+    const newTextSearchRecordList = [...textSearchRecordList, searchKeyword];
+    window.localStorage.setItem(
+      "textSearchValue",
+      JSON.stringify(newTextSearchRecordList)
+    );
+  });
 
-  let params = useParams();
-  const searchKeyword = params.keyword;
   const [currentTab, setCurrentTab] = React.useState("liquor");
   const handleChange = (e, newValue) => {
     setCurrentTab(newValue);
@@ -46,7 +58,7 @@ function TextSearchResultPage() {
   return (
     <>
       {/* TODO 폰트크기 키우기 */}
-      <p>{searchKeyword} 검색 결과</p>
+      <TextSearchInput />
       <Tabs variant="fullWidth" value={currentTab} onChange={handleChange}>
         <Tab value="liquor" label="술" />
         <Tab value="cocktail" label="칵테일" />
@@ -57,7 +69,13 @@ function TextSearchResultPage() {
           {dummy[currentTab].map((item) => (
             // TODO  상세페이지 주소 확정되면 넣기
             <Link to="/각각의 아이템 상세페이지">
-              <div style={{ display: "flex" }}>
+              <div
+                style={{
+                  margin: "0 10px",
+                  display: "flex",
+                  borderBottom: "1px solid gray",
+                }}
+              >
                 {
                   <img
                     style={{ height: "200px" }}

@@ -7,14 +7,14 @@ import {
   Stack,
   SearchHistoryDeleteButton,
 } from "../../design/SearchPage/SearchPageStyles";
-import { TextField, InputAdornment, Chip } from "@mui/material";
-import { IoSearch } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { Chip } from "@mui/material";
+import TextSearchInput from "../../components/SearchPage/TextSearchInput";
 import { searchRecommendKeywords } from "../../data/searchRecommendKeyword";
 function TextSearch() {
-  let navigate = useNavigate();
-  let [textSearchValue, setTextSearchValue] = React.useState("");
-  const [searchTextList, setSearchTextList] = React.useState([]);
+  const textSearchRecordList =
+    JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
+  const [searchTextList, setSearchTextList] =
+    React.useState(textSearchRecordList);
 
   const handleDeleteSearchKeyword = (idx) => {
     const textSearchRecordList =
@@ -35,31 +35,6 @@ function TextSearch() {
     setSearchTextList([]);
   };
 
-  const afterEnterSearchKeyword = () => {
-    if (textSearchValue === "") return;
-    navigate(`/text-search-result/${textSearchValue}`);
-
-    const textSearchRecordList =
-      JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
-
-    let temp = new Set([...textSearchRecordList, textSearchValue]);
-    let newTextSearchRecordList = [...temp];
-    setSearchTextList(newTextSearchRecordList);
-    window.localStorage.setItem(
-      "textSearchValue",
-      JSON.stringify(newTextSearchRecordList)
-    );
-  };
-
-  React.useEffect(() => {
-    /**
-     * 검색 텍스트 초기화
-     */
-    const textSearchRecordList =
-      JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
-    setSearchTextList(textSearchRecordList);
-  }, []);
-
   return (
     <>
       <ImageSearchContents>
@@ -68,27 +43,7 @@ function TextSearch() {
           양주와 칵테일 이름을 검색할 수 있어요!
         </SearchDescription>
         <TextSearchInputContents>
-          <TextField
-            onChange={(e) => setTextSearchValue(e.target.value)}
-            sx={{ m: 1 }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                afterEnterSearchKeyword();
-              }
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IoSearch
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      afterEnterSearchKeyword();
-                    }}
-                  />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <TextSearchInput />
         </TextSearchInputContents>
         {/* TODO: 간격 수정하기 */}
 
