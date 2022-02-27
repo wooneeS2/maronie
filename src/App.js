@@ -4,6 +4,7 @@ import ReviewPage from "./pages/ReviewPage";
 
 import GlobalStyle from "./design/GlobalStyles";
 import CocktailDetailPage from "./pages/CocktailDetailPage";
+import RecipeRegistrationPage from "./pages/RecipeRegistrationPage";
 function App() {
   return (
     <>
@@ -18,6 +19,10 @@ function App() {
           <Route
             path="/cocktail/detail"
             element={<CocktailDetailPage />}
+          ></Route>
+          <Route
+            path="/cocktail/register"
+            element={<RecipeRegistrationPage />}
           ></Route>
 
           {/* <Route exact path="/sing-up" element={<SignUpPage />}></Route>
