@@ -41,6 +41,7 @@ function TextSearch() {
 
     const textSearchRecordList =
       JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
+
     let temp = new Set([...textSearchRecordList, textSearchValue]);
     let newTextSearchRecordList = [...temp];
     setSearchTextList(newTextSearchRecordList);

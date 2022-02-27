@@ -69,6 +69,9 @@ export const SearchContentsWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
+export const TextSearchResultWrapper = styled.div`
+  display: grid;
+`;
 export const SearchTextInput = styled.input`
   border: 0;
   border-bottom: 2px solid gray;
