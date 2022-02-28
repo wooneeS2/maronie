@@ -10,6 +10,10 @@ import {
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import styled from "@emotion/styled";
 import { useState } from "react";
+import { IoReloadOutline } from "react-icons/io5";
+import { BsTrash } from "react-icons/bs";
+import { MdAddAPhoto } from "react-icons/md";
+import { mainRed } from "../design/colorPalette";
 
 const StyledInputText = styled(TextField)({});
 const StyledInput = styled(Input)({
@@ -39,6 +43,15 @@ function RecipeRegistrationPage() {
   const addStep = () => {
     setStep(students => [...step, <RecipeInput />]);
   };
+
+  const [picture, setPicture] = useState(null);
+
+  const resetPicture = e => {
+    setPicture(null);
+  };
+  const onChangePicture = e => {
+    setPicture(URL.createObjectURL(e.target.files[0]));
+  };
   return (
     <>
       <div
@@ -48,14 +61,85 @@ function RecipeRegistrationPage() {
           maxWidth: "50%",
           margin: "0 auto",
           marginTop: "2rem",
+          textAlign: "center",
         }}
       >
         <p>레시피 추가하기</p>
-        {/* TODO 이미지 프리뷰 추가하기 */}
-        <p>사진 추가하기</p>
+        <p>술 이름</p>
 
-        <input type="file" />
+        <div className="register-profile-image"></div>
+        <div className="previewProfilePic">
+          {picture ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                className="playerProfilePic_home_tile"
+                src={picture && picture}
+                style={{
+                  width: "20vw",
+                  height: "300px",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              />
+
+              <BsTrash
+                style={{
+                  backgroundColor: `${mainRed}`,
+                  borderRadius: "100px",
+                  padding: "3px",
+                  marginLeft: "10px",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  resetPicture();
+                }}
+              />
+            </div>
+          ) : (
+            <div style={{ marginBottom: "2rem" }}>
+              <label htmlFor="cocktailPhoto">
+                <div
+                  style={{
+                    width: "200px",
+                    height: "300px",
+                    backgroundColor: "#CFCACA",
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    margin: "0 auto",
+                  }}
+                >
+                  <input
+                    id="cocktailPhoto"
+                    type="file"
+                    accept="image/*"
+                    onChange={onChangePicture}
+                    style={{ display: "none" }}
+                  />
+
+                  <MdAddAPhoto
+                    style={{
+                      fontSize: "2rem",
+                      zIndex: "100",
+                      margin: "0 auto",
+                    }}
+                  />
+                </div>
+              </label>
+            </div>
+          )}
+        </div>
       </div>
+
       <div
         style={{
           display: "flex",
@@ -64,8 +148,6 @@ function RecipeRegistrationPage() {
           margin: "0 auto",
         }}
       >
-        <p>술 이름</p>
-
         <InputLabel htmlFor="component-helper">칵테일 이름</InputLabel>
         <StyledInput
           id="component-helper"
