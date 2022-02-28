@@ -31,7 +31,6 @@ function ImageSearch() {
       sessionStorage.setItem("image", file);
       navigate(`/image-search-result`);
     }
-    // }
   };
 
   const handleDragIn = React.useCallback((e) => {
