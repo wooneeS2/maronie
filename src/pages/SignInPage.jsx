@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, InputAdornment, Button } from "@mui/material";
+import { TextField, InputAdornment } from "@mui/material";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { StyledLink, SubmitButton } from "../design/AuthPage/SignInPageStyles";
