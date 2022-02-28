@@ -1,26 +1,13 @@
 import React from "react";
-import {
-  Button,
-  Input,
-  FormControl,
-  InputLabel,
-  FormHelperText,
-  TextField,
-} from "@mui/material";
+import { TextField, Chip, FormControl, InputLabel } from "@mui/material";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import styled from "@emotion/styled";
-import { useState } from "react";
-import { IoReloadOutline } from "react-icons/io5";
+import { useState, useEffect } from "react";
 import { BsTrash } from "react-icons/bs";
 import { MdAddAPhoto } from "react-icons/md";
 import { mainRed } from "../design/colorPalette";
 
 const StyledInputText = styled(TextField)({});
-const StyledInput = styled(Input)({
-  alignItems: "center",
-  justifyContent: "center",
-  textAlign: "center",
-});
 
 const RecipeInputStyle = styled(TextField)({
   width: "100%",
@@ -52,6 +39,21 @@ function RecipeRegistrationPage() {
   const onChangePicture = e => {
     setPicture(URL.createObjectURL(e.target.files[0]));
   };
+
+  const [ingredientsList, setIngredientsList] = useState([]);
+  const [ingredient, setIngredient] = useState("");
+
+  const addIngredients = value => {
+    const temp = ingredientsList;
+    temp.push(value);
+    setIngredientsList(temp);
+    console.log("재료", ingredientsList);
+  };
+  const deleteIngredients = value => {
+    const newList = ingredientsList.filter(word => word !== value);
+    setIngredientsList(newList);
+  };
+
   return (
     <>
       <div
@@ -148,14 +150,12 @@ function RecipeRegistrationPage() {
           margin: "0 auto",
         }}
       >
-        <InputLabel htmlFor="component-helper">칵테일 이름</InputLabel>
-        <StyledInput
-          id="component-helper"
-          aria-describedby="component-helper-text"
+        <TextField
+          id="standard-basic"
+          label="칵테일 이름"
+          variant="standard"
+          placeholder="칵테일 이름을 입력해주세요."
         />
-        <FormHelperText id="component-helper-text">
-          칵테일 이름을 입력해주세요.
-        </FormHelperText>
         <StyledInputText
           id="standard-multiline-static"
           label="칵테일 소개"
@@ -164,14 +164,49 @@ function RecipeRegistrationPage() {
           variant="standard"
         />
 
-        <InputLabel htmlFor="component-helper">재료</InputLabel>
-        <StyledInput
-          id="component-helper"
-          aria-describedby="component-helper-text"
-        />
-        <FormHelperText id="component-helper-text">
-          재료를 입력해주세요.
-        </FormHelperText>
+        <div>
+          <TextField
+            id="ingredients-input"
+            label="재료"
+            variant="standard"
+            placeholder="재료를 입력하고 추가 버튼을 눌러주세요."
+            sx={{
+              marginTop: "10px ",
+              marginBottom: "10px",
+              minWidth: "80%",
+            }}
+            onChange={e => {
+              setIngredient(e.target.value);
+              console.log(ingredient);
+            }}
+          />
+
+          <AddBoxOutlinedIcon
+            color="orange"
+            sx={{ verticalAlign: "bottom", fontSize: "2rem" }}
+            onClick={e => {
+              e.preventDefault();
+              addIngredients(ingredient);
+            }}
+          />
+        </div>
+
+        <div
+          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+        >
+          {ingredientsList.map((i, index) => (
+            <Chip
+              key={i + index}
+              label={i}
+              variant="outlined"
+              sx={{ width: "10vw", marginLeft: "5px" }}
+              onDelete={() => {
+                deleteIngredients(i);
+              }}
+            />
+          ))}
+        </div>
+
         <div style={{ display: "flex", flexDirection: "row" }}>
           <p>제조과정 등록하기</p>
           <p>
