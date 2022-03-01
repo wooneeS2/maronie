@@ -23,3 +23,14 @@ export const StyledLink = styled(Link)`
     text-decoration: none;
   }
 `;
+export const TextSearchResultImage = styled.img`
+  height: 200px;
+  margin: auto 0;
+`;
+
+export const FlexRightBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+`;

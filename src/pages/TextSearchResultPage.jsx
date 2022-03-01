@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-// import { Tab, Tabs } from "@mui/material";
+import { Rating } from "@mui/material";
 import MenuTabs from "../components/SearchPage/MenuTabs";
 import TextSearchInput from "../components/SearchPage/TextSearchInput";
 import { TextSearchResultWrapper } from "../design/SearchPage/SearchPageStyles";
@@ -9,8 +9,11 @@ import {
   StyledLink,
   TextResultItemPrice,
   TextResultItemDescription,
+  TextSearchResultImage,
+  FlexRightBox,
 } from "../design/SearchResultPage/TextSearchResultPageStyles";
 import NoSearchResult from "../components/SearchResultPage/NoSearchResult";
+import { FlexColumnCenterBox, TableItem } from "../design/CommonStyles";
 import { AiOutlineRight } from "react-icons/ai";
 function TextSearchResultPage() {
   const params = useParams();
@@ -24,8 +27,7 @@ function TextSearchResultPage() {
         price: 100,
         image_path:
           "https://products0.imgix.drizly.com/ci-bombay-sapphire-4967085f606d9efa.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fm=jpg&h=240&q=20",
-        description:
-          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, nulla voluptas necessitatibus odit nemo odio ullam impedit velit iste facere cum accusantium beatae perferendis consectetur quia repellendus minima veniam quibusdam.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, nulla voluptas necessitatibus odit nemo odio ullam impedit velit iste facere cum accusantium beatae perferendis consectetur quia repellendus minima veniam quibusdam.(약 470자)",
+        description: "Lorem",
         rating: 3.5,
       },
       {
@@ -40,7 +42,7 @@ function TextSearchResultPage() {
       },
       {
         id: 3,
-        name: "술이름3",
+        liquor_name: "술이름3",
         price: 100,
         image_path:
           "https://products0.imgix.drizly.com/ci-bombay-sapphire-4967085f606d9efa.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fm=jpg&h=240&q=20",
@@ -76,53 +78,70 @@ function TextSearchResultPage() {
 
   return (
     <>
-      {/* TODO 폰트크기 키우기 */}
       <TextSearchInput />
       <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
 
-      {dummy[currentTab].length > 0 ? (
+      {currentTab === "liquor" ? (
+        dummy[currentTab].length > 0 ? (
+          <TextSearchResultWrapper className="contentArea">
+            {dummy[currentTab].map((item) => (
+              <StyledLink to={`/liquor/${item["id"]}`}>
+                <TableItem>
+                  {
+                    <TextSearchResultImage
+                      src={item["image_path"]}
+                      alt={`${item["liquor_name"]} 이미지`}
+                    />
+                  }
+                  <FlexColumnCenterBox>
+                    <TextResultItemTitle>
+                      {item["liquor_name"]}
+                    </TextResultItemTitle>
+                    <TextResultItemPrice>{item["price"]}원</TextResultItemPrice>
+                    <TextResultItemDescription>
+                      {item["description"].length > 100
+                        ? item["description"].substring(0, 100) + "..."
+                        : item["description"]}
+                    </TextResultItemDescription>
+                    <Rating value={item["rating"]} readOnly precision={0.5} />
+                  </FlexColumnCenterBox>
+                  <FlexRightBox>
+                    <AiOutlineRight size={20} />
+                  </FlexRightBox>
+                </TableItem>
+              </StyledLink>
+            ))}
+          </TextSearchResultWrapper>
+        ) : (
+          <NoSearchResult />
+        )
+      ) : dummy[currentTab].length > 0 ? (
         <TextSearchResultWrapper className="contentArea">
           {dummy[currentTab].map((item) => (
-            // TODO  상세페이지 주소 확정되면 넣기
-            <StyledLink to="/각각의 아이템 상세페이지">
-              <div
-                style={{
-                  margin: "0 10px",
-                  display: "flex",
-                  borderBottom: "1px solid gray",
-                }}
-              >
+            <StyledLink to={`/cocktail/${item["cocktail_id"]}`}>
+              <TableItem>
                 {
-                  <img
-                    style={{ height: "200px", margin: "auto 0" }}
-                    src={item["url"]}
-                    alt="술 검색결과"
+                  <TextSearchResultImage
+                    src={item["image_path"]}
+                    alt={`${item["cocktail_name"]} 이미지`}
                   />
                 }
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  {/* TODO 간격 및 폰트 크기 조절 */}
-                  <TextResultItemTitle>{item["name"]}</TextResultItemTitle>
+                <FlexColumnCenterBox>
+                  <TextResultItemTitle>
+                    {item["cocktail_name"]}
+                  </TextResultItemTitle>
                   <TextResultItemPrice>{item["price"]}원</TextResultItemPrice>
                   <TextResultItemDescription>
-                    {item["description"]}
+                    {item["description"].length > 100
+                      ? item["description"].substring(0, 100) + "..."
+                      : item["description"]}
                   </TextResultItemDescription>
-                </div>
-                <div
-                  style={{
-                    marginLeft: "auto",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
+                  <Rating value={item["rating"]} readOnly precision={0.5} />
+                </FlexColumnCenterBox>
+                <FlexRightBox>
                   <AiOutlineRight size={20} />
-                </div>
-              </div>
+                </FlexRightBox>
+              </TableItem>
             </StyledLink>
           ))}
         </TextSearchResultWrapper>
