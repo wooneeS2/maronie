@@ -199,7 +199,6 @@ function RecipeRegistrationPage() {
         <div
           style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
         >
-          {/* TODO 동기처리하기 */}
           {ingredientsList.map((i, index) => (
             <Chip
               key={i + index}
