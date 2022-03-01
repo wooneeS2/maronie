@@ -8,7 +8,7 @@ import {
 } from "../design/SearchResultPage/ImageSearchResult";
 import {
   CenterBox,
-  FlexRowCenterBox,
+  FlexColumnCenterBox,
   StyledButton,
   StyledLink,
 } from "../design/CommonStyles";
@@ -36,16 +36,19 @@ function ImageSearchResultPage() {
             <ImageSearchImg id="image-for-search" alt="이미지 검색 대상" />
             <ImageSearchImg src={dummyImage} alt="결과 이미지" />
             <ImageSearchTitle>
-              이 술은 <StyledLink to={resultId}>{resultName}</StyledLink>
+              이 술은{" "}
+              <StyledLink style={{ textDecoration: "underline" }} to={resultId}>
+                {resultName}
+              </StyledLink>
               입니다!
             </ImageSearchTitle>
+            <FlexColumnCenterBox>
+              <p style={{ marginBottom: "1px" }}>찾는 술이 아니신가요?</p>
+              <StyledLink to="/search">
+                <StyledButton>검색 페이지로 돌아가기</StyledButton>
+              </StyledLink>
+            </FlexColumnCenterBox>
           </CenterBox>
-          <FlexRowCenterBox>
-            <p>찾는 술이 아니신가요?</p>
-            <StyledLink to="/search">
-              <StyledButton>다시 하기</StyledButton>
-            </StyledLink>
-          </FlexRowCenterBox>
         </>
       ) : (
         <ErrorPage />

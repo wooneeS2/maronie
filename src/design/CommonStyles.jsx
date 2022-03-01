@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { mainOrange, mainWhite } from "./colorPalette";
+import { mainOrange, mainWhite, mainBlack } from "./colorPalette";
 
 export const TableItem = styled.div`
   margin: 0 10px;
@@ -30,14 +30,17 @@ export const StyledButton = styled.button`
   color: ${mainWhite};
   border-radius: 10px;
   cursor: pointer;
+  padding: 10px;
 `;
 export const StyledLink = styled(Link)`
   text-decoration: none;
+  cursor: pointer;
   &:focus,
   &:hover,
   &:visited,
   &:link,
   &:active {
     text-decoration: none;
+    color: black;
   }
 `;

@@ -62,9 +62,9 @@ function ImageSearch() {
     if (extensionList.includes(fileExtension)) {
       handleUploadedFile(e);
     } else {
-      // alert("지원하지 않는 파일 형식입니다!");
+      alert("지원하지 않는 파일 형식입니다!");
     }
-    // setIsDragging(false);
+    setIsDragging(false);
   }, []);
 
   const initDragEvents = React.useCallback(
