@@ -9,6 +9,7 @@ import {
   SearchDescription,
   SearchTitle,
 } from "../../design/SearchPage/SearchPageStyles";
+import { FlexRowCenterBox } from "../../design/CommonStyles";
 import { FaWineBottle, FaCocktail } from "react-icons/fa";
 
 function ImageSearch() {
@@ -61,9 +62,9 @@ function ImageSearch() {
     if (extensionList.includes(fileExtension)) {
       handleUploadedFile(e);
     } else {
-      alert("지원하지 않는 파일 형식입니다!");
+      // alert("지원하지 않는 파일 형식입니다!");
     }
-    setIsDragging(false);
+    // setIsDragging(false);
   }, []);
 
   const initDragEvents = React.useCallback(
@@ -86,7 +87,18 @@ function ImageSearch() {
   return (
     <>
       <DragFileSpace isDragging={isDragging} ref={dragRef}>
-        <p>이미지를 드래그해서 올릴수 있어요!</p>
+        <p
+          style={{
+            margin: "auto 0",
+            fontSize: "2rem",
+            lineHeight: 1.5,
+            fontWeight: 800,
+            textAlign: "center",
+          }}
+        >
+          이미지를 드래그{"&"}드롭으로 <br />
+          올릴수 있어요!
+        </p>
       </DragFileSpace>
       <ImageSearchContents>
         <div>

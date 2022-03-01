@@ -29,13 +29,15 @@ export const SearchDescription = styled.p`
 
 export const DragFileSpace = styled.div`
   position: fixed;
+  display: flex;
+  justify-content: center;
   z-index: ${({ isDragging }) => (isDragging ? 10000 : 10)};
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: ${mainOrange};
-  opacity: ${({ isDragging }) => (isDragging ? 0.8 : 0)};
+  opacity: ${({ isDragging }) => (isDragging ? 0.9 : 0)};
 `;
 export const ImageSearchContents = styled.div`
   margin: 10%;
