@@ -4,7 +4,7 @@ import { imageState } from "../../data/state";
 import { useNavigate } from "react-router";
 import {
   DragFileSpace,
-  FileUploadBtn,
+  FileUploadButton,
   ImageSearchContents,
   SearchDescription,
   SearchTitle,
@@ -16,7 +16,7 @@ function ImageSearch() {
   const [isDragging, setIsDragging] = React.useState(false);
   const dragRef = React.useRef(null);
   const [uploadedFile, setUploadedFile] = useRecoilState(imageState);
-
+  const extensionList = ["jpg", "jpeg", "png", "bmp"];
   const handleUploadedFile = (e) => {
     let file;
     if (e.type === "drop") {
@@ -56,7 +56,13 @@ function ImageSearch() {
   const handleDrop = React.useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
-    handleUploadedFile(e);
+    const fileName = e.dataTransfer.files[0]["name"].split(".");
+    const fileExtension = fileName[fileName.length - 1];
+    if (extensionList.includes(fileExtension)) {
+      handleUploadedFile(e);
+    } else {
+      alert("지원하지 않는 파일 형식입니다!");
+    }
     setIsDragging(false);
   }, []);
 
@@ -92,7 +98,7 @@ function ImageSearch() {
           갤러리에서 사진을 선택하거나, 직접 촬영해서 검색해보세요! 한 번에 한
           장씩, 이미지 파일만 검색 가능합니다 🔍
         </SearchDescription>
-        <FileUploadBtn htmlFor="imageUpload">
+        <FileUploadButton htmlFor="imageUpload">
           사진 선택하기
           <input
             type="file"
@@ -101,7 +107,7 @@ function ImageSearch() {
             onChange={handleUploadedFile}
             style={{ display: "none" }}
           />
-        </FileUploadBtn>
+        </FileUploadButton>
       </ImageSearchContents>
     </>
   );

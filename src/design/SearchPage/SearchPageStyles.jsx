@@ -58,7 +58,7 @@ export const TabButton = styled.li`
   flex-direction: column;
   justify-content: center;
 `;
-export const FileUploadBtn = styled.label`
+export const FileUploadButton = styled.label`
   padding: 5%;
   border-radius: 30px;
   background-color: ${mainOrange};

@@ -6,14 +6,17 @@ import TextSearchInput from "../components/SearchPage/TextSearchInput";
 import { TextSearchResultWrapper } from "../design/SearchPage/SearchPageStyles";
 import {
   TextResultItemTitle,
-  StyledLink,
   TextResultItemPrice,
   TextResultItemDescription,
   TextSearchResultImage,
   FlexRightBox,
 } from "../design/SearchResultPage/TextSearchResultPageStyles";
 import NoSearchResult from "../components/SearchResultPage/NoSearchResult";
-import { FlexColumnCenterBox, TableItem } from "../design/CommonStyles";
+import {
+  FlexColumnCenterBox,
+  TableItem,
+  StyledLink,
+} from "../design/CommonStyles";
 import { AiOutlineRight } from "react-icons/ai";
 function TextSearchResultPage() {
   const params = useParams();
@@ -84,8 +87,8 @@ function TextSearchResultPage() {
       {currentTab === "liquor" ? (
         dummy[currentTab].length > 0 ? (
           <TextSearchResultWrapper className="contentArea">
-            {dummy[currentTab].map((item) => (
-              <StyledLink to={`/liquor/${item["id"]}`}>
+            {dummy[currentTab].map((item, idx) => (
+              <StyledLink to={`/liquor/${item["id"]}`} key={`liquor-${idx}`}>
                 <TableItem>
                   {
                     <TextSearchResultImage
@@ -117,8 +120,11 @@ function TextSearchResultPage() {
         )
       ) : dummy[currentTab].length > 0 ? (
         <TextSearchResultWrapper className="contentArea">
-          {dummy[currentTab].map((item) => (
-            <StyledLink to={`/cocktail/${item["cocktail_id"]}`}>
+          {dummy[currentTab].map((item, idx) => (
+            <StyledLink
+              to={`/cocktail/${item["cocktail_id"]}`}
+              key={`cocktail-${idx}`}
+            >
               <TableItem>
                 {
                   <TextSearchResultImage
