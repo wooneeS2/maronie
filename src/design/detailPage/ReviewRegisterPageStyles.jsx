@@ -8,11 +8,6 @@ export const RatingTitle = styled.span`
   font-size: 1rem;
 `;
 
-export const imageStyle = {
-  maxWidth: "250px",
-  maxHeight: "300px",
-};
-
 export const ReviewContent = styled.textarea`
   max-width: 300px;
   width: 70%;

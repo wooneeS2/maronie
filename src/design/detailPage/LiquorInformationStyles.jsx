@@ -28,13 +28,6 @@ export const RatingBox = styled.div`
   }
 `;
 
-export const ButtonBox = styled.div`
-  display: flex;
-  padding: 0.2rem;
-  margin: 0.4rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-`;
-
 export const DescriptionBox = styled.div`
   display: block;
   margin: 1rem;

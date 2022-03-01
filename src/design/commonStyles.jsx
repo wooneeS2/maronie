@@ -14,6 +14,13 @@ export const ColumnDiv = styled.div`
   text-align: center;
 `;
 
+export const RowDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+`;
+
 export const RegisterButton = styled.button`
   width: 50vw;
   max-width: 390px;
@@ -42,3 +49,8 @@ export const CenterAlignmentDiv = styled.div`
 export const BoldTitle = styled.p`
   font-weight: bold;
 `;
+
+export const imageStyle = {
+  maxWidth: "250px",
+  maxHeight: "300px",
+};

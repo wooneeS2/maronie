@@ -1,19 +1,14 @@
 import React from "react";
-import styled from "styled-components";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
-import LocalBarOutlinedIcon from "@mui/icons-material/LocalBarOutlined";
-import LocalBarIcon from "@mui/icons-material/LocalBar";
 import { Rating } from "@mui/material";
 import {
   LiquorBox,
   RatingBox,
-  ButtonBox,
   DescriptionBox,
 } from "../../design/detailPage/LiquorInformationStyles";
 import { mainRed } from "../../design/colorPalette";
+import { AddWishList, AddDoneList } from "./WishListButtons";
 
 const liquorRatingMessage = {
   1: "매니아들만 찾아요.",
@@ -45,14 +40,8 @@ export function LiquorInformation({ liquor }) {
             readOnly
           />
 
-          <ButtonBox>
-            <StarBorderOutlinedIcon />
-            <span>즐겨찾기 </span>
-          </ButtonBox>
-          <ButtonBox>
-            <LocalBarOutlinedIcon sx={{}} />
-            <span>마셔봤어요!</span>
-          </ButtonBox>
+          <AddWishList />
+          <AddDoneList />
         </RatingBox>
       </LiquorBox>
       <DescriptionBox>

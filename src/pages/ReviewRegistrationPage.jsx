@@ -5,16 +5,16 @@ import {
   RegisterButton,
   CenterAlignmentDiv,
   BoldTitle,
+  imageStyle,
 } from "../design/commonStyles";
 import {
   RatingTitle,
-  imageStyle,
   ReviewContent,
 } from "../design/detailPage/ReviewRegisterPageStyles";
 import { ReviewRating } from "../components/detailPage/ReviewRating";
 import ratingLabels from "../data/ratingLabels";
 
-function ReviewPage({ image, liqourName }) {
+function ReviewRegistrationPage({ image, liqourName }) {
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
 
@@ -56,4 +56,4 @@ function ReviewPage({ image, liqourName }) {
   );
 }
 
-export default ReviewPage;
+export default ReviewRegistrationPage;
