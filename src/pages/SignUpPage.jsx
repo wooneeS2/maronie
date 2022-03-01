@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { SubmitButton } from "../design/AuthPage/SignUpPageStyles";
@@ -10,20 +11,64 @@ function SignUpPage() {
     password2: "",
     showPassword: false,
   });
-  // regex.test
+  //중복 테스트 데이터
+  const dummy = {
+    email: ["a@naver.com", "b@naver.com", "c@naver.com"],
+    nickname: ["a", "b", "c"],
+  };
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-  // 회원가입 input 조건 만족하는지 저장
-  // 초기화 값 0 (Input 클릭하지 않음)
-  // 클릭했었지만 빈칸으로 냅뒀을때 null
-  // 형식이 안맞을때 false
-  // 형식이 완벽할때 true
-  const [signUpInputCondition, setSignUpInputCondition] = React.useState({
-    email: 0,
-    nickname: 0,
-    password: 0,
+  const [signUpInputStatus, setSignUpInputStatus] = React.useState({
+    emailStatus: 0,
+    nicknameStatus: 0,
+    passwordStatus: 0,
   });
-  const handleSubmitSignUp = () => {};
+
+  const checkEmail = async (email) => {
+    const response = await axios
+      .get(
+        `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/register/${email}`
+      )
+      .then((res) => res.data.message);
+    console.log(response);
+    // 빈 문자열 (1)
+    if (email === "") {
+      setSignUpInputStatus((cur) => {
+        return { ...cur, email: 1 };
+      });
+      // 형식에 맞지 않는 이메일 (2)
+    } else if (!regEmail.test(email)) {
+      setSignUpInputStatus((cur) => {
+        return { ...cur, email: 2 };
+      });
+      // 중복된 이메일 (3)
+    } else if (response === "임시 중복 return값") {
+      setSignUpInputStatus((cur) => {
+        return { ...cur, email: 3 };
+      });
+    }
+  };
+  const handleSubmitSignUp = () => {
+    if (signUpInputValues["email"].includes(dummy["email"])) {
+      setSignUpInputStatus({
+        ...signUpInputStatus,
+        email: "이메일 중복",
+      });
+    }
+    if (signUpInputValues["nickname"].includes(dummy["nickname"])) {
+      setSignUpInputStatus({
+        ...signUpInputStatus,
+        nickname: "닉네임 중복",
+      });
+    }
+    if (
+      signUpInputStatus["email"] === "" &&
+      signUpInputStatus["nickname"] === "" &&
+      signUpInputStatus["password"] === ""
+    ) {
+      alert("가입 성공!");
+    }
+  };
   const handleClickShowPassword = () => {
     setSignUpInputValues({
       ...signUpInputValues,
@@ -47,29 +92,24 @@ function SignUpPage() {
             })
           }
           onBlur={() => {
-            let temp = false;
-            if (signUpInputValues["email"] === "") {
-              temp = null;
-            } else if (regEmail.test(signUpInputValues["email"])) {
-              temp = true;
-            }
-            setSignUpInputCondition({
-              ...signUpInputCondition,
-              email: temp,
-            });
+            checkEmail(signUpInputValues["email"]);
+            // let temp = "이메일 형식을 확인해주세요";
+            // if (signUpInputValues["email"] === "") {
+            //   temp = "이메일은 필수 항목입니다";
+            // } else if (regEmail.test(signUpInputValues["email"])) {
+            //   temp = "";
+            // }
+            // setSignUpInputStatus({
+            //   ...signUpInputStatus,
+            //   email: temp,
+            // });
           }}
           label="이메일"
           error={
-            signUpInputCondition["email"] === null ||
-            signUpInputCondition["email"] === false
+            signUpInputStatus["email"] === "이메일은 필수 항목입니다" ||
+            signUpInputStatus["email"] === "이메일 형식을 확인해주세요"
           }
-          helperText={
-            signUpInputCondition["email"] || signUpInputCondition["email"] === 0
-              ? ""
-              : signUpInputCondition["email"] === null
-              ? "필수 항목입니다"
-              : "사용할 수 없는 이메일입니다"
-          }
+          helperText={signUpInputStatus["email"]}
         />
 
         <TextField
@@ -79,13 +119,19 @@ function SignUpPage() {
               nickname: e.target.value,
             })
           }
+          onBlur={() => {
+            // let temp = "";
+            // if (signUpInputValues["nickname"] === "") {
+            //   temp = "닉네임은 필수 항목입니다";
+            // }
+            // setSignUpInputStatus({
+            //   ...signUpInputStatus,
+            //   nickname: temp,
+            // });
+          }}
           label="닉네임"
-          error={signUpInputValues["nickname"] === ""}
-          helperText={
-            signUpInputValues["nickname"] === ""
-              ? "이미 사용중인 닉네임입니다"
-              : " "
-          }
+          error={signUpInputStatus["nickname"] === "닉네임은 필수 항목입니다"}
+          helperText={signUpInputStatus["nickname"]}
         />
 
         <TextField
@@ -95,6 +141,16 @@ function SignUpPage() {
               password: e.target.value,
             })
           }
+          onBlur={() => {
+            let temp = "";
+            if (signUpInputValues["password"] === "") {
+              temp = "비밀번호를 입력해주세요";
+            }
+            setSignUpInputStatus({
+              ...signUpInputStatus,
+              password: temp,
+            });
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -110,12 +166,8 @@ function SignUpPage() {
           }}
           type={signUpInputValues["showPassword"] ? "text" : "password"}
           label="비밀번호"
-          error={signUpInputValues["password"] === ""}
-          helperText={
-            signUpInputValues["password"] === ""
-              ? "비밀번호 형식이 맞지 않습니다"
-              : " "
-          }
+          error={signUpInputValues["password"] === "비밀번호를 입력해주세요"}
+          helperText={signUpInputStatus["password"]}
         />
 
         <TextField
@@ -125,6 +177,20 @@ function SignUpPage() {
               password2: e.target.value,
             })
           }
+          onBlur={() => {
+            let temp = "";
+            if (signUpInputValues["password2"] === "") {
+              temp = "비밀번호를 한번 더 입력해주세요";
+            } else if (
+              signUpInputValues["password"] !== signUpInputValues["password2"]
+            ) {
+              temp = "비밀번호가 일치하지 않습니다";
+            }
+            setSignUpInputStatus({
+              ...signUpInputStatus,
+              password2: temp,
+            });
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -141,23 +207,14 @@ function SignUpPage() {
           type={signUpInputValues["showPassword"] ? "text" : "password"}
           label="비밀번호 확인"
           error={
-            signUpInputValues["password"] !== signUpInputValues["password2"]
+            signUpInputStatus["password2"] ===
+              "비밀번호를 한번 더 입력해주세요" ||
+            signUpInputStatus["password2"] === "비밀번호가 일치하지 않습니다"
           }
-          helperText={
-            signUpInputValues["password"] !== signUpInputValues["password2"]
-              ? "비밀번호가 일치하지 않습니다"
-              : " "
-          }
+          helperText={signUpInputStatus["password2"]}
         />
 
-        <SubmitButton
-          onClick={() => alert("clicked")}
-          disabled={Object.keys(signUpInputValues).find(
-            (item) => signUpInputValues[item]
-          )}
-        >
-          확인
-        </SubmitButton>
+        <SubmitButton onClick={() => handleSubmitSignUp()}>확인</SubmitButton>
       </div>
     </>
   );

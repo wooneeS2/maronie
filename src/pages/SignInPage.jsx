@@ -3,20 +3,14 @@ import { TextField, InputAdornment } from "@mui/material";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { StyledLink, SubmitButton } from "../design/AuthPage/SignInPageStyles";
+import { FlexColumnCenterBox } from "../design/CommonStyles";
 function SignInPage() {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
 
   return (
     <>
-      <p>로그인</p>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          margin: "10px",
-        }}
-      >
+      <FlexColumnCenterBox>
         <TextField
           onChange={(e) => setEmail(e.target.value)}
           InputProps={{
@@ -41,7 +35,7 @@ function SignInPage() {
         <SubmitButton type="submit" onClick={() => alert(email + password)}>
           Sign in
         </SubmitButton>
-      </div>
+      </FlexColumnCenterBox>
 
       <p>
         아직 회원이 아니신가요?
