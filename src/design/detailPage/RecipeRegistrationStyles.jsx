@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { styled as muiStyled } from "@mui/material/styles";
 import { TextField, Chip } from "@mui/material";
 import { mainOrange, mainRed } from "../colorPalette";
+import { RowDiv } from "../commonStyles";
 
 export const RecipeInputStyle = muiStyled(TextField)({
   width: "60%",
   margin: "0 auto",
+  padding: "10px",
 });
 
 export const RecipeInput = () => {
@@ -22,18 +24,19 @@ export const RecipeInput = () => {
   );
 };
 
-export const TrashIconStyle = {
-  backgroundColor: `${mainRed}`,
-  borderRadius: "100px",
-  padding: "3px",
-  marginLeft: "10px",
-  cursor: "pointer",
-  minWidth: "20px",
-};
+export const CloseIcon = styled.span`
+  margin-left: 10px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+`;
 
 export const AddPhotoStyle = {
-  width: "200px",
-  height: "250px",
+  width: "472px",
+  height: "350px",
   backgroundColor: "#CFCACA",
   cursor: "pointer",
   display: "flex",
@@ -77,6 +80,7 @@ export const ChipIngredientDivStyle = {
   margin: "0 auto",
   zIndex: "100px",
   cursor: "pointer",
+  padding: "5px",
 };
 
 export const ChipIngredientsList = ({ label, onDelete }) => {
@@ -89,3 +93,9 @@ export const ChipIngredientsList = ({ label, onDelete }) => {
     />
   );
 };
+
+export const CloseIconhWrapper = styled.div`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+`;

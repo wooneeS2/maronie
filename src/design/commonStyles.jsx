@@ -58,3 +58,9 @@ export const imageStyle = {
 export const HorizontalLine = ({ style }) => {
   return <hr style={style} />;
 };
+
+export const ImgWrapper = styled(RowDiv)`
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+`;

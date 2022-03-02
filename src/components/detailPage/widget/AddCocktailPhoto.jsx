@@ -1,22 +1,22 @@
 import React from "react";
-import styled from "styled-components";
 import { useState } from "react";
-import { BsTrash } from "react-icons/bs";
+import { CgCloseO } from "react-icons/cg";
 import { MdAddAPhoto } from "react-icons/md";
-import { RowDiv, imageStyle } from "../../../design/commonStyles";
+import { RowDiv, imageStyle, ImgWrapper } from "../../../design/commonStyles";
 import {
-  TrashIconStyle,
   AddPhotoStyle,
   AddPhotoIconStyle,
+  CloseIconhWrapper,
+  CloseIcon,
 } from "../../../design/detailPage/RecipeRegistrationStyles";
 
 function AddCocktailPhoto() {
   const [picture, setPicture] = useState(null);
 
-  const resetPicture = (e) => {
+  const resetPicture = e => {
     setPicture(null);
   };
-  const onChangePicture = (e) => {
+  const onChangePicture = e => {
     setPicture(URL.createObjectURL(e.target.files[0]));
   };
   return (
@@ -26,14 +26,15 @@ function AddCocktailPhoto() {
           <RowDiv>
             <ImgWrapper>
               <img src={picture && picture} style={imageStyle} alt="file-img" />
-              <BsTrashWrapper>
-                <BsTrash
-                  style={TrashIconStyle}
-                  onClick={() => {
-                    resetPicture();
-                  }}
-                />
-              </BsTrashWrapper>
+              <CloseIconhWrapper>
+                <CloseIcon>
+                  <CgCloseO
+                    onClick={() => {
+                      resetPicture();
+                    }}
+                  />
+                </CloseIcon>
+              </CloseIconhWrapper>
             </ImgWrapper>
           </RowDiv>
         ) : (
@@ -56,16 +57,5 @@ function AddCocktailPhoto() {
     </>
   );
 }
-
-const ImgWrapper = styled(RowDiv)`
-  position: relative;
-  width: 60%;
-  margin: 0 auto;
-`;
-const BsTrashWrapper = styled.div`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-`;
 
 export default AddCocktailPhoto;
