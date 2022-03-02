@@ -9,6 +9,8 @@ const liquorInfo = {
   img: "https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_812159_15967844304309365.jpg",
   name: "엑스레이티드",
   rating: 4.8,
+  wishCount: 33,
+  doneCount: 53,
   classfication: "럼",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum tempora architecto veritatis aliquid ea magni cum libero molestiae facilis maxime dolore odio ipsum natus dignissimos non veniam, quisquam beatae nihil! ",

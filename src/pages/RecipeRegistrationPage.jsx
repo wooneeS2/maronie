@@ -24,7 +24,7 @@ import { Input } from "@mui/material";
 function RecipeRegistrationPage() {
   const [step, setStep] = useState([]);
   const addStep = () => {
-    setStep(students => [...step, <RecipeInput />]);
+    setStep(step => [...step, <RecipeInput />]);
   };
 
   const [ingredientsList, setIngredientsList] = useState([]);

@@ -40,8 +40,8 @@ export function LiquorInformation({ liquor }) {
             readOnly
           />
 
-          <AddWishList />
-          <AddDoneList />
+          <AddWishList value={liquor.wishCount} />
+          <AddDoneList value={liquor.doneCount} />
         </RatingBox>
       </LiquorBox>
       <DescriptionBox>

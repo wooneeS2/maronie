@@ -1,6 +1,8 @@
 import React from "react";
 import StarIcon from "@mui/icons-material/Star";
+
 import {
+  RowDiv,
   ColumnDiv,
   CenterAlignmentDiv,
   BoldTitle,
@@ -28,9 +30,11 @@ function CocktailDetailPage({ cocktail }) {
           {[...Array(cocktail.level)].map((n, index) => {
             return <StarIcon style={levelStyle} key={`rating star ${index}`} />;
           })}
+
           <ItalicTitle>by @{cocktail.user}</ItalicTitle>
-          <AddWishList />
-          <AddDoneList />
+
+          <AddWishList value={cocktail.wishCount} />
+          <AddDoneList value={cocktail.doneCount} />
         </div>
         <div>
           <BoldTitle>칵테일 레시피</BoldTitle>
