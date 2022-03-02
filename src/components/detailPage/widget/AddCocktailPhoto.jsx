@@ -40,16 +40,18 @@ function AddCocktailPhoto() {
         ) : (
           <div>
             <label htmlFor="cocktailPhoto">
-              <div style={AddPhotoStyle}>
-                <input
-                  id="cocktailPhoto"
-                  type="file"
-                  accept="image/*"
-                  onChange={onChangePicture}
-                  style={{ display: "none" }}
-                />
-                <MdAddAPhoto style={AddPhotoIconStyle} />
-              </div>
+              <ImgWrapper>
+                <div style={AddPhotoStyle}>
+                  <input
+                    id="cocktailPhoto"
+                    type="file"
+                    accept="image/*"
+                    onChange={onChangePicture}
+                    style={{ display: "none" }}
+                  />
+                  <MdAddAPhoto style={AddPhotoIconStyle} />
+                </div>
+              </ImgWrapper>
             </label>
           </div>
         )}
