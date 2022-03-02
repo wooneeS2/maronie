@@ -6,7 +6,7 @@ import { MyPageMenuItem, MyPageMenuItemTitle } from "../design/AuthPage/MyPage";
 function MyPage() {
   const myPageItemList = [
     { link: "wishlist", title: "마시고싶어요" },
-    { link: "drank", title: "마셔봤어요" },
+    { link: "donelist", title: "마셔봤어요" },
     { link: "myreview", title: "내가 쓴 리뷰" },
     { link: "myrecipe", title: "내가 쓴 레시피" },
   ];

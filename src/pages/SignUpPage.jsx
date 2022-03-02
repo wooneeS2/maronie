@@ -1,20 +1,37 @@
 import React from "react";
-import { TextField, InputAdornment } from "@mui/material";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { SubmitButton } from "../design/AuthPage/SignUpPageStyles";
 function SignUpPage() {
-  const [signUpInputValues, setsignUpInputValues] = React.useState({
+  const [signUpInputValues, setSignUpInputValues] = React.useState({
     email: "",
     nickname: "",
     password: "",
     password2: "",
     showPassword: false,
   });
+  // regex.test
   const regEmail =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-
+  // 회원가입 input 조건 만족하는지 저장
+  // 초기화 값 0 (Input 클릭하지 않음)
+  // 클릭했었지만 빈칸으로 냅뒀을때 null
+  // 형식이 안맞을때 false
+  // 형식이 완벽할때 true
+  const [signUpInputCondition, setSignUpInputCondition] = React.useState({
+    email: 0,
+    nickname: 0,
+    password: 0,
+  });
+  const handleSubmitSignUp = () => {};
+  const handleClickShowPassword = () => {
+    setSignUpInputValues({
+      ...signUpInputValues,
+      showPassword: !signUpInputValues["showPassword"],
+    });
+  };
   return (
     <>
-      <p>회원가입</p>
       <div
         style={{
           display: "flex",
@@ -23,27 +40,75 @@ function SignUpPage() {
         }}
       >
         <TextField
+          onChange={(e) =>
+            setSignUpInputValues({
+              ...signUpInputValues,
+              email: e.target.value,
+            })
+          }
+          onBlur={() => {
+            let temp = false;
+            if (signUpInputValues["email"] === "") {
+              temp = null;
+            } else if (regEmail.test(signUpInputValues["email"])) {
+              temp = true;
+            }
+            setSignUpInputCondition({
+              ...signUpInputCondition,
+              email: temp,
+            });
+          }}
           label="이메일"
-          error={signUpInputValues["email"] === ""}
+          error={
+            signUpInputCondition["email"] === null ||
+            signUpInputCondition["email"] === false
+          }
           helperText={
-            signUpInputValues["email"] === ""
-              ? "사용할 수 없는 이메일입니다"
-              : " "
+            signUpInputCondition["email"] || signUpInputCondition["email"] === 0
+              ? ""
+              : signUpInputCondition["email"] === null
+              ? "필수 항목입니다"
+              : "사용할 수 없는 이메일입니다"
           }
         />
 
         <TextField
+          onChange={(e) =>
+            setSignUpInputValues({
+              ...signUpInputValues,
+              nickname: e.target.value,
+            })
+          }
           label="닉네임"
           error={signUpInputValues["nickname"] === ""}
           helperText={
             signUpInputValues["nickname"] === ""
-              ? "사용할 수 없는 닉네임입니다"
+              ? "이미 사용중인 닉네임입니다"
               : " "
           }
         />
 
         <TextField
-          type="password"
+          onChange={(e) =>
+            setSignUpInputValues({
+              ...signUpInputValues,
+              password: e.target.value,
+            })
+          }
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleClickShowPassword} edge="end">
+                  {signUpInputValues["showPassword"] ? (
+                    <MdVisibility />
+                  ) : (
+                    <MdVisibilityOff />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+          type={signUpInputValues["showPassword"] ? "text" : "password"}
           label="비밀번호"
           error={signUpInputValues["password"] === ""}
           helperText={
@@ -54,7 +119,26 @@ function SignUpPage() {
         />
 
         <TextField
-          type="password"
+          onChange={(e) =>
+            setSignUpInputValues({
+              ...signUpInputValues,
+              password2: e.target.value,
+            })
+          }
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleClickShowPassword} edge="end">
+                  {signUpInputValues["showPassword"] ? (
+                    <MdVisibility />
+                  ) : (
+                    <MdVisibilityOff />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+          type={signUpInputValues["showPassword"] ? "text" : "password"}
           label="비밀번호 확인"
           error={
             signUpInputValues["password"] !== signUpInputValues["password2"]
@@ -66,7 +150,14 @@ function SignUpPage() {
           }
         />
 
-        <SubmitButton>다음</SubmitButton>
+        <SubmitButton
+          onClick={() => alert("clicked")}
+          disabled={Object.keys(signUpInputValues).find(
+            (item) => signUpInputValues[item]
+          )}
+        >
+          확인
+        </SubmitButton>
       </div>
     </>
   );
