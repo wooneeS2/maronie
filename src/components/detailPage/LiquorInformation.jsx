@@ -8,7 +8,7 @@ import {
   DescriptionBox,
 } from "../../design/detailPage/LiquorInformationStyles";
 import { mainRed } from "../../design/colorPalette";
-import { AddWishList, AddDoneList } from "./WishListButtons";
+import { AddWishList, AddDoneList } from "./widget/WishListButtons";
 
 const liquorRatingMessage = {
   1: "매니아들만 찾아요.",

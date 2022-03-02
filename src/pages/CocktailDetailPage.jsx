@@ -1,60 +1,22 @@
 import React from "react";
-import StarIcon from "@mui/icons-material/Star";
-
-import {
-  RowDiv,
-  ColumnDiv,
-  CenterAlignmentDiv,
-  BoldTitle,
-  imageStyle,
-} from "../design/commonStyles";
-import {
-  CocktailName,
-  levelStyle,
-  ItalicTitle,
-  RecipeBox,
-  IngredientChip,
-} from "../design/detailPage/CocktailDetailPageStyles";
-import {
-  AddWishList,
-  AddDoneList,
-} from "../components/detailPage/WishListButtons";
-
-function CocktailDetailPage({ cocktail }) {
+import CocktailDetail from "../components/cocktailDetail/CocktailDetail";
+function CocktailDetailPage() {
   return (
-    <ColumnDiv>
-      <CenterAlignmentDiv>
-        <img src={cocktail.img} alt="cocktail" style={imageStyle} />
-        <div>
-          <CocktailName>데킬라선라이즈</CocktailName>
-          {[...Array(cocktail.level)].map((n, index) => {
-            return <StarIcon style={levelStyle} key={`rating star ${index}`} />;
-          })}
-
-          <ItalicTitle>by @{cocktail.user}</ItalicTitle>
-
-          <AddWishList value={cocktail.wishCount} />
-          <AddDoneList value={cocktail.doneCount} />
-        </div>
-        <div>
-          <BoldTitle>칵테일 레시피</BoldTitle>
-          <RecipeBox>
-            <BoldTitle>재료</BoldTitle>
-            {cocktail.ingredients.map((i, index) => {
-              return <IngredientChip value={i} key={i + index} />;
-            })}
-            {cocktail.recipe.map((i, index) => {
-              return (
-                <div key={i + index}>
-                  <BoldTitle>{index + 1}단계</BoldTitle>
-                  <p>{i}</p>
-                </div>
-              );
-            })}
-          </RecipeBox>
-        </div>
-      </CenterAlignmentDiv>
-    </ColumnDiv>
+    <CocktailDetail
+      cocktail={{
+        img: "https://w.namu.la/s/39769bb098cb6403f4f3510fe0e1c54a40e765b6cce5f4883f70d52c88ff2b8ea0dfe4c61001fdc0c2c1cbc666847471c60a7facf52e711a3455776bd46b43a9b13dff7c2873d3cbe0ed2f10c9e662f6",
+        level: 3,
+        user: "워니",
+        wishCount: 33,
+        doneCount: 53,
+        ingredients: ["체리", "바나나", "딸기"],
+        recipe: [
+          "체리 씨를 뺀다.",
+          "바나나 껍질을 깐다.",
+          "딸기를 흐르는 물에 씻는다.",
+        ],
+      }}
+    />
   );
 }
 

@@ -35,17 +35,17 @@ const cocktailInfo = [
   {
     img: "https://cphoto.asiae.co.kr/listimglink/1/2021012910545251940_1611885291.jpg",
     name: "프렌치 키스",
-    level: "2",
+    level: 2,
   },
   {
     img: "https://mblogthumb-phinf.pstatic.net/MjAxODA5MThfMjA1/MDAxNTM3Mjc2MjE4NDU5.vcuHx4LOxiYtyrbu7b9z8vpH_jcE1qEzMGTbzFJ4Vbcg.VSJDU1F5S2HLjT-ckp6loi-lc0f5OcRR-oPfpAH5tq4g.PNG.2n2o/image.png?type=w800",
     name: "선라이즈",
-    level: "3",
+    level: 5,
   },
   {
     img: "https://t1.daumcdn.net/cfile/blog/2751A44E51A43BEF1A",
     name: "LAX",
-    level: "1",
+    level: 3,
   },
 ];
 
@@ -82,7 +82,6 @@ export function DetailPage() {
       <LiquorInformation liquor={liquorInfo} />
       <ParingInformation parings={paringInfo} />
       <CocktailImformation cocktails={cocktailInfo} />
-
       <LiquorReview liquorReviews={liquorReviewInfo} />
     </>
   );

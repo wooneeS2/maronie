@@ -1,6 +1,6 @@
 import React from "react";
-import { mainOrange, mainYellowLight } from "../../design/colorPalette";
-import { CenterAlignmentDiv } from "../../design/commonStyles";
+import { mainOrange, mainYellowLight } from "../../../design/colorPalette";
+import { CenterAlignmentDiv } from "../../../design/commonStyles";
 
 export const UserReviewBox = ({ userReview }) => {
   return (

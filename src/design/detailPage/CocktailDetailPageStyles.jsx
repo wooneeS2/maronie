@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { mainYellowDark } from "../colorPalette";
+import { mainYellowDark, mainRed } from "../colorPalette";
 import { Chip } from "@mui/material";
 
 export const CocktailName = styled.span`
@@ -14,9 +14,9 @@ export const CocktailLevel = styled.span`
   color: ${mainYellowDark};
 `;
 export const levelStyle = {
-  width: "1rem",
-  height: "1rem",
-  color: `${mainYellowDark}`,
+  width: "1.2rem",
+  height: "1.2rem",
+  color: `${mainRed}`,
 };
 
 export const ItalicTitle = styled.p`

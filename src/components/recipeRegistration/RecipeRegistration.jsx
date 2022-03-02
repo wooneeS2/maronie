@@ -9,19 +9,19 @@ import {
   MuiInputStyle,
   ChipIngredientsList,
   ChipIngredientDivStyle,
-} from "../design/detailPage/RecipeRegistrationStyles";
-import AddCocktailPhoto from "../components/detailPage/AddCocktailPhoto";
+} from "../../design/detailPage/RecipeRegistrationStyles";
+import AddCocktailPhoto from "../detailPage/widget/AddCocktailPhoto";
 import {
   ColumnDiv,
   RowDiv,
   RegisterButton,
   PageTitle,
   BoldTitle,
-} from "../design/commonStyles";
+} from "../../design/commonStyles";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Input } from "@mui/material";
 
-function RecipeRegistrationPage() {
+function RecipeRegistration({ cocktail }) {
   const [step, setStep] = useState([]);
   const addStep = () => {
     setStep(step => [...step, <RecipeInput />]);
@@ -42,7 +42,7 @@ function RecipeRegistrationPage() {
     <>
       <ColumnDiv>
         <PageTitle>레시피 추가하기</PageTitle>
-        <BoldTitle>술 이름</BoldTitle>
+        <BoldTitle>{cocktail}</BoldTitle>
         <AddCocktailPhoto />
 
         <RecipeInputStyle
@@ -117,4 +117,4 @@ function RecipeRegistrationPage() {
   );
 }
 
-export default RecipeRegistrationPage;
+export default RecipeRegistration;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mainYellowDark } from "../../design/colorPalette";
+import { mainYellowDark } from "../../../design/colorPalette";
 
 export const RatingChartBar = ({ ratingCount }) => {
   return (

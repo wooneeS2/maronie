@@ -10,10 +10,10 @@ import {
   grayFontStyle,
   MoreReviewButton,
 } from "../../design/detailPage/LiquorReviewStyles";
-import { ReadOnlyRating, ReviewRating } from "./ReviewRating";
+import { ReadOnlyRating, ReviewRating } from "./widget/ReviewRating";
 import ratingLabels from "../../data/ratingLabels";
-import RatingChartBar from "./RatingChartBar";
-import UserReviewBox from "./UserReviewBox";
+import RatingChartBar from "./widget/RatingChartBar";
+import UserReviewBox from "./widget/UserReviewBox";
 
 const ratingCount = [
   { rating: 1, count: 10 },

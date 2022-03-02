@@ -6,13 +6,7 @@ import {
   CocktailSliderContainer,
   CocktailNextButton,
 } from "../../design/detailPage/CocktailInformationStyles";
-import { mainYellowLight } from "../../design/colorPalette";
-
-const cocktailLevel = {
-  1: "하",
-  2: "중",
-  3: "상",
-};
+import CocktailLevel from "./widget/CocktailLevel";
 
 function CocktailImformation({ cocktails }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -51,31 +45,23 @@ function CocktailImformation({ cocktails }) {
         </CocktailNextButton>
         <CocktailSliderContainer>
           <SliderContainer ref={slideRef}>
-            {cocktails.map(i => (
-              <div
-                style={{
-                  maxWidth: "350px",
-                  width: "100%",
-                  margin: "0 auto",
-                  textAlign: "center",
-                }}
-                key={i.img}
-              >
-                <CocktailImg src={i.img} />
-                <span>{i.name}</span>
-                <span
+            {cocktails.map(i => {
+              return (
+                <div
                   style={{
-                    fontSize: "0.7rem",
-                    marginLeft: "0.5rem",
-                    borderRadius: "1rem",
-                    padding: "0.1rem",
-                    backgroundColor: mainYellowLight,
+                    maxWidth: "350px",
+                    width: "100%",
+                    margin: "0 auto",
+                    textAlign: "center",
                   }}
+                  key={i.img}
                 >
-                  {cocktailLevel[i.level]}
-                </span>
-              </div>
-            ))}
+                  <CocktailImg src={i.img} />
+                  <span>{i.name}</span>
+                  <CocktailLevel level={i.level} />
+                </div>
+              );
+            })}
           </SliderContainer>
         </CocktailSliderContainer>
         <CocktailNextButton onClick={nextSlide}>

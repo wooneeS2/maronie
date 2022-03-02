@@ -1,15 +1,13 @@
-import { AddPhotoAlternate } from "@mui/icons-material";
 import React from "react";
 import { useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import { MdAddAPhoto } from "react-icons/md";
-
-import { RowDiv, imageStyle } from "../../design/commonStyles";
+import { RowDiv, imageStyle } from "../../../design/commonStyles";
 import {
   TrashIconStyle,
   AddPhotoStyle,
   AddPhotoIconStyle,
-} from "../../design/detailPage/RecipeRegistrationStyles";
+} from "../../../design/detailPage/RecipeRegistrationStyles";
 
 function AddCocktailPhoto() {
   const [picture, setPicture] = useState(null);

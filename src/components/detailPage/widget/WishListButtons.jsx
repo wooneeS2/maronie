@@ -3,8 +3,8 @@ import styled from "styled-components";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import LocalBarOutlinedIcon from "@mui/icons-material/LocalBarOutlined";
 import { Chip } from "@mui/material";
-import { RowDiv } from "../../design/commonStyles";
-import { mainOrange, mainRed } from "../../design/colorPalette";
+import { RowDiv } from "../../../design/commonStyles";
+import { mainOrange, mainRed } from "../../../design/colorPalette";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
