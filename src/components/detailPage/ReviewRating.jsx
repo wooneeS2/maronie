@@ -30,3 +30,19 @@ export const ReviewRating = ({ onChange, onChangeActive }) => {
     />
   );
 };
+
+export const ReadOnlyRating = ({ ratingValue, fontSize }) => {
+  return (
+    <StyledRating
+      name="half-rating-read"
+      sx={{
+        fontSize: { fontSize },
+      }}
+      defaultValue={ratingValue}
+      precision={0.5}
+      icon={<FavoriteIcon fontSize="inherit" color={mainRed} />}
+      emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+      readOnly
+    />
+  );
+};

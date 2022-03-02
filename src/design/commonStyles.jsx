@@ -21,6 +21,12 @@ export const RowDiv = styled.div`
   text-align: center;
 `;
 
+export const CenterAlignmentDiv = styled.div`
+  margin: 0 auto;
+  justify-content: center;
+  text-align: center;
+`;
+
 export const RegisterButton = styled.button`
   width: 50vw;
   max-width: 390px;
@@ -40,12 +46,6 @@ export const RegisterButton = styled.button`
   }
 `;
 
-export const CenterAlignmentDiv = styled.div`
-  margin: 0 auto;
-  justify-content: center;
-  text-align: center;
-`;
-
 export const BoldTitle = styled.p`
   font-weight: bold;
 `;
@@ -53,4 +53,8 @@ export const BoldTitle = styled.p`
 export const imageStyle = {
   maxWidth: "250px",
   maxHeight: "300px",
+};
+
+export const HorizontalLine = ({ style }) => {
+  return <hr style={style} />;
 };
