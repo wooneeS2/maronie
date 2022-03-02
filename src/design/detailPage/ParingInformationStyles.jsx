@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 export const ParingBox = styled.div`
-  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   hr {
     margin-top: 1.5rem;
   }
@@ -25,4 +28,9 @@ export const ParingBox = styled.div`
   }
 `;
 
-export default ParingBox;
+export const ParingImgWrapper = styled.div`
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  background-image: ${({ image }) => `url(${image})`};
+`;

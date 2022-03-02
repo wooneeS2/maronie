@@ -10,8 +10,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export const ButtonBox = styled.div`
   display: flex;
-  padding: 0.2rem;
-  margin: 0.4rem;
+  width: 100%;
+  padding: 5px;
+  margin: 0 auto;
+  margin-top: 5px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   text-align: center;
   justify-content: space-between;

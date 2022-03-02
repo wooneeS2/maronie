@@ -62,5 +62,11 @@ export const HorizontalLine = ({ style }) => {
 export const ImgWrapper = styled(RowDiv)`
   position: relative;
   width: 60%;
+  max-height: 550px;
   margin: 0 auto;
+`;
+
+export const LiquorSubTitle = styled.p`
+  font-weight: bold;
+  padding: 5px;
 `;

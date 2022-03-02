@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { mainOrange } from "../colorPalette";
 
@@ -9,8 +8,7 @@ export const RatingTitle = styled.span`
 `;
 
 export const ReviewContent = styled.textarea`
-  max-width: 300px;
-  width: 70%;
+  width: 60%;
   padding: 1rem;
   border-radius: 1rem;
   border-color: gray;

@@ -6,6 +6,7 @@ import {
   CenterAlignmentDiv,
   BoldTitle,
   imageStyle,
+  ImgWrapper,
 } from "../../design/commonStyles";
 import {
   RatingTitle,
@@ -23,7 +24,9 @@ function ReviewRegistration({ image, liqourName }) {
       <PageTitle>리뷰를 남겨주세요!</PageTitle>
       <ColumnDiv>
         <div>
-          <img src={image} alt="liquor" style={imageStyle} />
+          <ImgWrapper>
+            <img src={image} alt="liquor" style={imageStyle} />
+          </ImgWrapper>
           <BoldTitle>{liqourName}</BoldTitle>
         </div>
         <div>
@@ -42,8 +45,9 @@ function ReviewRegistration({ image, liqourName }) {
               }}
             />
           </div>
+
           <ReviewContent
-            rows={5}
+            rows={6}
             aria-label="maximum height"
             placeholder="술에 대한 후기를 남겨주세요. 술의 맛, 느낌, 분위기, 가격대 등 어떤 내용이라도 좋아요!"
           />

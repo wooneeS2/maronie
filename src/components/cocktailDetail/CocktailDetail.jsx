@@ -4,6 +4,7 @@ import {
   CenterAlignmentDiv,
   BoldTitle,
   imageStyle,
+  ImgWrapper,
 } from "../../design/commonStyles";
 import {
   CocktailName,
@@ -17,13 +18,17 @@ function CocktailDetail({ cocktail }) {
   return (
     <ColumnDiv>
       <CenterAlignmentDiv>
-        <img src={cocktail.img} alt="cocktail" style={imageStyle} />
+        <ImgWrapper>
+          <img src={cocktail.img} alt="cocktail" style={imageStyle} />
+        </ImgWrapper>
         <div>
           <CocktailName>데킬라선라이즈</CocktailName>
           <CocktailLevel level={cocktail.level} />
           <ItalicTitle>by @{cocktail.user}</ItalicTitle>
-          <AddWishList value={cocktail.wishCount} />
-          <AddDoneList value={cocktail.doneCount} />
+          <CenterAlignmentDiv style={{ width: "60%" }}>
+            <AddWishList value={cocktail.wishCount} />
+            <AddDoneList value={cocktail.doneCount} />
+          </CenterAlignmentDiv>
         </div>
         <div>
           <BoldTitle>칵테일 레시피</BoldTitle>

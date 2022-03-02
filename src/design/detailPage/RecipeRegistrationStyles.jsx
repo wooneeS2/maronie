@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { styled as muiStyled } from "@mui/material/styles";
 import { TextField, Chip } from "@mui/material";
-import { mainOrange, mainRed } from "../colorPalette";
-import { RowDiv } from "../commonStyles";
+import { mainOrange } from "../colorPalette";
 
 export const RecipeInputStyle = muiStyled(TextField)({
   width: "60%",

@@ -1,14 +1,14 @@
 import React from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Rating } from "@mui/material";
 import {
-  LiquorBox,
   RatingBox,
   DescriptionBox,
+  LiquorDescription,
+  LiquorName,
+  LiquorRatingLabel,
 } from "../../design/detailPage/LiquorInformationStyles";
-import { mainRed } from "../../design/colorPalette";
+import { ReadOnlyRating } from "./widget/ReviewRating";
 import { AddWishList, AddDoneList } from "./widget/WishListButtons";
+import { ImgWrapper, ColumnDiv } from "../../design/commonStyles";
 
 const liquorRatingMessage = {
   1: "매니아들만 찾아요.",
@@ -23,33 +23,30 @@ export function LiquorInformation({ liquor }) {
   let liquorRating = Math.round(liquor.rating);
   return (
     <>
-      <LiquorBox>
+      <ColumnDiv>
         <div>
-          <img src={liquor.img} alt="liquor" />
+          <ImgWrapper>
+            <img src={liquor.img} alt="liquor" style={{ width: "80%" }} />
+          </ImgWrapper>
         </div>
+        <DescriptionBox>
+          <LiquorName>
+            {liquor.name} · {liquor.classfication}
+          </LiquorName>
+          <LiquorDescription>{liquor.description}</LiquorDescription>
+        </DescriptionBox>
         <RatingBox>
-          <span className="rating">{liquor.rating}</span>
-          <p>" {liquorRatingMessage[liquorRating]} "</p>
-          <Rating
-            sx={{ color: `${mainRed}` }}
-            name="half-rating-read"
-            defaultValue={liquor.rating}
-            precision={0.5}
-            icon={<FavoriteIcon />}
-            emptyIcon={<FavoriteBorderIcon />}
-            readOnly
-          />
-
+          <LiquorName>{liquor.rating}</LiquorName>
+          <LiquorRatingLabel>
+            " {liquorRatingMessage[liquorRating]} "
+          </LiquorRatingLabel>
+          <ReadOnlyRating ratingValue={liquor.rating} fontSize={"2rem"} />
+        </RatingBox>
+        <ImgWrapper style={{ flexDirection: "column", marginBottom: "1rem" }}>
           <AddWishList value={liquor.wishCount} />
           <AddDoneList value={liquor.doneCount} />
-        </RatingBox>
-      </LiquorBox>
-      <DescriptionBox>
-        <span className="name">
-          {liquor.name} · {liquor.classfication}
-        </span>
-        <span>{liquor.description}</span>
-      </DescriptionBox>
+        </ImgWrapper>
+      </ColumnDiv>
     </>
   );
 }

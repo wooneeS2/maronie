@@ -3,13 +3,9 @@ import styled from "styled-components";
 
 export const LiquorBox = styled.div`
   display: flex;
-  justify-content: space-evenly;
-  margin: 1rem;
-  img {
-    height: 300px;
-    max-width: 200px;
-    margin-top: 0.5rem;
-  }
+  flex-direction: column;
+  text-align: center;
+
   p {
     display: flex;
   }
@@ -17,25 +13,38 @@ export const LiquorBox = styled.div`
 
 export const RatingBox = styled.div`
   flex-direction: column;
-  margin-top: 3rem;
   text-align: center;
-  p {
-    font-size: 0.9rem;
-    font-weight: bold;
-  }
-  .rating {
-    font-size: 1.2rem;
-  }
+  margin: 1rem;
+  padding: 10px;
+  margin-bottom: 20px;
 `;
 
 export const DescriptionBox = styled.div`
   display: block;
-  margin: 1rem;
+  text-align: center;
+  padding: 4px;
+  width: 80%;
+  margin: 0 auto;
   span {
     display: block;
   }
-  .name {
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
+`;
+
+export const LiquorName = styled.span`
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 4px;
+`;
+
+export const LiquorRatingLabel = styled.span`
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 2px;
+  display: block;
+`;
+
+export const LiquorDescription = styled.span`
+  padding: 2px;
+  word-break: keep-all;
+  line-height: 1.5rem;
 `;

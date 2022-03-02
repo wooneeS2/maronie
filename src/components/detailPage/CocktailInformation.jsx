@@ -7,6 +7,8 @@ import {
   CocktailNextButton,
 } from "../../design/detailPage/CocktailInformationStyles";
 import CocktailLevel from "./widget/CocktailLevel";
+import { LiquorSubTitle, ColumnDiv, RowDiv } from "../../design/commonStyles";
+import { LevelGuideTooltip } from "./widget/LevelGuideTooltip";
 
 function CocktailImformation({ cocktails }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -36,38 +38,48 @@ function CocktailImformation({ cocktails }) {
   }, [currentSlide]);
   return (
     <>
-      <p style={{ margin: "0 auto", marginLeft: "1rem" }}>
-        방금 검색한 그 술, 이렇게 마셔보는건 어때요? 😉
-      </p>
-      <div style={{ display: "flex", margin: "0 auto" }}>
-        <CocktailNextButton onClick={prevSlide}>
-          <BiLeftArrow />
-        </CocktailNextButton>
-        <CocktailSliderContainer>
-          <SliderContainer ref={slideRef}>
-            {cocktails.map(i => {
-              return (
-                <div
-                  style={{
-                    maxWidth: "350px",
-                    width: "100%",
-                    margin: "0 auto",
-                    textAlign: "center",
-                  }}
-                  key={i.img}
-                >
-                  <CocktailImg src={i.img} />
-                  <span>{i.name}</span>
-                  <CocktailLevel level={i.level} />
-                </div>
-              );
-            })}
-          </SliderContainer>
-        </CocktailSliderContainer>
-        <CocktailNextButton onClick={nextSlide}>
-          <BiRightArrow />
-        </CocktailNextButton>
-      </div>
+      <ColumnDiv
+        style={{
+          padding: "20px",
+          boxShadow: "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px",
+        }}
+      >
+        <RowDiv>
+          <LevelGuideTooltip />
+          <LiquorSubTitle>
+            방금 검색한 그 술, 이렇게 마셔보는건 어때요? 😉
+          </LiquorSubTitle>
+        </RowDiv>
+        <RowDiv>
+          <CocktailNextButton onClick={prevSlide}>
+            <BiLeftArrow />
+          </CocktailNextButton>
+          <CocktailSliderContainer>
+            <SliderContainer ref={slideRef}>
+              {cocktails.map(i => {
+                return (
+                  <div
+                    style={{
+                      maxWidth: "350px",
+                      width: "100%",
+                      margin: "0 auto",
+                      textAlign: "center",
+                    }}
+                    key={i.img}
+                  >
+                    <CocktailImg src={i.img} />
+                    <span>{i.name}</span>
+                    <CocktailLevel level={i.level} />
+                  </div>
+                );
+              })}
+            </SliderContainer>
+          </CocktailSliderContainer>
+          <CocktailNextButton onClick={nextSlide}>
+            <BiRightArrow />
+          </CocktailNextButton>
+        </RowDiv>
+      </ColumnDiv>
     </>
   );
 }

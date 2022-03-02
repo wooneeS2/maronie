@@ -17,6 +17,7 @@ export const levelStyle = {
   width: "1.2rem",
   height: "1.2rem",
   color: `${mainRed}`,
+  padding: "2px",
 };
 
 export const ItalicTitle = styled.p`
@@ -30,6 +31,8 @@ export const RecipeBox = styled.div`
   padding: 1rem 3rem;
   border-radius: 10px;
   line-height: 1.5rem;
+  width: 60%;
+  margin: 0 auto;
   margin-bottom: 1rem;
 `;
 
