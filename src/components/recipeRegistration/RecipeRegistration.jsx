@@ -20,23 +20,24 @@ import {
 } from "../../design/commonStyles";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Input } from "@mui/material";
+import SelectLiquorClassification from "../detailPage/widget/SelectLiquorClassification";
 
 function RecipeRegistration({ cocktail }) {
   const [step, setStep] = useState([]);
   const addStep = () => {
-    setStep((step) => [...step, <RecipeInput />]);
+    setStep(step => [...step, <RecipeInput />]);
   };
 
   const [ingredientsList, setIngredientsList] = useState([]);
   const [ingredient, setIngredient] = useState("");
 
-  const addIngredients = (value) => {
+  const addIngredients = value => {
     const newList = ingredientsList.concat(value);
     setIngredientsList(newList);
     setIngredient("");
   };
-  const deleteIngredients = (value) => {
-    const newList = ingredientsList.filter((word) => word !== value);
+  const deleteIngredients = value => {
+    const newList = ingredientsList.filter(word => word !== value);
     setIngredientsList(newList);
   };
 
@@ -46,6 +47,10 @@ function RecipeRegistration({ cocktail }) {
         <PageTitle>레시피 추가하기</PageTitle>
         <BoldTitle>{cocktail}</BoldTitle>
         <AddCocktailPhoto />
+
+        <div>
+          <SelectLiquorClassification />
+        </div>
 
         <RecipeInputStyle
           id="standard-basic"
@@ -66,7 +71,7 @@ function RecipeRegistration({ cocktail }) {
           sx={MuiInputStyle}
           placeholder={"재료를 입력하고  + 버튼을 눌러주세요."}
           value={ingredient}
-          onChange={(e) => {
+          onChange={e => {
             setIngredient(e.target.value);
           }}
           endAdornment={
