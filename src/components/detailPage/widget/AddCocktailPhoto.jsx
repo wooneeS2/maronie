@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import { MdAddAPhoto } from "react-icons/md";
@@ -12,10 +13,10 @@ import {
 function AddCocktailPhoto() {
   const [picture, setPicture] = useState(null);
 
-  const resetPicture = e => {
+  const resetPicture = (e) => {
     setPicture(null);
   };
-  const onChangePicture = e => {
+  const onChangePicture = (e) => {
     setPicture(URL.createObjectURL(e.target.files[0]));
   };
   return (
@@ -23,14 +24,17 @@ function AddCocktailPhoto() {
       <div>
         {picture ? (
           <RowDiv>
-            <img src={picture && picture} style={imageStyle} />
-
-            <BsTrash
-              style={TrashIconStyle}
-              onClick={() => {
-                resetPicture();
-              }}
-            />
+            <ImgWrapper>
+              <img src={picture && picture} style={imageStyle} alt="file-img" />
+              <BsTrashWrapper>
+                <BsTrash
+                  style={TrashIconStyle}
+                  onClick={() => {
+                    resetPicture();
+                  }}
+                />
+              </BsTrashWrapper>
+            </ImgWrapper>
           </RowDiv>
         ) : (
           <div>
@@ -52,5 +56,16 @@ function AddCocktailPhoto() {
     </>
   );
 }
+
+const ImgWrapper = styled(RowDiv)`
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+`;
+const BsTrashWrapper = styled.div`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+`;
 
 export default AddCocktailPhoto;

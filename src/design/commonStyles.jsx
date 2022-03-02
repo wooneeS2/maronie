@@ -51,8 +51,8 @@ export const BoldTitle = styled.p`
 `;
 
 export const imageStyle = {
-  maxWidth: "250px",
-  maxHeight: "300px",
+  display: "block",
+  width: "100%",
 };
 
 export const HorizontalLine = ({ style }) => {
