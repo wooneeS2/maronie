@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import axios from "axios";
-import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { InputAdornment, IconButton } from "@mui/material";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
-import { SubmitButton } from "../design/AuthPage/SignUpPageStyles";
+import { SubmitButton, SignUpInput } from "../design/AuthPage/SignUpPageStyles";
 import { FlexColumnCenterBox } from "../design/CommonStyles";
 function SignUpPage() {
   const [signUpInputValues, setSignUpInputValues] = React.useState({
@@ -162,7 +162,7 @@ function SignUpPage() {
 
   return (
     <FlexColumnCenterBox>
-      <TextField
+      <SignUpInput
         onChange={(e) =>
           setSignUpInputValues({
             ...signUpInputValues,
@@ -184,9 +184,10 @@ function SignUpPage() {
             ? "이메일 형식에 맞지 않습니다"
             : "중복된 이메일입니다"
         }
+        margin="normal"
       />
 
-      <TextField
+      <SignUpInput
         autoComplete="off"
         onChange={(e) =>
           setSignUpInputValues({
@@ -205,9 +206,10 @@ function SignUpPage() {
             : "사용할 수 없는 닉네임입니다"
         }
         inputProps={{ maxLength: 45 }}
+        margin="normal"
       />
 
-      <TextField
+      <SignUpInput
         autoComplete="off"
         onChange={(e) => {
           setSignUpInputValues({
@@ -240,9 +242,10 @@ function SignUpPage() {
             ? ""
             : "비밀번호는 필수 항목입니다"
         }
+        margin="normal"
       />
 
-      <TextField
+      <SignUpInput
         autoComplete="off"
         onChange={(e) => {
           setSignUpInputValues({
@@ -276,6 +279,7 @@ function SignUpPage() {
             ? "확인을 위해 비밀번호를 다시 입력해주세요"
             : "비밀번호가 일치하지 않습니다"
         }
+        margin="normal"
       />
 
       <SubmitButton onClick={() => handleSubmitSignUp()}>확인</SubmitButton>
