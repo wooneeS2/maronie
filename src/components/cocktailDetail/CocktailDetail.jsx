@@ -14,6 +14,7 @@ import {
 } from "../../design/detailPage/CocktailDetailPageStyles";
 import { AddWishList, AddDoneList } from "../detailPage/widget/WishListButtons";
 import CocktailLevel from "../detailPage/widget/CocktailLevel";
+import { LevelGuideTooltip } from "../detailPage/widget/LevelGuideTooltip";
 function CocktailDetail({ cocktail }) {
   return (
     <ColumnDiv>
@@ -24,6 +25,7 @@ function CocktailDetail({ cocktail }) {
         <div>
           <CocktailName>데킬라선라이즈</CocktailName>
           <CocktailLevel level={cocktail.level} />
+          <LevelGuideTooltip />
           <ItalicTitle>by @{cocktail.user}</ItalicTitle>
           <CenterAlignmentDiv style={{ width: "60%" }}>
             <AddWishList value={cocktail.wishCount} />
