@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
@@ -13,8 +13,6 @@ function SignUpPage() {
     showPassword: false,
   });
 
-  const regEmail =
-    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const [signUpInputStatus, setSignUpInputStatus] = React.useState({
     emailStatus: 0,
     nicknameStatus: 0,
@@ -30,62 +28,70 @@ function SignUpPage() {
   };
 
   const checkEmail = async (email) => {
-    await axios
-      .get(
-        `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/register/email=${email}`
-      )
-      .then((res) => {
-        //valid email(1)
-        if (res.data.message === "Available email") {
-          setSignUpInputStatus((cur) => {
-            return { ...cur, emailStatus: 1 };
-          });
-        }
-      })
-      .catch(() => {
-        //duplicated email(4)
+    const regEmail =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+    try {
+      // 빈 문자열 (2)
+      if (email === "") {
         setSignUpInputStatus((cur) => {
-          return { ...cur, emailStatus: 4 };
+          return { ...cur, emailStatus: 2 };
         });
-      });
-    // 빈 문자열 (2)
-    if (email === "") {
-      setSignUpInputStatus((cur) => {
-        return { ...cur, emailStatus: 2 };
-      });
+        return 2;
+      }
       // 형식에 맞지 않는 이메일 (3)
-    } else if (!regEmail.test(email)) {
+      else if (!regEmail.test(email)) {
+        setSignUpInputStatus((cur) => {
+          return { ...cur, emailStatus: 3 };
+        });
+        return 3;
+      }
+      const response = await axios.get(
+        `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/register/email=${email}`
+      );
+      //valid email(1)
+      if (response.data.message === "Available email") {
+        setSignUpInputStatus((cur) => {
+          return { ...cur, emailStatus: 1 };
+        });
+        return 1;
+      }
+    } catch {
+      //duplicated email(4)
       setSignUpInputStatus((cur) => {
-        return { ...cur, emailStatus: 3 };
+        return { ...cur, emailStatus: 4 };
       });
+      return 4;
     }
   };
 
   const checkNickname = async (nickname) => {
-    await axios
-      .get(
-        `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/register/nickname=${nickname}`
-      )
-      .then((res) => {
-        //valid nickname(1)
-        if (res.data.message === "Available nickname") {
-          setSignUpInputStatus((cur) => {
-            return { ...cur, nicknameStatus: 1 };
-          });
-        }
-      })
-      .catch(() => {
-        //duplicated nickname(4)
+    try {
+      // 빈 문자열 (2)
+      if (nickname === "") {
         setSignUpInputStatus((cur) => {
-          return { ...cur, nicknameStatus: 4 };
+          return { ...cur, nicknameStatus: 2 };
         });
-      });
-    // 빈 문자열 (2)
-    if (nickname === "") {
+        return 2;
+      }
+      const response = await axios.get(
+        `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/register/nickname=${nickname}`
+      );
+      //valid nickname(1)
+      if (response.data.message === "Available nickname") {
+        setSignUpInputStatus((cur) => {
+          return { ...cur, nicknameStatus: 1 };
+        });
+        return 1;
+      }
+    } catch {
+      //duplicated nickname(4)
       setSignUpInputStatus((cur) => {
-        return { ...cur, nicknameStatus: 2 };
+        return { ...cur, nicknameStatus: 4 };
       });
+      return 4;
     }
+    return signUpInputStatus["nicknameStatus"];
   };
 
   const checkPassword = (password) => {
@@ -94,11 +100,13 @@ function SignUpPage() {
       setSignUpInputStatus((cur) => {
         return { ...cur, passwordStatus: 2 };
       });
+      return 2;
       // 빈 문자열이 아님 (1)
     } else if (password) {
       setSignUpInputStatus((cur) => {
         return { ...cur, passwordStatus: 1 };
       });
+      return 1;
     }
   };
 
@@ -121,23 +129,37 @@ function SignUpPage() {
         return { ...cur, password2Status: 1 };
       });
     }
+    return signUpInputStatus["password2Status"];
   };
   const handleSubmitSignUp = () => {
-    checkEmail(signUpInputValues["email"]).then(() =>
-      console.log("email check")
-    );
-    checkNickname(signUpInputValues["nickname"]);
-    checkIsSamePassword(
-      signUpInputValues["password"],
-      signUpInputValues["password2"]
-    );
-    if (
-      Object.keys(signUpInputStatus).find((key) => signUpInputStatus[key] !== 1)
-    ) {
-      console.log(signUpInputValues);
-      console.log(signUpInputStatus);
-    } else alert("가입 성공!");
+    Promise.all([
+      checkEmail(signUpInputValues["email"]),
+      checkNickname(signUpInputValues["nickname"]),
+      checkPassword(signUpInputValues["password"]),
+      checkIsSamePassword(
+        signUpInputValues["password"],
+        signUpInputValues["password2"]
+      ),
+    ]).then((values) => {
+      console.log(values);
+      if (values.filter((item) => item === 1).length === 4) {
+        axios
+          .post(
+            "http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/register",
+            {
+              email: signUpInputValues["email"],
+              password: signUpInputValues["password"],
+              nickname: signUpInputValues["nickname"],
+            }
+          )
+          .then(() => alert("회원가입이 완료 되었습니다!"))
+          .catch(() =>
+            alert("회원가입이 완료되지 않았습니다. 잠시후에 다시 시도해주세요!")
+          );
+      } else return;
+    });
   };
+
   return (
     <FlexColumnCenterBox>
       <TextField
@@ -180,7 +202,7 @@ function SignUpPage() {
         helperText={
           signUpInputStatus["nicknameStatus"] < 2
             ? ""
-            : "닉네임을 입력해주세요!"
+            : "사용할 수 없는 닉네임입니다"
         }
         inputProps={{ maxLength: 45 }}
       />
