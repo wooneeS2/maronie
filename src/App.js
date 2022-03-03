@@ -1,38 +1,51 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DetailPage from "./pages/DetailPage";
+import { RecoilRoot } from "recoil";
 import GlobalStyle from "./design/GlobalStyles";
+import DetailPage from "./pages/DetailPage";
 import ReviewRegistrationPage from "./pages/ReviewRegistrationPage";
 import CocktailDetailPage from "./pages/CocktailDetailPage";
 import RecipeRegistrationPage from "./pages/RecipeRegisterationPage";
+import TextSearchResultPage from "./pages/TextSearchResultPage";
+import ImageSearchResultPage from "./pages/ImageSearchResultPage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <BrowserRouter>
-        <header className="App-header"></header>
-        <Routes>
-          {/* <Route exact path="/" element={<IntroPage />}></Route>
-          <Route exact path="/search" element={<SearchPage />}></Route> */}
-          <Route path="/liquor" element={<DetailPage />}></Route>
-          <Route
-            path="/liquor/create/review"
-            element={<ReviewRegistrationPage />}
-          ></Route>
-          <Route
-            path="/cocktail/detail"
-            element={<CocktailDetailPage />}
-          ></Route>
-          <Route
-            path="/cocktail/register"
-            element={<RecipeRegistrationPage />}
-          ></Route>
-          {/* <Route exact path="/sing-up" element={<SignUpPage />}></Route>
-          <Route exact path="/sing-in" element={<SignInPage />}></Route>
-          <Route path="*" element={<ErrorPage />}></Route> */}
-        </Routes>
-      </BrowserRouter>
+      <header className="App-header"></header>
+      <RecoilRoot>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Routes>
+            {/* <Route exact path="/" element={<IntroPage />}/> */}
+            <Route path="/liquor" element={<DetailPage />} />
+            <Route
+              path="/liquor/create/review"
+              element={<ReviewRegistrationPage />}
+            />
+            <Route path="/cocktail/detail" element={<CocktailDetailPage />} />
+            <Route
+              path="/cocktail/register"
+              element={<RecipeRegistrationPage />}
+            />
 
+            <Route exact path="/search" element={<SearchPage />} />
+            <Route
+              exact
+              path="/text-search-result/:keyword"
+              element={<TextSearchResultPage />}
+            />
+            <Route
+              exact
+              path="/image-search-result"
+              element={<ImageSearchResultPage />}
+            />
+            {/* <Route exact path="/signup" element={<SignUpPage />}/>
+          <Route exact path="/signin" element={<SignInPage />}/> */}
+            {/* <Route path="*" element={<ErrorPage />}/> */}
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
       <footer></footer>
     </>
   );
