@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Rating } from "@mui/material";
 import MenuTabs from "../components/SearchPage/MenuTabs";
@@ -22,49 +23,7 @@ function TextSearchResultPage() {
   const params = useParams();
   const searchKeyword = params.keyword;
   const [currentTab, setCurrentTab] = React.useState("liquor");
-  let dummy = {
-    liquor: [
-      {
-        id: 1,
-        liquor_name: "술이름1",
-        price: 100,
-        image_path:
-          "https://products0.imgix.drizly.com/ci-bombay-sapphire-4967085f606d9efa.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fm=jpg&h=240&q=20",
-        description: "Lorem",
-        rating: 3.5,
-      },
-      {
-        id: 2,
-        liquor_name: "술이름2",
-        price: 1000,
-        image_path:
-          "https://products0.imgix.drizly.com/ci-bombay-sapphire-4967085f606d9efa.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fm=jpg&h=240&q=20",
-        description:
-          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, nulla voluptas necessitatibus odit nemo odio ullam impedit velit iste facere cum accusantium beatae perferendis consectetur quia repellendus minima veniam quibusdam.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, nulla voluptas necessitatibus odit nemo odio ull(약 350자)",
-        rating: 4.5,
-      },
-      {
-        id: 3,
-        liquor_name: "술이름3",
-        price: 100,
-        image_path:
-          "https://products0.imgix.drizly.com/ci-bombay-sapphire-4967085f606d9efa.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fm=jpg&h=240&q=20",
-        description:
-          "Lorem ipsum dolor sit, amet consectetur adipi Lorem ipsum dolor sit, amet consectetur adipi Lorem ipsum dolor sit, amet consectetur adipi a;jj(약 150자)",
-        rating: 2.0,
-      },
-    ],
-    cocktail: [
-      {
-        cocktail_id: 1,
-        cocktail_name: "칵테일1",
-        price: 1100000,
-        image_path:
-          "http://res.heraldm.com/content/image/2015/03/12/20150312001242_0.jpg",
-        description: "음~ 맛있다",
-      },
-    ],
-  };
+  const [searchResult, setSearchResult] = React.useState({});
   React.useEffect(() => {
     /**
      * 검색 텍스트 초기화
@@ -78,6 +37,18 @@ function TextSearchResultPage() {
       JSON.stringify(newTextSearchRecordList)
     );
   });
+  React.useEffect(() => {
+    const call = async () => {
+      const response = await axios
+        .get(
+          `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/search/${searchKeyword}`
+        )
+        .then((res) => res.data);
+      setSearchResult(response);
+    };
+    call();
+    console.log(searchResult);
+  }, [searchKeyword]);
 
   return (
     <>
@@ -85,10 +56,13 @@ function TextSearchResultPage() {
       <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
 
       {currentTab === "liquor" ? (
-        dummy[currentTab].length > 0 ? (
+        searchResult[currentTab]?.length > 0 ? (
           <TextSearchResultWrapper className="contentArea">
-            {dummy[currentTab].map((item, idx) => (
-              <StyledLink to={`/liquor/${item["id"]}`} key={`liquor-${idx}`}>
+            {searchResult[currentTab].map((item, idx) => (
+              <StyledLink
+                to={`/liquor/${item["liquor_id"]}`}
+                key={`liquor-${idx}`}
+              >
                 <TableItem>
                   {
                     <TextSearchResultImage
@@ -118,9 +92,9 @@ function TextSearchResultPage() {
         ) : (
           <NoSearchResult />
         )
-      ) : dummy[currentTab].length > 0 ? (
+      ) : searchResult[currentTab]?.length > 0 ? (
         <TextSearchResultWrapper className="contentArea">
-          {dummy[currentTab].map((item, idx) => (
+          {searchResult[currentTab].map((item, idx) => (
             <StyledLink
               to={`/cocktail/${item["cocktail_id"]}`}
               key={`cocktail-${idx}`}
@@ -136,13 +110,11 @@ function TextSearchResultPage() {
                   <TextResultItemTitle>
                     {item["cocktail_name"]}
                   </TextResultItemTitle>
-                  <TextResultItemPrice>{item["price"]}원</TextResultItemPrice>
                   <TextResultItemDescription>
                     {item["description"].length > 100
                       ? item["description"].substring(0, 100) + "..."
                       : item["description"]}
                   </TextResultItemDescription>
-                  <Rating value={item["rating"]} readOnly precision={0.5} />
                 </FlexColumnCenterBox>
                 <FlexRightBox>
                   <AiOutlineRight size={20} />
