@@ -23,7 +23,10 @@ function App() {
               path="/liquor/create/review"
               element={<ReviewRegistrationPage />}
             />
-            <Route path="/cocktail/detail" element={<CocktailDetailPage />} />
+            <Route
+              path="/cocktail/detail/:item"
+              element={<CocktailDetailPage />}
+            />
             <Route
               path="/cocktail/register"
               element={<RecipeRegistrationPage />}

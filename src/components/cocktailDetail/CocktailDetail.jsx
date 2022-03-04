@@ -15,21 +15,27 @@ import {
 import { AddWishList, AddDoneList } from "../detailPage/widget/WishListButtons";
 import CocktailLevel from "../detailPage/widget/CocktailLevel";
 import { LevelGuideTooltip } from "../detailPage/widget/LevelGuideTooltip";
+
 function CocktailDetail({ cocktail }) {
   return (
     <ColumnDiv>
       <CenterAlignmentDiv>
         <ImgWrapper>
-          <img src={cocktail.img} alt="cocktail" style={imageStyle} />
+          <img src={cocktail.image_path} alt="cocktail" style={imageStyle} />
         </ImgWrapper>
         <div>
-          <CocktailName>데킬라선라이즈</CocktailName>
+          <CocktailName>{cocktail.cocktail_name}</CocktailName>
+
           <CocktailLevel level={cocktail.level} />
           <LevelGuideTooltip />
+          {/* TODO 유저 추가 */}
+          <p>{cocktail.description}</p>
+          <span>도수 :{cocktail.alcohol}</span>
           <ItalicTitle>by @{cocktail.user}</ItalicTitle>
           <CenterAlignmentDiv style={{ width: "60%" }}>
-            <AddWishList value={cocktail.wishCount} />
-            <AddDoneList value={cocktail.doneCount} />
+            {/* TODO 좋아요수, 마셔봤어요 수 추가 */}
+            <AddWishList value={cocktail.wishList} />
+            <AddDoneList value={cocktail.doneList} />
           </CenterAlignmentDiv>
         </div>
         <div>

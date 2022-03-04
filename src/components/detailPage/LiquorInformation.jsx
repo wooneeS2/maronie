@@ -56,7 +56,7 @@ export function LiquorInformation({ liquor }) {
             " {liquorRatingMessage[liquorRating]} "
           </LiquorRatingLabel>
           <ReadOnlyRating
-            ratingValue={liquor.rating || parseFloat(1.1)}
+            ratingValue={parseFloat(liquor.rating) || parseFloat(1.1)}
             fontSize={"2rem"}
           />
         </RatingBox>
