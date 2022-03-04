@@ -8,6 +8,7 @@ import RecipeRegistrationPage from "./pages/RecipeRegisterationPage";
 import TextSearchResultPage from "./pages/TextSearchResultPage";
 import ImageSearchResultPage from "./pages/ImageSearchResultPage";
 import SearchPage from "./pages/SearchPage";
+import IntroPage from "./pages/IntroPage";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <GlobalStyle />
         <BrowserRouter>
           <Routes>
-            {/* <Route exact path="/" element={<IntroPage />}/> */}
+            <Route exact path="/" element={<IntroPage />} />
             <Route path="/liquor" element={<DetailPage />} />
             <Route
               path="/liquor/create/review"
