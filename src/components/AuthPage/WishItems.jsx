@@ -8,7 +8,15 @@ function WishItems({ currentTab, obj }) {
   return (
     <WishItemsWrapper>
       {obj.map((item) => (
-        <div>
+        <div
+          style={{
+            borderRadius: "5px",
+            textAlign: "center",
+            margin: "10px",
+            padding: "10px",
+            boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 10px 0px",
+          }}
+        >
           <StyledLink to={`/${currentTab}/` + item[`${currentTab}_id`]}>
             <WishItemsImage
               src={item["image_path"]}
@@ -16,7 +24,7 @@ function WishItems({ currentTab, obj }) {
             />
           </StyledLink>
           <StyledLink to={`/${currentTab}/` + item[`${currentTab}_id`]}>
-            <p style={{ textAlign: "center" }}>
+            <p style={{ fontWeight: 600, fontSize: "1.1rem" }}>
               {item[`${currentTab}_name_kor`]}
             </p>
           </StyledLink>
