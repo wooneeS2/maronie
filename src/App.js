@@ -9,14 +9,15 @@ import TextSearchResultPage from "./pages/TextSearchResultPage";
 import ImageSearchResultPage from "./pages/ImageSearchResultPage";
 import SearchPage from "./pages/SearchPage";
 import IntroPage from "./pages/IntroPage";
+import Header from "./components/header/Hearder";
 
 function App() {
   return (
     <>
-      <header className="App-header"></header>
       <RecoilRoot>
         <GlobalStyle />
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route exact path="/" element={<IntroPage />} />
             <Route path="/liquor" element={<DetailPage />} />

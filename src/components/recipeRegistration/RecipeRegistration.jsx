@@ -15,7 +15,6 @@ import {
   ColumnDiv,
   RowDiv,
   RegisterButton,
-  PageTitle,
   BoldTitle,
 } from "../../design/commonStyles";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -44,7 +43,6 @@ function RecipeRegistration({ cocktail }) {
   return (
     <>
       <ColumnDiv>
-        <PageTitle>레시피 추가하기</PageTitle>
         <BoldTitle>{cocktail}</BoldTitle>
         <AddCocktailPhoto />
 

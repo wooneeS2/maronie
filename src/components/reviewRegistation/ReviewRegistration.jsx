@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  PageTitle,
   ColumnDiv,
   RegisterButton,
   CenterAlignmentDiv,
@@ -21,7 +20,6 @@ function ReviewRegistration({ image, liqourName }) {
 
   return (
     <>
-      <PageTitle>리뷰를 남겨주세요!</PageTitle>
       <ColumnDiv>
         <div>
           <ImgWrapper>

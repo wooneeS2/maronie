@@ -37,7 +37,7 @@ function IntroPage() {
             <RegisterButton
               style={{
                 position: "relative",
-                top: "10rem",
+                top: "8rem",
                 width: "50%",
               }}
             >
