@@ -30,7 +30,8 @@ export const ParingBox = styled.div`
 
 export const ParingImgWrapper = styled.div`
   height: 150px;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
   background-image: ${({ image }) => `url(${image})`};
 `;

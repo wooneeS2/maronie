@@ -65,11 +65,13 @@ function CocktailImformation({ cocktails }) {
                       margin: "0 auto",
                       textAlign: "center",
                     }}
-                    key={i.img}
+                    key={i.cocktail_name_kor}
                   >
-                    <CocktailImg src={i.img} />
-                    <span>{i.name}</span>
-                    <CocktailLevel level={i.level} />
+                    {/* TODO 칵테일 이미지 수정 */}
+                    <CocktailImg src={i.cocktail_image} />
+                    <span>{i.cocktail_name_kor}</span>
+                    {/* TODO 칵테일 레벨 추가 */}
+                    <CocktailLevel level={1} />
                   </div>
                 );
               })}

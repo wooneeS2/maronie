@@ -18,20 +18,35 @@ const liquorRatingMessage = {
   5: "이 술 싫어하는 사람을 본적이 없어요!",
 };
 
+const liquorClassification = {
+  1: "진",
+  2: "럼",
+  3: "위스키",
+  4: "보드카",
+  5: "데킬라",
+  6: "리큐르",
+  7: "진",
+};
+
 //TODO 유저 상태에 따라 버튼 표시 다르게하기
 export function LiquorInformation({ liquor }) {
-  let liquorRating = Math.round(liquor.rating);
+  let liquorRating = Math.round(parseFloat(liquor.rating));
   return (
     <>
       <ColumnDiv>
         <div>
           <ImgWrapper>
-            <img src={liquor.img} alt="liquor" style={{ width: "80%" }} />
+            <img
+              src={liquor.liquor_image}
+              alt="liquor"
+              style={{ width: "80%" }}
+            />
           </ImgWrapper>
         </div>
         <DescriptionBox>
           <LiquorName>
-            {liquor.name} · {liquor.classfication}
+            {liquor.liquor_name} ·{" "}
+            {liquorClassification[liquor.classification_id]}
           </LiquorName>
           <LiquorDescription>{liquor.description}</LiquorDescription>
         </DescriptionBox>
@@ -40,11 +55,14 @@ export function LiquorInformation({ liquor }) {
           <LiquorRatingLabel>
             " {liquorRatingMessage[liquorRating]} "
           </LiquorRatingLabel>
-          <ReadOnlyRating ratingValue={liquor.rating} fontSize={"2rem"} />
+          <ReadOnlyRating
+            ratingValue={liquor.rating || parseFloat(1.1)}
+            fontSize={"2rem"}
+          />
         </RatingBox>
         <ImgWrapper style={{ flexDirection: "column", marginBottom: "1rem" }}>
-          <AddWishList value={liquor.wishCount} />
-          <AddDoneList value={liquor.doneCount} />
+          <AddWishList value={liquor.rating} />
+          <AddDoneList value={liquor.rating} />
         </ImgWrapper>
       </ColumnDiv>
     </>
