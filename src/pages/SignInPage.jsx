@@ -1,28 +1,33 @@
 import React from "react";
 import axios from "axios";
-import { InputAdornment } from "@mui/material";
-import { HiOutlineMail } from "react-icons/hi";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import {
-  StyledLink,
   SubmitButton,
   SignInInput,
+  SignUpButton,
 } from "../design/AuthPage/SignInPageStyles";
-import { FlexColumnCenterBox } from "../design/CommonStyles";
+import { FlexColumnCenterBox, BothSideLineText } from "../design/CommonStyles";
 function SignInPage() {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
+  const navigate = useNavigate();
   const handleSubmitSignIn = () => {
     axios
-      .post(
-        "http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/login",
-        {
-          email,
-          password,
+      .post(process.env.REACT_APP_DB_HOST + "/auth/login", {
+        email,
+        password,
+      })
+      .then((res) => {
+        sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+        alert(res.data.nickname + "님! 안녕하세요 :)");
+      })
+      .catch((e) => {
+        if (e === "User Not Found") {
+          alert("아이디를 확인해주세요");
+        } else {
+          alert("비밀번호를 확인해주세요");
         }
-      )
-      .then((res) => console.log(res))
-      .catch(() => alert("누구세요...!!!!!!"));
+      });
   };
   return (
     <FlexColumnCenterBox>
@@ -31,13 +36,6 @@ function SignInPage() {
         label="이메일"
         autoComplete="off"
         margin="normal"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <HiOutlineMail />
-            </InputAdornment>
-          ),
-        }}
       />
 
       <SignInInput
@@ -45,22 +43,12 @@ function SignInPage() {
         label="비밀번호"
         autoComplete="off"
         margin="normal"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <RiLockPasswordLine />
-            </InputAdornment>
-          ),
-        }}
       />
       <SubmitButton type="submit" onClick={() => handleSubmitSignIn()}>
         Sign in
       </SubmitButton>
-
-      <p>
-        아직 회원이 아니신가요?
-        <StyledLink to="/signup">회원 가입</StyledLink>
-      </p>
+      <BothSideLineText>마로니에가 처음이신가요?</BothSideLineText>
+      <SignUpButton onClick={() => navigate("/signup")}>회원 가입</SignUpButton>
     </FlexColumnCenterBox>
   );
 }

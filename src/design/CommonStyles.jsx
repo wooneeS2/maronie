@@ -45,3 +45,28 @@ export const StyledLink = styled(Link)`
     color: black;
   }
 `;
+export const BothSideLineText = styled.p`
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 14px;
+  margin: 8px 0px;
+  &:before,
+  &:after {
+    background-color: rgba(0, 0, 0, 0.35);
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+  }
+  &:before {
+    right: 0.5em;
+    margin-left: -50%;
+  }
+  &:after {
+    left: 0.5em;
+    margin-right: -50%;
+  }
+`;

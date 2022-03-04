@@ -22,6 +22,9 @@ export const SubmitButton = styled.button`
   cursor: pointer;
   padding: 6px 8px;
 `;
+export const SignUpButton = styled(SubmitButton)`
+  background-color: yellow;
+`;
 export const SignInInput = styled(TextField)`
   width: 80%;
 `;

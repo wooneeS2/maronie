@@ -47,7 +47,7 @@ function SignUpPage() {
         return 3;
       }
       const response = await axios.get(
-        `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/register/email=${email}`
+        process.env.REACT_APP_DB_HOST + `auth/register/email=${email}`
       );
       //valid email(1)
       if (response.data.message === "Available email") {
@@ -75,7 +75,7 @@ function SignUpPage() {
         return 2;
       }
       const response = await axios.get(
-        `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/register/nickname=${nickname}`
+        process.env.REACT_APP_DB_HOST + `auth/register/nickname=${nickname}`
       );
       //valid nickname(1)
       if (response.data.message === "Available nickname") {
@@ -144,14 +144,11 @@ function SignUpPage() {
       console.log(values);
       if (values.filter((item) => item === 1).length === 4) {
         axios
-          .post(
-            "http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/auth/register",
-            {
-              email: signUpInputValues["email"],
-              password: signUpInputValues["password"],
-              nickname: signUpInputValues["nickname"],
-            }
-          )
+          .post(process.env.REACT_APP_DB_HOST + "auth/register", {
+            email: signUpInputValues["email"],
+            password: signUpInputValues["password"],
+            nickname: signUpInputValues["nickname"],
+          })
           .then(() => alert("회원가입이 완료 되었습니다!"))
           .catch(() =>
             alert("회원가입이 완료되지 않았습니다. 잠시후에 다시 시도해주세요!")
