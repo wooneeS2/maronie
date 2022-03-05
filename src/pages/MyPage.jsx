@@ -2,7 +2,6 @@ import GreetingMember from "../components/AuthPage/GreetingMember";
 import { Link } from "react-router-dom";
 import { IoWaterOutline } from "react-icons/io5";
 import { AiOutlineRight } from "react-icons/ai";
-
 import {
   MyPageMenuItem,
   MyPageMenuItemTitle,

@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userState } from "../data/state";
 import {
   SubmitButton,
   SignInInput,
@@ -11,6 +13,7 @@ function SignInPage() {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const navigate = useNavigate();
+  const [user, setUser] = useRecoilState(userState);
   const handleSubmitSignIn = () => {
     axios
       .post(process.env.REACT_APP_DB_HOST + "/auth/login", {
@@ -18,14 +21,19 @@ function SignInPage() {
         password,
       })
       .then((res) => {
-        sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+        setUser(res.data);
         alert(res.data.nickname + "님! 안녕하세요 :)");
+        // TODO: 이전 페이지 주소 가져와서 그곳으로 이동 or 인트로 페이지
+        navigate("/");
       })
       .catch((e) => {
-        if (e === "User Not Found") {
-          alert("아이디를 확인해주세요");
-        } else {
+        let errorMsg = e.response.data.message;
+        if (errorMsg === "User Not Found") {
+          alert("가입되지 않은 이메일입니다");
+        } else if (errorMsg === "Auth Failed(Wrong password)") {
           alert("비밀번호를 확인해주세요");
+        } else {
+          alert("아이디 또는 비밀번호를 확인해주세요");
         }
       });
   };
