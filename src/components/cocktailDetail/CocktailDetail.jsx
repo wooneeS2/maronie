@@ -18,6 +18,14 @@ import { LevelGuideTooltip } from "../detailPage/widget/LevelGuideTooltip";
 import CircularProgress from "@mui/material/CircularProgress";
 
 function CocktailDetail({ cocktail }) {
+  const isIngredentsRecipeLengthOverZero = React.useMemo(() => {
+    if (cocktail.ingredients.length > 0 && cocktail.recipe.length) {
+      return true;
+    }
+
+    return false;
+  }, [cocktail.ingredients, cocktail.recipe]);
+
   return (
     <ColumnDiv>
       <CenterAlignmentDiv>
@@ -38,19 +46,26 @@ function CocktailDetail({ cocktail }) {
             <AddDoneList value={cocktail.doneList} />
           </CenterAlignmentDiv>
         </div>
+
         <div>
           <BoldTitle>칵테일 레시피</BoldTitle>
-          {cocktail.ingredients && cocktail.recipe ? (
+          {isIngredentsRecipeLengthOverZero ? (
             <RecipeBox>
               <BoldTitle>재료</BoldTitle>
-              {cocktail.ingredients.map((i, index) => {
-                return <IngredientChip value={i} key={i + index} />;
-              })}
-              {cocktail.recipe.map((i, index) => {
+              {cocktail.ingredients.map((ingredient, index) => {
                 return (
-                  <div key={i + index}>
+                  <IngredientChip
+                    value={ingredient}
+                    key={`${ingredient + index}`}
+                  />
+                );
+              })}
+
+              {cocktail.recipe.map((r, index) => {
+                return (
+                  <div key={`${r + index}`}>
                     <BoldTitle>{index + 1}단계</BoldTitle>
-                    <p>{i}</p>
+                    <p>{r}</p>
                   </div>
                 );
               })}
