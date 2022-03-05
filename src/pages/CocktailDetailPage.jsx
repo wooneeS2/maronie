@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 function CocktailDetailPage() {
   const params = useParams();
   const [cocktailId] = useState(params.item);
-  const [cocktails, setCocktails] = useState([]);
+  const [cocktails, setCocktails] = useState(null);
 
   useEffect(() => {
     const getInfo = async () => {

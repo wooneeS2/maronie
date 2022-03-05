@@ -19,12 +19,16 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 function CocktailDetail({ cocktail }) {
   const isIngredentsRecipeLengthOverZero = React.useMemo(() => {
-    if (cocktail.ingredients.length > 0 && cocktail.recipe.length) {
+    if (cocktail && cocktail.ingredients.length > 0 && cocktail.recipe.length) {
       return true;
     }
 
     return false;
-  }, [cocktail.ingredients, cocktail.recipe]);
+  }, [cocktail]);
+
+  if (cocktail === null) {
+    return null;
+  }
 
   return (
     <ColumnDiv>
