@@ -23,9 +23,11 @@ export const HeaderDiv = styled.div`
   justify-content: space-between;
   text-align: center;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
   background: ${mainWhite};
   font-size: 1.2rem;
+  z-index: 1;
 `;
 
 export const HeaderPageName = styled.p`

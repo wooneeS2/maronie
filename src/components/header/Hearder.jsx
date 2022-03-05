@@ -1,5 +1,8 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { headerHeightState } from "../../data/state";
 import { GrPrevious, GrHomeRounded, GrMenu } from "react-icons/gr";
 import MenuList from "./MenuList";
 import {
@@ -20,6 +23,8 @@ const path = {
 export function Header() {
   const location = useLocation();
   const [visible, setVisible] = useState(false);
+  const headerRef = React.useRef(null);
+  const setHeaderHeight = useSetRecoilState(headerHeightState);
 
   const pathName = location.pathname;
   const navigate = useNavigate();
@@ -27,7 +32,7 @@ export function Header() {
     setVisible(!visible);
   };
 
-  const setPathName = pathName => {
+  const setPathName = (pathName) => {
     if (Object.keys(path).includes(pathName) === false) {
       return path["etc"];
     }
@@ -35,8 +40,14 @@ export function Header() {
     return path[pathName];
   };
 
+  React.useEffect(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.clientHeight);
+    }
+  }, []);
+
   return (
-    <HeaderDiv style={{ display: "flex" }}>
+    <HeaderDiv style={{ display: "flex" }} ref={headerRef}>
       {pathName !== "/" ? (
         <HeaderButton
           onClick={() => {
@@ -46,7 +57,7 @@ export function Header() {
           <GrPrevious />
         </HeaderButton>
       ) : (
-        <div></div>
+        <BlankDiv />
       )}
       <HeaderPageName>{setPathName(pathName)}</HeaderPageName>
 
@@ -65,5 +76,9 @@ export function Header() {
     </HeaderDiv>
   );
 }
+
+const BlankDiv = styled.div`
+  width: 82px;
+`;
 
 export default Header;

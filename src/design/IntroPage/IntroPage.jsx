@@ -21,9 +21,6 @@ export const MainPageTextDiv = styled.div`
   cursor: pointer;
   text-align: center;
   position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 export const MainPageDiv = styled.div`
@@ -31,4 +28,5 @@ export const MainPageDiv = styled.div`
   overflow: hidden;
   margin: 0px auto;
   position: relative;
+  padding-top: ${({ paddingTop }) => `${paddingTop}px`};
 `;
