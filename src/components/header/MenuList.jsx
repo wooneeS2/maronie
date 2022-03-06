@@ -17,7 +17,7 @@ const menuList = [
   },
   {
     label: "My Page",
-    path: "",
+    path: "mypage",
   },
   {
     label: "Log In",
@@ -35,9 +35,9 @@ export default function MenuList({ isLogin, userName, LogOut, visible }) {
         {visible && (
           <MenuBtn>
             {(isLogin === true
-              ? menuList.filter(x => x.label !== "LogIn")
-              : menuList.filter(x => x.label !== "LogOut")
-            ).map(x => {
+              ? menuList.filter((x) => x.label !== "LogIn")
+              : menuList.filter((x) => x.label !== "LogOut")
+            ).map((x) => {
               return (
                 <EachMenuBtn key={x.id + x.label}>
                   <Link to={`/${x.path}`}>{x.label}</Link>
