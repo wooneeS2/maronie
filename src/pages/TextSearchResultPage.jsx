@@ -30,7 +30,7 @@ function TextSearchResultPage() {
      */
     const textSearchRecordList =
       JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
-    const temp = new Set([...textSearchRecordList, searchKeyword]);
+    const temp = new Set([searchKeyword, ...textSearchRecordList]);
     let newTextSearchRecordList = [...temp];
     window.localStorage.setItem(
       "textSearchValue",
@@ -40,9 +40,7 @@ function TextSearchResultPage() {
   React.useEffect(() => {
     const call = async () => {
       const response = await axios
-        .get(
-          `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/search/${searchKeyword}`
-        )
+        .get(process.env.REACT_APP_DB_HOST + `search=${searchKeyword}`)
         .then((res) => res.data);
       setSearchResult(response);
     };
