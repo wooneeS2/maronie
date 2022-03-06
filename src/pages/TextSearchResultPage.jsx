@@ -46,7 +46,6 @@ function TextSearchResultPage() {
       setSearchResult(response);
     };
     call();
-    console.log(searchResult);
   }, [searchKeyword]);
 
   return (
@@ -72,10 +71,10 @@ function TextSearchResultPage() {
                   <FlexColumnCenterBox>
                     <div>
                       <TextResultItemTitle>
-                        {item["liquor_name"]}
+                        {item["liquor_name_kor"]}
                       </TextResultItemTitle>
                       <TextReusltItemSubtitle>
-                        {item["liquor_name_kor"]}
+                        {item["liquor_name"]}
                       </TextReusltItemSubtitle>
                     </div>
                     <TextResultItemPrice>{item["price"]}원</TextResultItemPrice>
@@ -94,7 +93,7 @@ function TextSearchResultPage() {
             ))}
           </TextSearchResultWrapper>
         ) : (
-          <NoSearchResult />
+          <NoSearchResult currentTab={currentTab} />
         )
       ) : searchResult[currentTab]?.length > 0 ? (
         <TextSearchResultWrapper className="contentArea">
@@ -111,10 +110,14 @@ function TextSearchResultPage() {
                   />
                 }
                 <FlexColumnCenterBox>
-                  <TextResultItemTitle>
-                    {item["cocktail_name_kor"]}
-                  </TextResultItemTitle>
-                  <p> {item["cocktail_name"]}</p>
+                  <div>
+                    <TextResultItemTitle>
+                      {item["cocktail_name_kor"]}
+                    </TextResultItemTitle>
+                    <TextReusltItemSubtitle>
+                      {item["cocktail_name"]}
+                    </TextReusltItemSubtitle>
+                  </div>
                   <TextResultItemDescription>
                     {item["description"].length > 100
                       ? item["description"].substring(0, 100) + "..."
@@ -129,7 +132,7 @@ function TextSearchResultPage() {
           ))}
         </TextSearchResultWrapper>
       ) : (
-        <NoSearchResult />
+        <NoSearchResult currentTab={currentTab} />
       )}
     </>
   );
