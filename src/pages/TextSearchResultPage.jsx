@@ -7,6 +7,7 @@ import TextSearchInput from "../components/SearchPage/TextSearchInput";
 import { TextSearchResultWrapper } from "../design/SearchPage/SearchPageStyles";
 import {
   TextResultItemTitle,
+  TextReusltItemSubtitle,
   TextResultItemPrice,
   TextResultItemDescription,
   TextSearchResultImage,
@@ -69,9 +70,14 @@ function TextSearchResultPage() {
                     />
                   }
                   <FlexColumnCenterBox>
-                    <TextResultItemTitle>
-                      {item["liquor_name"]}
-                    </TextResultItemTitle>
+                    <div>
+                      <TextResultItemTitle>
+                        {item["liquor_name"]}
+                      </TextResultItemTitle>
+                      <TextReusltItemSubtitle>
+                        {item["liquor_name_kor"]}
+                      </TextReusltItemSubtitle>
+                    </div>
                     <TextResultItemPrice>{item["price"]}원</TextResultItemPrice>
                     <TextResultItemDescription>
                       {item["description"].length > 100
@@ -106,8 +112,9 @@ function TextSearchResultPage() {
                 }
                 <FlexColumnCenterBox>
                   <TextResultItemTitle>
-                    {item["cocktail_name"]}
+                    {item["cocktail_name_kor"]}
                   </TextResultItemTitle>
+                  <p> {item["cocktail_name"]}</p>
                   <TextResultItemDescription>
                     {item["description"].length > 100
                       ? item["description"].substring(0, 100) + "..."

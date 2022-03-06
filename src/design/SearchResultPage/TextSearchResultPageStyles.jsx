@@ -3,6 +3,11 @@ import styled from "styled-components";
 export const TextResultItemTitle = styled.h3`
   font-size: 1.3rem;
   color: black;
+  margin-bottom: 0;
+`;
+export const TextReusltItemSubtitle = styled.p`
+  color: gray;
+  margin-top: 2px;
 `;
 export const TextResultItemPrice = styled.p`
   font-size: 1.1rem;
