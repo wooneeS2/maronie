@@ -1,12 +1,13 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { userState } from "../../data/state";
 function SignInMemberInfo() {
-  //test data
-  const [member, setMember] = React.useState(null);
+  const [user, setUser] = useRecoilState(userState);
   return (
     <>
-      {member ? (
+      {Object.keys(user).length > 2 ? (
         <>
-          <p>{member}님 안녕하세요!</p>
+          <p>{user["nickname"]}님 안녕하세요!</p>
         </>
       ) : (
         <>
