@@ -5,6 +5,8 @@ import { useSetRecoilState } from "recoil";
 import { headerHeightState } from "../../data/state";
 import { GrPrevious, GrHomeRounded, GrMenu } from "react-icons/gr";
 import MenuList from "./MenuList";
+import LandingPage from "../introPage/LandingPage";
+import IntroPage from "../../pages/IntroPage";
 import {
   HeaderButton,
   HeaderDiv,
@@ -32,7 +34,7 @@ export function Header() {
     setVisible(!visible);
   };
 
-  const setPathName = (pathName) => {
+  const setPathName = pathName => {
     if (Object.keys(path).includes(pathName) === false) {
       return path["etc"];
     }
@@ -45,20 +47,20 @@ export function Header() {
       setHeaderHeight(headerRef.current.clientHeight);
     }
   }, []);
+  if (pathName === "/") {
+    return <IntroPage />;
+  }
 
   return (
     <HeaderDiv style={{ display: "flex" }} ref={headerRef}>
-      {pathName !== "/" ? (
-        <HeaderButton
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <GrPrevious />
-        </HeaderButton>
-      ) : (
-        <BlankDiv />
-      )}
+      <HeaderButton
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <GrPrevious />
+      </HeaderButton>
+
       <HeaderPageName>{setPathName(pathName)}</HeaderPageName>
 
       <div>
@@ -67,15 +69,26 @@ export function Header() {
             <GrHomeRounded />
           </Link>
         </HeaderButton>
-
-        <HeaderButton onClick={handleMenu}>
-          <GrMenu />
-        </HeaderButton>
-        <MenuList isLogin={true} visible={visible} />
+        <MenuComponent
+          handleMenu={handleMenu}
+          visible={visible}
+          isLogin={true}
+        />
       </div>
     </HeaderDiv>
   );
 }
+
+const MenuComponent = ({ handleMenu, visible, isLogin }) => {
+  return (
+    <>
+      <HeaderButton onClick={handleMenu}>
+        <GrMenu />
+      </HeaderButton>
+      <MenuList isLogin={isLogin} visible={visible} />
+    </>
+  );
+};
 
 const BlankDiv = styled.div`
   width: 82px;
