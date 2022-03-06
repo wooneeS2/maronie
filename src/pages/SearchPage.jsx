@@ -1,6 +1,7 @@
 import React from "react";
 import ImageSearch from "../components/SearchPage/ImageSearch";
 import TextSearch from "../components/SearchPage/TextSearch";
+
 import {
   TabButton,
   TabComponent,
