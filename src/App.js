@@ -6,6 +6,7 @@ import MyPage from "./pages/MyPage";
 import GlobalStyle from "./design/GlobalStyles";
 import Wishlist from "./pages/Wishlist";
 import Donelist from "./pages/Donelist";
+import MyReview from "./pages/MyReview";
 function App() {
   return (
     <>
@@ -22,6 +23,7 @@ function App() {
             <Route exact path="/mypage" element={<MyPage />}></Route>
             <Route exact path="/mypage/wishlist" element={<Wishlist />}></Route>
             <Route exact path="/mypage/donelist" element={<Donelist />}></Route>
+            <Route exact path="/mypage/review" element={<MyReview />}></Route>
             {/* <Route path="*" element={<ErrorPage />}></Route> */}
           </Routes>
         </RecoilRoot>

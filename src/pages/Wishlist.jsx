@@ -45,9 +45,6 @@ function Wishlist() {
     ],
   };
   const [currentTab, setCurrentTab] = React.useState("liquor");
-  const handleChange = (e, newValue) => {
-    setCurrentTab(newValue);
-  };
 
   return (
     <>
