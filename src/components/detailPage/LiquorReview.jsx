@@ -14,6 +14,7 @@ import { ReadOnlyRating, ReviewRating } from "./widget/ReviewRating";
 import ratingLabels from "../../data/ratingLabels";
 import RatingChartBar from "./widget/RatingChartBar";
 import UserReviewBox from "./widget/UserReviewBox";
+import { useNavigate } from "react-router-dom";
 
 const ratingCount = [
   { rating: 1, count: 10 },
@@ -23,9 +24,15 @@ const ratingCount = [
   { rating: 5, count: 15 },
 ];
 
-export function LiquorReview({ liquorReviews }) {
+export function LiquorReview({
+  liquorReviews,
+  liquorId,
+  liquorImg,
+  liquorName,
+}) {
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -70,6 +77,14 @@ export function LiquorReview({ liquorReviews }) {
           <ReviewRating
             onChange={(event, newValue) => {
               setValue(newValue);
+              navigate("/liquor/create/review", {
+                state: {
+                  liquorId: liquorId,
+                  ratingValue: newValue,
+                  liquorImg: liquorImg,
+                  liquorName: liquorName,
+                },
+              });
             }}
             onChangeActive={(event, newHover) => {
               setHover(newHover);

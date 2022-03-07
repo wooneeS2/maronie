@@ -56,7 +56,12 @@ export function DetailPage() {
       <LiquorInformation liquor={liquorInfo} />
       <ParingInformation parings={paringInfo} />
       <CocktailImformation cocktails={cocktailInfo} />
-      <LiquorReview liquorReviews={liquorReviewInfo} />
+      <LiquorReview
+        liquorReviews={liquorReviewInfo}
+        liquorId={liquorId.item}
+        liquorImg={liquorInfo.liquor_image}
+        liquorName={liquorInfo.liquor_name_kor}
+      />
     </>
   );
 }
