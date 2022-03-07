@@ -15,14 +15,15 @@ import {
 import { ReviewRating } from "../detailPage/widget/ReviewRating";
 import ratingLabels from "../../data/ratingLabels";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const url = process.env.REACT_APP_DB_HOST;
 
-// TODO 리뷰 완료 팝업 및 리다이렉트
 function ReviewRegistration({ liquorImage, liqourName, liquorId }) {
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
   const [reviewContent, setReviewContent] = React.useState("");
+  const navigate = useNavigate();
 
   const postReview = async () => {
     const result = await axios.post(url, {
@@ -31,8 +32,14 @@ function ReviewRegistration({ liquorImage, liqourName, liquorId }) {
       rating: value,
       content: reviewContent,
     });
-    console.log(value, reviewContent);
+
     console.log(result.status);
+    if (result.status === 201) {
+      window.alert("리뷰 작성이 완료되었습니다.");
+      navigate(-1);
+    } else {
+      window.alert("리뷰 작성을 실패했습니다.");
+    }
   };
 
   return (
