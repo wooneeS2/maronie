@@ -9,7 +9,7 @@ function ReviewRegistrationPage() {
     <ReviewRegistration
       liquorImage={location.state.liquorImg}
       liqourName={location.state.liquorName}
-      liquorId={parseInt(location.state.liquorId)}
+      liquorId={location.state.liquorId}
     />
   );
 }

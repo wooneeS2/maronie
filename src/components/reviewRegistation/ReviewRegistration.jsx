@@ -26,22 +26,21 @@ function ReviewRegistration({ liquorImage, liqourName, liquorId }) {
   const navigate = useNavigate();
 
   const postReview = async () => {
-    const result = await axios.post(url, {
-      liquor_id: liquorId,
-      user: 4,
-      rating: value,
-      content: reviewContent,
-    });
-
-    console.log(result.status);
-    if (result.status === 201) {
-      window.alert("리뷰 작성이 완료되었습니다.");
-      navigate(-1);
-    } else {
+    try {
+      const patch = await axios.post(`${url}review/create`, {
+        user_id: "4",
+        liquor_id: "3",
+        rating: "3.5",
+        content: "블루 큐라스 만의 맛이 느껴지네요",
+      });
+      if (patch.status === 201) {
+        window.alert("리뷰 작성이 완료되었습니다.");
+        navigate(-1);
+      }
+    } catch (error) {
       window.alert("리뷰 작성을 실패했습니다.");
     }
   };
-
   return (
     <>
       <PageTitle>리뷰를 남겨주세요!</PageTitle>
