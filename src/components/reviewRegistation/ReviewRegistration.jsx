@@ -20,7 +20,7 @@ function ReviewRegistration({ image, liqourName }) {
 
   return (
     <>
-      <ColumnDiv>
+      <ColumnDiv style={{ paddingTop: "81px" }}>
         <div>
           <ImgWrapper>
             <img src={image} alt="liquor" style={imageStyle} />

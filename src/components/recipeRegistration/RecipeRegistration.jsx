@@ -42,7 +42,7 @@ function RecipeRegistration({ cocktail }) {
 
   return (
     <>
-      <ColumnDiv>
+      <ColumnDiv style={{ paddingTop: "81px" }}>
         <BoldTitle>{cocktail}</BoldTitle>
         <AddCocktailPhoto />
 
