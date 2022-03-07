@@ -70,3 +70,8 @@ export const BothSideLineText = styled.p`
     margin-right: -50%;
   }
 `;
+export const ItemsContainer = styled.div`
+  margin: 25px 0;
+  display: grid;
+  justify-items: center;
+`;

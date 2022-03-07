@@ -8,6 +8,9 @@ const GlobalStyles = createGlobalStyle`
     @media screen and (min-width: 786px) {
         max-width: 786px;
     }
+    p {
+      margin:0;
+    }
   }
 `;
 

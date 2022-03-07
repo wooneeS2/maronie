@@ -26,8 +26,8 @@ function MyReview() {
     ],
     cocktail: [
       {
-        liquor_id: 1,
-        liquor_name_kor: "대강 칵테일 이름",
+        cocktail_id: 1,
+        cocktail_name_kor: "대강 칵테일 이름",
         post_date: "2020-02-20",
         image_path:
           "https://thebeverageangels.com.au/wp-content/uploads/2021/12/2000033_8.jpeg",
@@ -36,8 +36,8 @@ function MyReview() {
         rating: 4.5,
       },
       {
-        liquor_id: 2,
-        liquor_name_kor: "대강 칵테일 이름2",
+        cocktail_id: 2,
+        cocktail_name_kor: "대강 칵테일 이름2",
         post_date: "2021-12-21",
         image_path:
           "https://thebeverageangels.com.au/wp-content/uploads/2021/12/2000033_8.jpeg",

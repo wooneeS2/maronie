@@ -1,9 +1,7 @@
 import styled from "styled-components";
-export const WishItemsWrapper = styled.div`
-  margin: 25px 0;
-  display: grid;
+import { ItemsContainer } from "../CommonStyles";
+export const WishItemsContainer = styled(ItemsContainer)`
   grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
-  justify-items: center;
   text-align: center;
 `;
 export const WishItemsImage = styled.img`

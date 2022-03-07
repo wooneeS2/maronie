@@ -1,12 +1,12 @@
 import React from "react";
 import {
-  WishItemsWrapper,
+  WishItemsContainer,
   WishItemsImage,
 } from "../../design/AuthPage/WishlistPageStyles";
 import { StyledLink } from "../../design/CommonStyles";
 function WishItems({ currentTab, obj }) {
   return (
-    <WishItemsWrapper>
+    <WishItemsContainer>
       {obj.map((item) => (
         <div
           style={{
@@ -30,7 +30,7 @@ function WishItems({ currentTab, obj }) {
           </StyledLink>
         </div>
       ))}
-    </WishItemsWrapper>
+    </WishItemsContainer>
   );
 }
 export default WishItems;
