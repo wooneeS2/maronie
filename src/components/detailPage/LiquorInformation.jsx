@@ -61,8 +61,8 @@ export function LiquorInformation({ liquor }) {
           />
         </RatingBox>
         <ImgWrapper style={{ flexDirection: "column", marginBottom: "1rem" }}>
-          <AddWishList value={liquor.rating} />
-          <AddDoneList value={liquor.rating} />
+          <AddWishList value={liquor.total_bookmark} />
+          <AddDoneList value={liquor.total_done} />
         </ImgWrapper>
       </ColumnDiv>
     </>
