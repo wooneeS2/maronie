@@ -1,7 +1,8 @@
 import React from "react";
 import MenuTabs from "../components/SearchPage/MenuTabs";
 import WishItems from "../components/AuthPage/WishItems";
-function Wishlist() {
+import { DonelistComment } from "../data/DonelistComment";
+function DonelistPage() {
   const dummy = {
     liquor: [
       {
@@ -9,6 +10,12 @@ function Wishlist() {
         image_path:
           "https://thebeverageangels.com.au/wp-content/uploads/2021/12/2000033_8.jpeg",
         liquor_name_kor: "고든스 진",
+      },
+      {
+        liquor_id: 11111,
+        image_path:
+          "https://thebeverageangels.com.au/wp-content/uploads/2021/12/2000033_8.jpeg",
+        liquor_name_kor: "고든스 진진자라",
       },
       {
         liquor_id: 2,
@@ -45,14 +52,21 @@ function Wishlist() {
     ],
   };
   const [currentTab, setCurrentTab] = React.useState("liquor");
+  const [comment, setComment] = React.useState("");
 
+  // TODO api 적용 필요
+  React.useEffect(() => {
+    setComment(() => DonelistComment(dummy[currentTab].length, currentTab));
+  }, [dummy]);
   return (
     <>
       <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
-      <div>
-        <WishItems currentTab={currentTab} obj={dummy[currentTab]} />
+      <div style={{ textAlign: "center" }}>
+        <h1>{dummy[currentTab].length}</h1>
+        <p style={{ color: "gray" }}>{comment}</p>
       </div>
+      <WishItems obj={dummy[currentTab]} currentTab={currentTab} />
     </>
   );
 }
-export default Wishlist;
+export default DonelistPage;

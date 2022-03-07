@@ -1,7 +1,7 @@
 import React from "react";
 import MenuTabs from "../components/SearchPage/MenuTabs";
 import ReviewItems from "../components/AuthPage/ReviewItems";
-function MyReview() {
+function MyReviewPage() {
   const dummy = {
     liquor: [
       {
@@ -56,4 +56,4 @@ function MyReview() {
     </>
   );
 }
-export default MyReview;
+export default MyReviewPage;

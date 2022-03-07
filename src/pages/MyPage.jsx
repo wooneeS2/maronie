@@ -13,6 +13,7 @@ function MyPage() {
     { link: "review", title: "내가 쓴 리뷰" },
     { link: "recipe", title: "내가 쓴 레시피" },
   ];
+  // TODO 디자인 업데이트
   return (
     <div>
       <GreetingMember />
