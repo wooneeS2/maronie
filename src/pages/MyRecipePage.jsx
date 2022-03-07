@@ -1,4 +1,4 @@
 function MyRecipePage() {
-  return <></>;
+  return <>recipe</>;
 }
 export default MyRecipePage;
