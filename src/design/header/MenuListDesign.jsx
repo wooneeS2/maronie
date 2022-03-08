@@ -8,9 +8,9 @@ export const OpenMenu = styled.div`
 
 export const MenuBtn = styled.div`
   display: block;
-  position: fixed;
-  right: 35px;
-  top: 8vh;
+  position: relative;
+  right: 0;
+  top: 30px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 10px;

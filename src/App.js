@@ -19,7 +19,7 @@ function App() {
         <BrowserRouter>
           <Header />
           <Routes>
-            {/* <Route exact path="/" element={<IntroPage />} /> */}
+            <Route exact path="/" element={<IntroPage />} />
             <Route path="/liquor" element={<DetailPage />} />
             <Route
               path="/liquor/create/review"

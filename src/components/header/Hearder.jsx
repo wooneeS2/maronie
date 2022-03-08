@@ -34,7 +34,7 @@ export function Header() {
     setVisible(!visible);
   };
 
-  const setPathName = pathName => {
+  const setPathName = (pathName) => {
     if (Object.keys(path).includes(pathName) === false) {
       return path["etc"];
     }
@@ -47,8 +47,9 @@ export function Header() {
       setHeaderHeight(headerRef.current.clientHeight);
     }
   }, []);
+
   if (pathName === "/") {
-    return <IntroPage />;
+    return null;
   }
 
   return (
