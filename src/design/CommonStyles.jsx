@@ -72,6 +72,7 @@ export const BothSideLineText = styled.p`
 `;
 export const ItemsContainer = styled.div`
   margin: 25px 0;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   justify-items: center;
 `;

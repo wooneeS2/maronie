@@ -5,9 +5,9 @@ import {
   RecipeItemWrapper,
 } from "../../design/AuthPage/MyRecipePageStyles";
 import { ReviewItemThumbnail } from "../../design/AuthPage/MyReviewPageStyles";
-import { IoMdClose, IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { BsPencilSquare } from "react-icons/bs";
-import { IoFlagSharp } from "react-icons/io5";
+import { IoTrashOutline, IoFlagSharp } from "react-icons/io5";
 import { Chip } from "@mui/material";
 function RecipeItems({ obj }) {
   const [isOpen, setIsOpen] = React.useState([]);
@@ -44,25 +44,31 @@ function RecipeItems({ obj }) {
         {obj.map((item) => (
           <RecipeItemWrapper onClick={() => handleOpen(item["recipe_id"])}>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <div style={{ position: "absolute", right: 10, top: 10 }}>
+              <div style={{ position: "absolute", right: 13, top: 13 }}>
                 <BsPencilSquare
+                  size={20}
+                  style={{ padding: "5px" }}
                   onClick={(e) => {
                     handleCorrection(e);
                   }}
                 />
-                <IoMdClose
+                <IoTrashOutline
+                  size={20}
+                  style={{ padding: "5px" }}
                   onClick={(e) => {
                     handleDelete(e);
                   }}
                 />
               </div>
+
               <StyledLink to={`/cocktail/` + item[`cocktail_id`]}>
                 <ReviewItemThumbnail
                   src={item["image_path"]}
                   alt={item[`cocktail_name`] + " 이미지"}
                 />
               </StyledLink>
-              <div>
+
+              <div style={{ padding: "10px" }}>
                 <span
                   style={{
                     fontWeight: 600,
@@ -73,7 +79,7 @@ function RecipeItems({ obj }) {
                   {item[`cocktail_name`]}
                 </span>
 
-                <IoFlagSharp />
+                <IoFlagSharp style={{ padding: "0 10px" }} />
 
                 <p style={{ marginTop: "5px" }}>{item[`description`]}</p>
               </div>
@@ -82,24 +88,33 @@ function RecipeItems({ obj }) {
               style={{
                 display: checkOpen(item["recipe_id"]) ? "block" : "none",
                 textAlign: "center",
+                padding: "7px",
               }}
             >
-              <p>재료</p>
+              <h3>재료</h3>
               {item["ingredients"].map((item) => (
                 <Chip label={item} variant="outlined" />
               ))}
 
-              <p>만드는 방법</p>
-              {item["recipe"].map((item) => (
-                <Chip label={item} variant="outlined" />
+              <h3>만드는 방법</h3>
+              {item["recipe"].map((item, idx) => (
+                <p>
+                  {idx + 1}
+                  {")"} {item}
+                </p>
               ))}
             </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <IoIosArrowDown
-                style={{
-                  display: checkOpen(item["recipe_id"]) ? "none" : "block",
-                }}
-              />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              {checkOpen(item["recipe_id"]) ? (
+                <IoIosArrowUp />
+              ) : (
+                <IoIosArrowDown />
+              )}
             </div>
           </RecipeItemWrapper>
         ))}

@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import { ItemsContainer } from "../CommonStyles";
 
-export const ReviewItemsContainer = styled(ItemsContainer)`
-  grid-template-columns: 1fr;
-  text-align: left;
-`;
+export const ReviewItemsContainer = styled(ItemsContainer)``;
 export const ReviewItemThumbnail = styled.img`
   width: 80px;
 `;

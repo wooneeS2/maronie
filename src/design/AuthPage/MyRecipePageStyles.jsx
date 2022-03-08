@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { ItemsContainer } from "../CommonStyles";
-export const RecipeItemsContainer = styled(ItemsContainer)`
-  grid-template-columns: 1fr;
-  text-align: left;
-`;
+export const RecipeItemsContainer = styled(ItemsContainer)``;
 export const RecipeItemWrapper = styled.div`
   border-radius: 5px;
   margin: 10px;
@@ -12,5 +9,4 @@ export const RecipeItemWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 70vw;
 `;
