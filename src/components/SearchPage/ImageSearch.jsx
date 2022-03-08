@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useRecoilState } from "recoil";
 import { imageState } from "../../data/state";
 import { useNavigate } from "react-router";
@@ -19,19 +20,24 @@ function ImageSearch() {
   const [uploadedFile, setUploadedFile] = useRecoilState(imageState);
   const extensionList = ["jpg", "jpeg", "png", "bmp"];
   const handleUploadedFile = (e) => {
-    let file;
+    // let file;
+    let formData = new FormData();
     if (e.type === "drop") {
-      setUploadedFile(e.dataTransfer.files[0]);
-      file = e.dataTransfer.files[0];
+      formData.append(e.dataTransfer.files[0].name, e.dataTransfer.files[0]);
+      // setUploadedFile(e.dataTransfer.files[0]);
+      // file = e.dataTransfer.files[0];
     } else {
-      setUploadedFile(e.target.files[0]);
-      file = e.target.files[0];
+      formData.append(e.target.files[0].name, e.target.files[0]);
+      // setUploadedFile(e.target.files[0]);
+      // file = e.target.files[0];
     }
-
-    if (file) {
-      sessionStorage.setItem("image", file);
-      navigate(`/image-search-result`);
+    for (let i of formData) {
+      console.log(i);
     }
+    // if (file) {
+    //   sessionStorage.setItem("image", file);
+    //   navigate(`/image-search-result`);
+    // }
   };
 
   const handleDragIn = React.useCallback((e) => {
@@ -83,7 +89,6 @@ function ImageSearch() {
   React.useEffect(() => {
     initDragEvents();
   }, [initDragEvents]);
-
   return (
     <>
       <DragFileSpace isDragging={isDragging} ref={dragRef}>
@@ -110,6 +115,7 @@ function ImageSearch() {
           갤러리에서 사진을 선택하거나, 직접 촬영해서 검색해보세요! 한 번에 한
           장씩, 이미지 파일만 검색 가능합니다 🔍
         </SearchDescription>
+
         <FileUploadButton htmlFor="imageUpload">
           사진 선택하기
           <input
