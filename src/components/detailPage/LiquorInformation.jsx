@@ -51,7 +51,7 @@ export function LiquorInformation({ liquor }) {
           <LiquorDescription>{liquor.description}</LiquorDescription>
         </DescriptionBox>
         <RatingBox>
-          <LiquorName>{liquor.rating}</LiquorName>
+          {liquor.rating && <LiquorName>{liquor.rating.toFixed(2)}</LiquorName>}
           <LiquorRatingLabel>
             " {liquorRatingMessage[liquorRating]} "
           </LiquorRatingLabel>
