@@ -7,6 +7,7 @@ import TextSearchInput from "../components/SearchPage/TextSearchInput";
 import { TextSearchResultWrapper } from "../design/SearchPage/SearchPageStyles";
 import {
   TextResultItemTitle,
+  TextReusltItemSubtitle,
   TextResultItemPrice,
   TextResultItemDescription,
   TextSearchResultImage,
@@ -30,7 +31,7 @@ function TextSearchResultPage() {
      */
     const textSearchRecordList =
       JSON.parse(window.localStorage.getItem("textSearchValue")) || [];
-    const temp = new Set([...textSearchRecordList, searchKeyword]);
+    const temp = new Set([searchKeyword, ...textSearchRecordList]);
     let newTextSearchRecordList = [...temp];
     window.localStorage.setItem(
       "textSearchValue",
@@ -40,14 +41,11 @@ function TextSearchResultPage() {
   React.useEffect(() => {
     const call = async () => {
       const response = await axios
-        .get(
-          `http://elice-kdt-ai-3rd-team11.koreacentral.cloudapp.azure.com:5000/search/${searchKeyword}`
-        )
+        .get(process.env.REACT_APP_DB_HOST + `search=${searchKeyword}`)
         .then((res) => res.data);
       setSearchResult(response);
     };
     call();
-    console.log(searchResult);
   }, [searchKeyword]);
 
   return (
@@ -71,9 +69,14 @@ function TextSearchResultPage() {
                     />
                   }
                   <FlexColumnCenterBox>
-                    <TextResultItemTitle>
-                      {item["liquor_name"]}
-                    </TextResultItemTitle>
+                    <div>
+                      <TextResultItemTitle>
+                        {item["liquor_name_kor"]}
+                      </TextResultItemTitle>
+                      <TextReusltItemSubtitle>
+                        {item["liquor_name"]}
+                      </TextReusltItemSubtitle>
+                    </div>
                     <TextResultItemPrice>{item["price"]}원</TextResultItemPrice>
                     <TextResultItemDescription>
                       {item["description"].length > 100
@@ -90,7 +93,7 @@ function TextSearchResultPage() {
             ))}
           </TextSearchResultWrapper>
         ) : (
-          <NoSearchResult />
+          <NoSearchResult currentTab={currentTab} />
         )
       ) : searchResult[currentTab]?.length > 0 ? (
         <TextSearchResultWrapper className="contentArea">
@@ -107,9 +110,14 @@ function TextSearchResultPage() {
                   />
                 }
                 <FlexColumnCenterBox>
-                  <TextResultItemTitle>
-                    {item["cocktail_name"]}
-                  </TextResultItemTitle>
+                  <div>
+                    <TextResultItemTitle>
+                      {item["cocktail_name_kor"]}
+                    </TextResultItemTitle>
+                    <TextReusltItemSubtitle>
+                      {item["cocktail_name"]}
+                    </TextReusltItemSubtitle>
+                  </div>
                   <TextResultItemDescription>
                     {item["description"].length > 100
                       ? item["description"].substring(0, 100) + "..."
@@ -124,7 +132,7 @@ function TextSearchResultPage() {
           ))}
         </TextSearchResultWrapper>
       ) : (
-        <NoSearchResult />
+        <NoSearchResult currentTab={currentTab} />
       )}
     </>
   );

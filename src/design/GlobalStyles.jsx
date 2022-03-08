@@ -4,8 +4,13 @@ const GlobalStyles = createGlobalStyle`
   body {
     margin: 0 auto;
     background-color: ${mainWhite};
-    width: 100vw;
     max-width: 786px;
+    word-break:keep-all;
+  }
+  ul {
+    list-style:none;
+    margin:0;
+    padding:0;
   }
 `;
 
