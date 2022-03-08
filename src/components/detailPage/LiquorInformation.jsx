@@ -55,10 +55,12 @@ export function LiquorInformation({ liquor }) {
           <LiquorRatingLabel>
             " {liquorRatingMessage[liquorRating]} "
           </LiquorRatingLabel>
-          <ReadOnlyRating
-            ratingValue={parseFloat(liquor.rating) || parseFloat(1.1)}
-            fontSize={"2rem"}
-          />
+          {liquor.rating && (
+            <ReadOnlyRating
+              ratingValue={parseFloat(liquor.rating)}
+              fontSize={"2rem"}
+            />
+          )}
         </RatingBox>
         <ImgWrapper style={{ flexDirection: "column", marginBottom: "1rem" }}>
           <AddWishList value={liquor.total_bookmark} />

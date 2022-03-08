@@ -4,6 +4,7 @@ import LiquorInformation from "../components/detailPage/LiquorInformation";
 import ParingInformation from "../components/detailPage/ParingInformation";
 import CocktailImformation from "../components/detailPage/CocktailInformation";
 import LiquorReview from "../components/detailPage/LiquorReview";
+import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 
 const liquorReviewInfo = [
@@ -53,15 +54,21 @@ export function DetailPage() {
 
   return (
     <>
-      <LiquorInformation liquor={liquorInfo} />
-      <ParingInformation parings={paringInfo} />
-      <CocktailImformation cocktails={cocktailInfo} />
-      <LiquorReview
-        liquorReviews={liquorReviewInfo}
-        liquorId={liquorId.item}
-        liquorImg={liquorInfo.liquor_image}
-        liquorName={liquorInfo.liquor_name_kor}
-      />
+      {liquorInfo ? (
+        <>
+          <LiquorInformation liquor={liquorInfo} />
+          <ParingInformation parings={paringInfo} />
+          <CocktailImformation cocktails={cocktailInfo} />
+          <LiquorReview
+            liquorReviews={liquorReviewInfo}
+            liquorId={liquorId.item}
+            liquorImg={liquorInfo.liquor_image}
+            liquorName={liquorInfo.liquor_name_kor}
+          />
+        </>
+      ) : (
+        <CircularProgress />
+      )}
     </>
   );
 }

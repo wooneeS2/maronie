@@ -28,10 +28,10 @@ function ReviewRegistration({ liquorImage, liqourName, liquorId }) {
   const postReview = async () => {
     try {
       const patch = await axios.post(`${url}review/create`, {
-        user_id: "4",
-        liquor_id: "3",
-        rating: "3.5",
-        content: "블루 큐라스 만의 맛이 느껴지네요",
+        user_id: 4,
+        liquor_id: liquorId,
+        rating: value,
+        content: reviewContent,
       });
       if (patch.status === 201) {
         window.alert("리뷰 작성이 완료되었습니다.");
