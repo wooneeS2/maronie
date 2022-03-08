@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { mainOrange } from "../colorPalette";
+import { mainOrange, mainWhite } from "../colorPalette";
 
 export const MainTitle = styled.p`
   font-weight: bold;
@@ -99,3 +99,36 @@ export const TopMenuButton = styled.div`
     color: white;
   }
 `;
+
+export const IntroductionImage = styled.img`
+  width: 70%;
+  height: 40vh;
+  max-height: 300px;
+  align-items: center;
+  margin: 0 auto;
+`;
+
+export const IntroductionDiv = styled.div`
+  height: 100vh;
+  display: flex;
+  margin: 10px;
+  flex-direction: column;
+  background-color: ${mainWhite};
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+`;
+
+export const IntroductionContent = styled.p`
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+`;
+
+export const OrangeTitle = fontSize => {
+  return {
+    fontSize: fontSize,
+    color: `${mainOrange}`,
+    fontWeight: "bold",
+    display: "block",
+    textAlign: "center",
+  };
+};
