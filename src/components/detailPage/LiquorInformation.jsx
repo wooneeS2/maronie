@@ -33,7 +33,7 @@ export function LiquorInformation({ liquor }) {
   let liquorRating = Math.round(parseFloat(liquor.rating));
   return (
     <>
-      <ColumnDiv>
+      <ColumnDiv style={{ paddingTop: "80px" }}>
         <div>
           <ImgWrapper>
             <img
@@ -45,13 +45,13 @@ export function LiquorInformation({ liquor }) {
         </div>
         <DescriptionBox>
           <LiquorName>
-            {liquor.liquor_name} ·{" "}
+            {liquor.liquor_name_kor} ·{" "}
             {liquorClassification[liquor.classification_id]}
           </LiquorName>
           <LiquorDescription>{liquor.description}</LiquorDescription>
         </DescriptionBox>
         <RatingBox>
-          {liquor.rating && <LiquorName>{liquor.rating.toFixed(2)}</LiquorName>}
+          {liquor.rating && <LiquorName>{liquor.rating.toFixed(1)}</LiquorName>}
           <LiquorRatingLabel>
             " {liquorRatingMessage[liquorRating]} "
           </LiquorRatingLabel>

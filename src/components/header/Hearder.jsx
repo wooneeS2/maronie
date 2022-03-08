@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { headerHeightState } from "../../data/state";
 import { GrPrevious, GrHomeRounded, GrMenu } from "react-icons/gr";
 import MenuList from "./MenuList";
-import LandingPage from "../introPage/LandingPage";
-import IntroPage from "../../pages/IntroPage";
 import {
   HeaderButton,
   HeaderDiv,
@@ -29,12 +26,13 @@ export function Header() {
   const setHeaderHeight = useSetRecoilState(headerHeightState);
 
   const pathName = location.pathname;
+  console.log(location);
   const navigate = useNavigate();
   const handleMenu = () => {
     setVisible(!visible);
   };
 
-  const setPathName = (pathName) => {
+  const setPathName = pathName => {
     if (Object.keys(path).includes(pathName) === false) {
       return path["etc"];
     }
@@ -90,9 +88,5 @@ const MenuComponent = ({ handleMenu, visible, isLogin }) => {
     </>
   );
 };
-
-const BlankDiv = styled.div`
-  width: 82px;
-`;
 
 export default Header;

@@ -31,7 +31,7 @@ function CocktailDetail({ cocktail }) {
   }
 
   return (
-    <ColumnDiv>
+    <ColumnDiv style={{ paddingTop: "80px" }}>
       <CenterAlignmentDiv>
         <ImgWrapper>
           <img src={cocktail.image_path} alt="cocktail" style={imageStyle} />

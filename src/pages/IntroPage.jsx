@@ -1,7 +1,4 @@
-import React, { useRef } from "react";
-import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { headerHeightState } from "../data/state";
+import React from "react";
 import LandingPage from "../components/introPage/LandingPage";
 import {
   Introduction1,
