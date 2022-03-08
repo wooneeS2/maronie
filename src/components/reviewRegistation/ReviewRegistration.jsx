@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  PageTitle,
   ColumnDiv,
   RegisterButton,
   CenterAlignmentDiv,
@@ -21,8 +20,7 @@ function ReviewRegistration({ image, liqourName }) {
 
   return (
     <>
-      <PageTitle>리뷰를 남겨주세요!</PageTitle>
-      <ColumnDiv>
+      <ColumnDiv style={{ paddingTop: "81px" }}>
         <div>
           <ImgWrapper>
             <img src={image} alt="liquor" style={imageStyle} />
