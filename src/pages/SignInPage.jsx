@@ -21,7 +21,7 @@ function SignInPage() {
         password,
       })
       .then((res) => {
-        setUser(res.data);
+        setUser(() => res.data);
         alert(res.data.nickname + "님! 안녕하세요 :)");
         // TODO: 이전 페이지 주소 가져와서 그곳으로 이동 or 인트로 페이지
         navigate("/");
@@ -36,6 +36,7 @@ function SignInPage() {
           alert("아이디 또는 비밀번호를 확인해주세요");
         }
       });
+    console.log(user);
   };
   return (
     <FlexColumnCenterBox>

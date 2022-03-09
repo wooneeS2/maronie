@@ -5,6 +5,10 @@ import {
 } from "../../design/AuthPage/WishlistPageStyles";
 import { StyledLink } from "../../design/CommonStyles";
 function WishItems({ currentTab, obj }) {
+  if (obj.length === 0) {
+    // TODO 결과 없음 컴포넌트 삽입 예정
+    return <div>없어</div>;
+  }
   return (
     <WishItemsContainer>
       {obj.map((item) => (

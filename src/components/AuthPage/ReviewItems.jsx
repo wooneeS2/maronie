@@ -15,6 +15,7 @@ function ReviewItems({ currentTab, obj }) {
     }
   };
   // TODO api 붙이고 나서 수정 필요할듯
+  console.log(obj);
   return (
     <>
       <ReviewItemsContainer>
