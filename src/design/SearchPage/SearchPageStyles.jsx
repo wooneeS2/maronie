@@ -31,7 +31,7 @@ export const DragFileSpace = styled.div`
   position: fixed;
   display: flex;
   justify-content: center;
-  z-index: ${({ isDragging }) => (isDragging ? 10000 : 10)};
+  z-index: ${({ isDragging }) => (isDragging ? 10000 : 0)};
   top: 0;
   bottom: 0;
   left: 0;

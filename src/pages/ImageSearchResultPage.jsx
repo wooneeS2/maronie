@@ -5,13 +5,15 @@ import ErrorPage from "./ErrorPage";
 import {
   ImageSearchImg,
   ImageSearchTitle,
+  ImageResultWrapper,
 } from "../design/SearchResultPage/ImageSearchResult";
 import {
-  CenterBox,
+  FlexRowCenterBox,
   FlexColumnCenterBox,
   StyledButton,
   StyledLink,
 } from "../design/commonStyles";
+
 function ImageSearchResultPage() {
   const [uploadedFile, setUploadedFile] = useRecoilState(imageState);
   //test data
@@ -32,9 +34,11 @@ function ImageSearchResultPage() {
       {/* TODO 새로고침하면 오류페이지로 이동, 계속 저장할지 말지  */}
       {uploadedFile ? (
         <>
-          <CenterBox>
-            <ImageSearchImg id="image-for-search" alt="이미지 검색 대상" />
-            <ImageSearchImg src={dummyImage} alt="결과 이미지" />
+          <ImageResultWrapper>
+            <FlexRowCenterBox>
+              <ImageSearchImg id="image-for-search" alt="이미지 검색 대상" />
+              <ImageSearchImg src={dummyImage} alt="결과 이미지" />
+            </FlexRowCenterBox>
             <ImageSearchTitle>
               이 술은{" "}
               <StyledLink style={{ textDecoration: "underline" }} to={resultId}>
@@ -48,7 +52,7 @@ function ImageSearchResultPage() {
                 <StyledButton>검색 페이지로 돌아가기</StyledButton>
               </StyledLink>
             </FlexColumnCenterBox>
-          </CenterBox>
+          </ImageResultWrapper>
         </>
       ) : (
         <ErrorPage />

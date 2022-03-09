@@ -11,7 +11,7 @@ import { BsCardImage, BsChatTextFill, BsHash } from "react-icons/bs";
 function SearchPage() {
   const [curSearchTab, setCurSearchTab] = React.useState("image");
 
-  const handleTabClick = React.useCallback((e) => {
+  const handleTabClick = React.useCallback(e => {
     const target = e.target;
     const value = target.getAttribute("data-value");
     setCurSearchTab(value);
