@@ -26,7 +26,6 @@ export function Header() {
   const setHeaderHeight = useSetRecoilState(headerHeightState);
 
   const pathName = location.pathname;
-  console.log(location);
   const navigate = useNavigate();
   const handleMenu = () => {
     setVisible(!visible);

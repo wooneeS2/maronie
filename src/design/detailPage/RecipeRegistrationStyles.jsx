@@ -6,22 +6,10 @@ import { mainOrange } from "../colorPalette";
 
 export const RecipeInputStyle = muiStyled(TextField)({
   width: "60%",
+  marginTop: "10px",
   margin: "0 auto",
   padding: "10px",
 });
-
-export const RecipeInput = () => {
-  return (
-    <RecipeInputStyle
-      id="filled-multiline-static"
-      label=""
-      multiline
-      rows={4}
-      variant="filled"
-      placeholder="레시피를 입력해주세요."
-    />
-  );
-};
 
 export const CloseIcon = styled.span`
   margin-left: 10px;

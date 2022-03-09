@@ -10,14 +10,16 @@ import {
   CloseIcon,
 } from "../../../design/detailPage/RecipeRegistrationStyles";
 
-function AddCocktailPhoto() {
+function AddCocktailPhoto({ passImage }) {
   const [picture, setPicture] = useState(null);
 
   const resetPicture = e => {
     setPicture(null);
+    passImage(null);
   };
   const onChangePicture = e => {
     setPicture(URL.createObjectURL(e.target.files[0]));
+    passImage(e.target.files[0]);
   };
   return (
     <>
