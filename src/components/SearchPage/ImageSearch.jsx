@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { imageState } from "../../data/state";
+import { searchImageState, resultImageState } from "../../data/state";
 import { useNavigate } from "react-router";
 import {
   DragFileSpace,
@@ -10,34 +10,54 @@ import {
   SearchDescription,
   SearchTitle,
 } from "../../design/SearchPage/SearchPageStyles";
-import { FlexRowCenterBox } from "../../design/commonStyles";
 import { FaWineBottle, FaCocktail } from "react-icons/fa";
 
 function ImageSearch() {
   const navigate = useNavigate();
   const [isDragging, setIsDragging] = React.useState(false);
   const dragRef = React.useRef(null);
-  const [uploadedFile, setUploadedFile] = useRecoilState(imageState);
+  const [searchImage, setSearchImage] = useRecoilState(searchImageState);
+  const [resultImage, setResultImage] = useRecoilState(resultImageState);
   const extensionList = ["jpg", "jpeg", "png", "bmp"];
-  const handleUploadedFile = (e) => {
-    // let file;
-    let formData = new FormData();
+
+  const handleUploadedFile = async (e) => {
+    let file = "";
+    let uploadedImage = new FormData();
     if (e.type === "drop") {
-      formData.append(e.dataTransfer.files[0].name, e.dataTransfer.files[0]);
-      // setUploadedFile(e.dataTransfer.files[0]);
-      // file = e.dataTransfer.files[0];
+      uploadedImage.append("file", e.dataTransfer.files[0]);
+      file = e.dataTransfer.files[0];
     } else {
-      formData.append(e.target.files[0].name, e.target.files[0]);
-      // setUploadedFile(e.target.files[0]);
-      // file = e.target.files[0];
+      uploadedImage.append("file", e.target.files[0]);
+      file = e.target.files[0];
     }
-    for (let i of formData) {
-      console.log(i);
-    }
-    // if (file) {
-    //   sessionStorage.setItem("image", file);
-    //   navigate(`/image-search-result`);
-    // }
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+
+    //이미지 인코딩 for 세션스토리지 저장
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if (base64) {
+        setSearchImage(base64.toString());
+      }
+    };
+
+    const result = await axios
+      .post(
+        process.env.REACT_APP_DB_HOST + `search/file-upload`,
+        uploadedImage,
+        config
+      )
+      .then((res) => res.data)
+      .catch(() => null);
+
+    setResultImage(result);
+    navigate(`/image-search-result`);
   };
 
   const handleDragIn = React.useCallback((e) => {

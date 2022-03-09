@@ -13,7 +13,7 @@ import {
   TextSearchResultImage,
   FlexRightBox,
 } from "../design/SearchResultPage/TextSearchResultPageStyles";
-import NoSearchResult from "../components/SearchResultPage/NoSearchResult";
+import NoTextSearchResult from "../components/SearchResultPage/NoTextSearchResult";
 import {
   FlexColumnCenterBox,
   TableItem,
@@ -41,7 +41,9 @@ function TextSearchResultPage() {
   React.useEffect(() => {
     const call = async () => {
       const response = await axios
-        .get(process.env.REACT_APP_DB_HOST + `search=${searchKeyword}`)
+        .get(process.env.REACT_APP_DB_HOST + `search`, {
+          params: { keyword: searchKeyword },
+        })
         .then((res) => res.data);
       setSearchResult(response);
     };
@@ -50,7 +52,7 @@ function TextSearchResultPage() {
 
   return (
     <>
-      <TextSearchInput />
+      <TextSearchInput haveMargin="80px" />
       <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
 
       {currentTab === "liquor" ? (
@@ -93,7 +95,7 @@ function TextSearchResultPage() {
             ))}
           </TextSearchResultWrapper>
         ) : (
-          <NoSearchResult currentTab={currentTab} />
+          <NoTextSearchResult currentTab={currentTab} />
         )
       ) : searchResult[currentTab]?.length > 0 ? (
         <TextSearchResultWrapper className="contentArea">
@@ -132,7 +134,7 @@ function TextSearchResultPage() {
           ))}
         </TextSearchResultWrapper>
       ) : (
-        <NoSearchResult currentTab={currentTab} />
+        <NoTextSearchResult currentTab={currentTab} />
       )}
     </>
   );
