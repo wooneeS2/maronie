@@ -47,7 +47,8 @@ function SignUpPage() {
         return 3;
       }
       const response = await axios.get(
-        process.env.REACT_APP_DB_HOST + `auth/register/email=${email}`
+        process.env.REACT_APP_DB_HOST +
+          `auth/register/check_email?email=${email}`
       );
       //valid email(1)
       if (response.data.message === "Available email") {
@@ -75,7 +76,8 @@ function SignUpPage() {
         return 2;
       }
       const response = await axios.get(
-        process.env.REACT_APP_DB_HOST + `auth/register/nickname=${nickname}`
+        process.env.REACT_APP_DB_HOST +
+          `auth/register/check_nickname?nickname=${nickname}`
       );
       //valid nickname(1)
       if (response.data.message === "Available nickname") {

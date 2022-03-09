@@ -16,7 +16,7 @@ function SignInPage() {
   const [user, setUser] = useRecoilState(userState);
   const handleSubmitSignIn = () => {
     axios
-      .post(process.env.REACT_APP_DB_HOST + "/auth/login", {
+      .post(process.env.REACT_APP_DB_HOST + "auth/login", {
         email,
         password,
       })
@@ -36,7 +36,6 @@ function SignInPage() {
           alert("아이디 또는 비밀번호를 확인해주세요");
         }
       });
-    console.log(user);
   };
   return (
     <FlexColumnCenterBox>
@@ -52,6 +51,7 @@ function SignInPage() {
         label="비밀번호"
         autoComplete="off"
         margin="normal"
+        type="password"
       />
       <SubmitButton type="submit" onClick={() => handleSubmitSignIn()}>
         Sign in

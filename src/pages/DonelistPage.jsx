@@ -9,41 +9,46 @@ function DonelistPage() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [user, setUser] = useRecoilState(userState);
   const [currentTab, setCurrentTab] = React.useState("liquor");
-  const [comment, setComment] = React.useState("");
-  const [donelistData, setDonelistData] = React.useState({
-    liquor: [],
-    cocktail: [],
-  });
+  const [countComment, setCountComment] = React.useState("");
+  const [donelistData, setDonelistData] = React.useState({});
 
   React.useEffect(() => {
     setIsLoading(true);
     const call = async () => {
-      setIsLoading(true);
-      await axios
-        .get(process.env.REACT_APP_DB_HOST + `Mypage/donelist=${user["id"]}`)
-        .then((res) => setDonelistData(res.data))
-        .then(() =>
-          setComment(
-            DonelistComment(donelistData[currentTab].length, currentTab)
-          )
-        );
+      const response = await axios
+        .get(process.env.REACT_APP_DB_HOST + `mypage/donelist/${user["id"]}`)
+        .then((res) => res.data);
+      setDonelistData(response);
+      const commentResult = DonelistComment(
+        response[currentTab].length,
+        currentTab
+      );
+      setCountComment(commentResult);
+      setIsLoading(false);
     };
     call();
-    setIsLoading(false);
   }, []);
   return (
     <>
       {isLoading ? (
         // TODO 로딩중 컴포넌트 삽입 예정
-        <div>로딩중</div>
+        <>
+          <div>로딩중</div>
+          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>{" "}
+          <div>로딩중</div>
+        </>
       ) : (
         <>
           <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
           <div style={{ textAlign: "center" }}>
-            <h1>{donelistData[currentTab].length}</h1>
-            <p style={{ color: "gray" }}>{comment}</p>
+            <h1>{donelistData[currentTab]?.length}</h1>
+            <p style={{ color: "gray" }}>{countComment}</p>
           </div>
-          <WishItems obj={donelistData[currentTab]} currentTab={currentTab} />
+          <WishItems
+            list={donelistData[currentTab] || []}
+            currentTab={currentTab}
+            page="donelist"
+          />
         </>
       )}
     </>

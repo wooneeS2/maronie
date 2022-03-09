@@ -1,7 +1,8 @@
 export const DonelistComment = (count, currentTab) => {
   const liquorSum = 12;
   const cocktailSum = 4;
-  if (count === 0) return "";
+  console.log(count + "!");
+  if (count === 0) return "왜 안먹어써";
   if (count % 9 === 0) return `한 종류만 더 마셔보면 ${count + 1}개 달성😆`;
   else if (currentTab === "liquor") {
     if (count === liquorSum)
@@ -14,5 +15,4 @@ export const DonelistComment = (count, currentTab) => {
     else if (count >= cocktailSum / 2) return `벌써 이만큼이나 마셔봤어요🍸`;
     else return `나만의 취향을 발견해가는 중이에요!👀`;
   }
-  return "";
 };

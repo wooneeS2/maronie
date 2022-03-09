@@ -11,16 +11,13 @@ function MyReviewPage() {
   const [reviewData, setReviewData] = React.useState({});
 
   React.useEffect(() => {
+    setIsLoading(true);
     const call = async () => {
-      setIsLoading(true);
       const response = await axios
-        .get(
-          process.env.REACT_APP_DB_HOST + `Mypage/review/user_id=${user["id"]}`
-        )
+        .get(process.env.REACT_APP_DB_HOST + `mypage/review/${user["id"]}`)
         .then((res) => res.data);
-      // TODO 백엔드에서 수정해주실지 확인
-      console.log(response);
       setReviewData(response);
+      console.log(response);
       setIsLoading(false);
     };
     call();
@@ -28,12 +25,15 @@ function MyReviewPage() {
   return (
     <>
       {isLoading ? (
-        <div>로딩중</div>
+        <>
+          <div>로딩중</div>
+          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>
+          <div>로딩중</div>
+        </>
       ) : (
         <>
-          <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
           <div>
-            <ReviewItems currentTab={currentTab} obj={reviewData[currentTab]} />
+            <ReviewItems list={reviewData} />
           </div>
         </>
       )}
