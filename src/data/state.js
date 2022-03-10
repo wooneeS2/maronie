@@ -3,7 +3,7 @@ export const sessionStorageEffect =
   (key) =>
   ({ setSelf, onSet }) => {
     const savedValue = sessionStorage.getItem(key);
-    if (savedValue != null) {
+    if (savedValue !== null) {
       setSelf(JSON.parse(savedValue));
     }
 
@@ -13,7 +13,6 @@ export const sessionStorageEffect =
         : sessionStorage.setItem(key, JSON.stringify(newValue));
     });
   };
-
 export const searchImageState = atom({
   key: "searchImage",
   default: null,
@@ -29,4 +28,9 @@ export const resultImageState = atom({
 export const headerHeightState = atom({
   key: "headerHeight",
   default: 0,
+});
+export const userState = atom({
+  key: "userState",
+  default: {},
+  effects: [sessionStorageEffect("userInfo")],
 });
