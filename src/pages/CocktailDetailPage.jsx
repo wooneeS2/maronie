@@ -13,7 +13,6 @@ function CocktailDetailPage() {
       if (cocktailId) {
         const data = await getCocktailInformation(cocktailId);
         setCocktails(data);
-        console.log(data);
       }
     };
 

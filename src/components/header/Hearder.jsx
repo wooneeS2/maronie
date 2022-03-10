@@ -23,6 +23,8 @@ const path = {
   "/mypage/donelist": "마셔봤어요",
   "/mypage/review": "내가 작성한 리뷰",
   "/mypage/recipe": "내가 작성한 레시피",
+  "/liquor/": "술 상세 페이지",
+  "/cocktail/": "칵테일 상세 페이지",
   etc: "",
 };
 
@@ -31,8 +33,8 @@ export function Header() {
   const [visible, setVisible] = useState(false);
   const headerRef = React.useRef(null);
   const setHeaderHeight = useSetRecoilState(headerHeightState);
-
   const pathName = location.pathname;
+
   const navigate = useNavigate();
   const handleMenu = () => {
     setVisible(!visible);
@@ -74,23 +76,19 @@ export function Header() {
             <GrHomeRounded />
           </Link>
         </HeaderButton>
-        <MenuComponent
-          handleMenu={handleMenu}
-          visible={visible}
-          isLogin={true}
-        />
+        <MenuComponent handleMenu={handleMenu} visible={visible} />
       </div>
     </HeaderDiv>
   );
 }
 
-const MenuComponent = ({ handleMenu, visible, isLogin }) => {
+const MenuComponent = ({ handleMenu, visible }) => {
   return (
     <>
       <HeaderButton onClick={handleMenu}>
         <GrMenu />
       </HeaderButton>
-      <MenuList isLogin={isLogin} visible={visible} />
+      <MenuList visible={visible} />
     </>
   );
 };

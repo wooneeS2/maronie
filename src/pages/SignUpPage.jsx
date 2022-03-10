@@ -143,7 +143,6 @@ function SignUpPage() {
         signUpInputValues["password2"]
       ),
     ]).then(values => {
-      console.log(values);
       if (values.filter(item => item === 1).length === 4) {
         axios
           .post(process.env.REACT_APP_DB_HOST + "auth/register", {

@@ -23,8 +23,7 @@ function SignInPage() {
       .then(res => {
         setUser(() => res.data);
         alert(res.data.nickname + "님! 안녕하세요 :)");
-        // TODO: 이전 페이지 주소 가져와서 그곳으로 이동 or 인트로 페이지
-        navigate("/");
+        navigate("/search");
       })
       .catch(e => {
         let errorMsg = e.response.data.message;
