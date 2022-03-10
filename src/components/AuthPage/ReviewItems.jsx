@@ -18,13 +18,13 @@ function ReviewItems({ list }) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [user, setUser] = useRecoilState(userState);
 
-  const handleDelete = async (e, liquorId) => {
+  const handleDelete = async (e, reviewId) => {
     e.stopPropagation();
     if (window.confirm("정말 삭제하시겠습니까?")) {
       await axios
         .delete(
           process.env.REACT_APP_DB_HOST +
-            `review/delete/${user["id"]}/cocktail/${liquorId}`
+            `review/delete/${reviewId}/user/${user["id"]}`
         )
         .then(() => alert("삭제 성공!"))
         .catch(() => alert("오류가 발생했습니다, 잠시후에 다시 시도해주세요!"));
@@ -46,7 +46,7 @@ function ReviewItems({ list }) {
                   size={20}
                   style={{ padding: "5px" }}
                   onClick={(e) => {
-                    handleEdit(e, item["liquor_id"]);
+                    handleEdit(e, item["review_id"]);
                   }}
                 />
                 <IoTrashOutline

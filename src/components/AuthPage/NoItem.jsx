@@ -24,9 +24,9 @@ function NoItem({ page }) {
       comment = "결과가 없습니다";
   }
   return (
-    <FlexColumnCenterBox>
-      <p>{emoji}</p>
-      <p>{comment}</p>
+    <FlexColumnCenterBox style={{ height: "50vh" }}>
+      <p style={{ fontSize: "100px", margin: 0 }}>{emoji}</p>
+      <p style={{ fontWeight: "700", fontSize: "1.2rem" }}>{comment}</p>
     </FlexColumnCenterBox>
   );
 }

@@ -16,7 +16,6 @@ function MyReviewPage() {
         .get(process.env.REACT_APP_DB_HOST + `mypage/review/${user["id"]}`)
         .then((res) => res.data);
       setReviewData(response);
-      console.log(response);
       setIsLoading(false);
     };
     call();
