@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { styled as muiStyled } from "@mui/material/styles";
 import { TextField, Chip } from "@mui/material";
-import { mainOrange } from "../colorPalette";
+import { mainOrange, mainRed } from "../colorPalette";
 
 export const RecipeInputStyle = muiStyled(TextField)({
   width: "60%",
@@ -10,6 +10,19 @@ export const RecipeInputStyle = muiStyled(TextField)({
   margin: "0 auto",
   padding: "10px",
 });
+
+export const RecipeInput = () => {
+  return (
+    <RecipeInputStyle
+      id="filled-multiline-static"
+      label=""
+      multiline
+      rows={4}
+      variant="filled"
+      placeholder="레시피를 입력해주세요."
+    />
+  );
+};
 
 export const CloseIcon = styled.span`
   margin-left: 10px;
@@ -48,6 +61,12 @@ export const AddItemStyle = {
   fontWeight: "bold",
   marginLeft: "0.5rem",
   color: `${mainOrange}`,
+};
+export const MinusItemStyle = {
+  fontSize: "2rem",
+  fontWeight: "bold",
+  marginLeft: "0.5rem",
+  color: `${mainRed}`,
 };
 
 export const MuiInputStyle = {

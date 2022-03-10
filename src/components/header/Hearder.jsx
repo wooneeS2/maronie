@@ -16,6 +16,13 @@ const path = {
   "/search": "술 검색",
   "/cocktail/register": "칵테일 레시피 추가하기",
   "/liquor/create/review": "리뷰 작성",
+  "/signup": "회원가입",
+  "/signin": "로그인",
+  "/mypage": "마이페이지",
+  "/mypage/wishlist": "즐겨찾기",
+  "/mypage/donelist": "마셔봤어요",
+  "/mypage/review": "내가 작성한 리뷰",
+  "/mypage/recipe": "내가 작성한 레시피",
   etc: "",
 };
 
