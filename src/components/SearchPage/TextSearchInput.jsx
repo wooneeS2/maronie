@@ -1,10 +1,13 @@
 import React from "react";
-import { StyledTextField } from "../../design/SearchPage/SearchPageStyles";
+import {
+  StyledTextField,
+  TextInputWrapper,
+} from "../../design/SearchPage/SearchPageStyles";
 import { InputAdornment } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
-function TextSearchInput() {
+function TextSearchInput({ haveMargin }) {
   const navigate = useNavigate();
   const params = useParams();
   const searchKeyword = params.keyword;
@@ -20,13 +23,7 @@ function TextSearchInput() {
   };
 
   return (
-    <div
-      style={{
-        display: "block",
-        justifyContent: "center",
-        textAlign: "center",
-      }}
-    >
+    <TextInputWrapper haveMargin={haveMargin}>
       <StyledTextField
         value={textSearchValue}
         onChange={(e) => setTextSearchValue(e.target.value)}
@@ -59,7 +56,7 @@ function TextSearchInput() {
           ),
         }}
       />
-    </div>
+    </TextInputWrapper>
   );
 }
 export default TextSearchInput;

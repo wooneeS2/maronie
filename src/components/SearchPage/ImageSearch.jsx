@@ -1,6 +1,7 @@
 import React from "react";
+import axios from "axios";
 import { useRecoilState } from "recoil";
-import { imageState } from "../../data/state";
+import { searchImageState, resultImageState } from "../../data/state";
 import { useNavigate } from "react-router";
 import {
   DragFileSpace,
@@ -9,29 +10,54 @@ import {
   SearchDescription,
   SearchTitle,
 } from "../../design/SearchPage/SearchPageStyles";
-import { FlexRowCenterBox } from "../../design/commonStyles";
 import { FaWineBottle, FaCocktail } from "react-icons/fa";
 
 function ImageSearch() {
   const navigate = useNavigate();
   const [isDragging, setIsDragging] = React.useState(false);
   const dragRef = React.useRef(null);
-  const [uploadedFile, setUploadedFile] = useRecoilState(imageState);
+  const [searchImage, setSearchImage] = useRecoilState(searchImageState);
+  const [resultImage, setResultImage] = useRecoilState(resultImageState);
   const extensionList = ["jpg", "jpeg", "png", "bmp"];
-  const handleUploadedFile = (e) => {
-    let file;
+
+  const handleUploadedFile = async (e) => {
+    let file = "";
+    let uploadedImage = new FormData();
     if (e.type === "drop") {
-      setUploadedFile(e.dataTransfer.files[0]);
+      uploadedImage.append("file", e.dataTransfer.files[0]);
       file = e.dataTransfer.files[0];
     } else {
-      setUploadedFile(e.target.files[0]);
+      uploadedImage.append("file", e.target.files[0]);
       file = e.target.files[0];
     }
 
-    if (file) {
-      sessionStorage.setItem("image", file);
-      navigate(`/image-search-result`);
-    }
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+
+    //이미지 인코딩 for 세션스토리지 저장
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if (base64) {
+        setSearchImage(base64.toString());
+      }
+    };
+
+    const result = await axios
+      .post(
+        process.env.REACT_APP_DB_HOST + `search/file-upload`,
+        uploadedImage,
+        config
+      )
+      .then((res) => res.data)
+      .catch(() => null);
+
+    setResultImage(result);
+    navigate(`/image-search-result`);
   };
 
   const handleDragIn = React.useCallback((e) => {
@@ -83,7 +109,6 @@ function ImageSearch() {
   React.useEffect(() => {
     initDragEvents();
   }, [initDragEvents]);
-
   return (
     <>
       <DragFileSpace isDragging={isDragging} ref={dragRef}>
@@ -110,6 +135,7 @@ function ImageSearch() {
           갤러리에서 사진을 선택하거나, 직접 촬영해서 검색해보세요! 한 번에 한
           장씩, 이미지 파일만 검색 가능합니다 🔍
         </SearchDescription>
+
         <FileUploadButton htmlFor="imageUpload">
           사진 선택하기
           <input

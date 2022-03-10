@@ -30,7 +30,7 @@ export const FlexRightBox = styled.div`
   justify-content: center;
   margin-left: auto;
 `;
-export const NoResultWrapper = styled(FlexColumnCenterBox)`
+export const NoTextResultWrapper = styled(FlexColumnCenterBox)`
   margin: 8%;
 `;
 export const BetterSearchResultItem = styled.li`

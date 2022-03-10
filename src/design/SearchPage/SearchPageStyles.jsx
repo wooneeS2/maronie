@@ -102,3 +102,9 @@ export const SearchHistoryDeleteButton = styled.button`
 export const StyledTextField = styled(TextField)`
   width: 85%;
 `;
+export const TextInputWrapper = styled.div`
+  display: block;
+  justify-content: center;
+  text-align: center;
+  margin-top: ${(props) => props.haveMargin || "0px"};
+`;

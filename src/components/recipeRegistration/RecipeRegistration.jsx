@@ -186,7 +186,7 @@ function RecipeRegistration({ userId }) {
         <Input
           id="input-with-icon-adornment"
           sx={MuiInputStyle}
-          placeholder={"재료를 입력하고  + 버튼을 눌러주세요."}
+          placeholder={"재료를 입력하고 + 버튼을 눌러주세요."}
           value={ingredient}
           onChange={e => {
             setIngredient(e.target.value);

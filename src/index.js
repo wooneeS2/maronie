@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+// 원래 main 컬러 ->  "#E55132" (확인때문에 임시로 바꿨어요!)
 const theme = createTheme({
   palette: {
     primary: {

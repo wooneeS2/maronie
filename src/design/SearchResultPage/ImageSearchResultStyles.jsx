@@ -12,3 +12,6 @@ export const ImageResultWrapper = styled(FlexColumnCenterBox)`
   align-items: center;
   height: 100vh;
 `;
+export const NoImageResultWrapper = styled(FlexColumnCenterBox)`
+  margin: 30% 10%;
+`;
