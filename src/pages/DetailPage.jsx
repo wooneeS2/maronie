@@ -56,7 +56,7 @@ export function DetailPage() {
     <>
       {liquorInfo ? (
         <>
-          <LiquorInformation liquor={liquorInfo} />
+          <LiquorInformation liquor={liquorInfo} liquorId={liquorId.item} />
           <ParingInformation parings={paringInfo} />
           <CocktailImformation cocktails={cocktailInfo} />
           <LiquorReview

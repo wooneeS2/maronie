@@ -17,7 +17,7 @@ import CocktailLevel from "../detailPage/widget/CocktailLevel";
 import { LevelGuideTooltip } from "../detailPage/widget/LevelGuideTooltip";
 import CircularProgress from "@mui/material/CircularProgress";
 
-function CocktailDetail({ cocktail }) {
+function CocktailDetail({ cocktail, cocktailId }) {
   const isIngredentsRecipeLengthOverZero = React.useMemo(() => {
     if (cocktail && cocktail.ingredients.length > 0 && cocktail.recipe.length) {
       return true;
@@ -45,9 +45,16 @@ function CocktailDetail({ cocktail }) {
           <span>도수 :{cocktail.alcohol}</span>
           <ItalicTitle>by @{cocktail.author}</ItalicTitle>
           <CenterAlignmentDiv style={{ width: "60%" }}>
-            {/* TODO 좋아요수, 마셔봤어요 수 추가 */}
-            <AddWishList value={cocktail.total_bookmark} />
-            <AddDoneList value={cocktail.total_done} />
+            <AddWishList
+              wishCount={cocktail.total_bookmark}
+              type="cocktail"
+              itemId={cocktailId}
+            />
+            <AddDoneList
+              doneCount={cocktail.total_done}
+              type="cocktail"
+              itemId={cocktailId}
+            />
           </CenterAlignmentDiv>
         </div>
 

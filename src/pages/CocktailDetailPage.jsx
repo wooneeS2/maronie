@@ -13,13 +13,14 @@ function CocktailDetailPage() {
       if (cocktailId) {
         const data = await getCocktailInformation(cocktailId);
         setCocktails(data);
+        console.log(data);
       }
     };
 
     getInfo();
   }, []);
 
-  return <CocktailDetail cocktail={cocktails} />;
+  return <CocktailDetail cocktail={cocktails} cocktailId={cocktailId} />;
 }
 
 export default CocktailDetailPage;

@@ -33,7 +33,7 @@ const liquorClassification = {
 };
 
 //TODO 유저 상태에 따라 버튼 표시 다르게하기
-export function LiquorInformation({ liquor }) {
+export function LiquorInformation({ liquor, liquorId }) {
   let liquorRating = Math.round(parseFloat(liquor.rating));
   return (
     <>
@@ -67,8 +67,16 @@ export function LiquorInformation({ liquor }) {
           )}
         </RatingBox>
         <ImgWrapper style={{ flexDirection: "column", marginBottom: "1rem" }}>
-          <AddWishList value={liquor.total_bookmark} />
-          <AddDoneList value={liquor.total_done} />
+          <AddWishList
+            wishCount={liquor.total_bookmark}
+            type="liquor"
+            itemId={liquorId}
+          />
+          <AddDoneList
+            doneCount={liquor.total_bookmark}
+            type="liquor"
+            itemId={liquorId}
+          />
           <AddRecipeButton userId={4} />
         </ImgWrapper>
       </ColumnDiv>

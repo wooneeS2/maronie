@@ -15,6 +15,8 @@ import { ReviewRating } from "../detailPage/widget/ReviewRating";
 import ratingLabels from "../../data/ratingLabels";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userState } from "data/state";
 
 const url = process.env.REACT_APP_DB_HOST;
 
@@ -22,12 +24,13 @@ function ReviewRegistration({ liquorImage, liqourName, liquorId }) {
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
   const [reviewContent, setReviewContent] = React.useState("");
+  const [user, setUser] = useRecoilState(userState);
   const navigate = useNavigate();
 
   const postReview = async () => {
     try {
       const patch = await axios.post(`${url}review/create`, {
-        user_id: 4,
+        user_id: user.id,
         liquor_id: liquorId,
         rating: value,
         content: reviewContent,

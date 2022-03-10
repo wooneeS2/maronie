@@ -19,7 +19,8 @@ import { Input } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
-
+import { useRecoilState } from "recoil";
+import { userState } from "data/state";
 const marks = [
   {
     value: 1,
@@ -37,8 +38,10 @@ const marks = [
 
 const url = process.env.REACT_APP_DB_HOST;
 
-function RecipeRegistration({ userId }) {
+function RecipeRegistration() {
   const [step, setStep] = useState([]);
+  const [user, setUser] = useRecoilState(userState);
+
   const addStep = () => {
     setStep(step => [
       ...step,
@@ -101,7 +104,7 @@ function RecipeRegistration({ userId }) {
 
   const createFormData = () => {
     formData.append("file", cocktailImage);
-    formData.append("author_id", userId);
+    formData.append("author_id", user.id);
     formData.append("cocktail_name", cocktailInfo.cocktail_name);
     formData.append("cocktail_name_kor", cocktailInfo.cocktail_name_kor);
     formData.append("classification_id", cocktailInfo.classification_id);
