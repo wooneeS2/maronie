@@ -27,21 +27,29 @@ const menuList = [
   },
   {
     label: "Log Out",
-    path: "",
+    path: "logout",
   },
 ];
 export default function MenuList({ visible }) {
-  const [user, setUser] = useRecoilState(userState);
-  //TODO 로그인 로그아웃 버튼 수정...
-  //TODO 로그아웃 기능 만들기
+  const [user] = useRecoilState(userState);
+  const [isLogin, setIsLogin] = React.useState(false);
+  React.useEffect(() => {
+    if (user === null) {
+      return setIsLogin(false);
+    }
+    if (user !== null) {
+      return setIsLogin(true);
+    }
+  }, [user]);
+
   return (
     <>
       <OpenMenu>
         {visible && (
           <MenuBtn>
-            {(user === true
-              ? menuList.filter(x => x.label !== "Log Out")
-              : menuList.filter(x => x.label !== "Log In")
+            {(isLogin === true
+              ? menuList.filter(x => x.label !== "Log In")
+              : menuList.filter(x => x.label !== "Log Out")
             ).map(x => {
               return (
                 <EachMenuBtn key={x.id + x.label}>
