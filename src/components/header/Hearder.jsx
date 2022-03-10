@@ -15,6 +15,7 @@ import {
 
 const path = {
   "/": "마로니에",
+  "/signup": "회원가입",
   "/liquor": "상세 정보",
   "/search": "술 검색",
   "/cocktail/register": "칵테일 레시피 추가하기",
