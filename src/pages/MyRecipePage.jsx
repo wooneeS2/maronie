@@ -32,7 +32,7 @@ function MyRecipePage() {
           <div>로딩중</div>
         </>
       ) : (
-        <RecipeItems list={recipeData} />
+        <RecipeItems recipeData={recipeData} />
       )}
     </>
   );

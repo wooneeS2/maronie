@@ -28,7 +28,6 @@ function DonelistPage() {
     };
     call();
   }, []);
-  console.log(donelistData["cocktail"]);
   return (
     <>
       {isLoading ? (
@@ -45,11 +44,7 @@ function DonelistPage() {
             <h1>{donelistData[currentTab]?.length}</h1>
             <p style={{ color: "gray" }}>{countComment}</p>
           </div>
-          <DoneItems
-            currentItems={donelistData[currentTab]}
-            currentTab={currentTab}
-            page="donelist"
-          />
+          <DoneItems currentTab={currentTab} donelistData={donelistData} />
         </>
       )}
     </>

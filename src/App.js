@@ -64,6 +64,10 @@ function App() {
               path="/mypage/review/edit/:reviewId"
               element={<ReviewEditPage />}
             />
+            <Route
+              path="/mypage/recipe/edit/:cocktailId"
+              element={<RecipeEditPage />}
+            />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
