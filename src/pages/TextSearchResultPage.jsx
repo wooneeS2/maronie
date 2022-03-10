@@ -25,6 +25,7 @@ function TextSearchResultPage() {
   const searchKeyword = params.keyword;
   const [currentTab, setCurrentTab] = React.useState("liquor");
   const [searchResult, setSearchResult] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
   React.useEffect(() => {
     /**
      * 검색 텍스트 초기화
@@ -39,102 +40,119 @@ function TextSearchResultPage() {
     );
   });
   React.useEffect(() => {
+    setIsLoading(true);
     const call = async () => {
       const response = await axios
         .get(process.env.REACT_APP_DB_HOST + `search`, {
           params: { keyword: searchKeyword },
         })
         .then((res) => res.data);
-      setSearchResult(response);
+      setSearchResult(() => response);
+      setIsLoading(false);
     };
     call();
   }, [searchKeyword]);
-
   return (
     <>
-      <TextSearchInput haveMargin="80px" />
-      <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
-
-      {currentTab === "liquor" ? (
-        searchResult[currentTab]?.length > 0 ? (
-          <TextSearchResultWrapper className="contentArea">
-            {searchResult[currentTab].map((item, idx) => (
-              <StyledLink
-                to={`/liquor/${item["liquor_id"]}`}
-                key={`liquor-${idx}`}
-              >
-                <TableItem>
-                  {
-                    <TextSearchResultImage
-                      src={item["image_path"]}
-                      alt={`${item["liquor_name"]} 이미지`}
-                    />
-                  }
-                  <FlexColumnCenterBox>
-                    <div>
-                      <TextResultItemTitle>
-                        {item["liquor_name_kor"]}
-                      </TextResultItemTitle>
-                      <TextReusltItemSubtitle>
-                        {item["liquor_name"]}
-                      </TextReusltItemSubtitle>
-                    </div>
-                    <TextResultItemPrice>{item["price"]}원</TextResultItemPrice>
-                    <TextResultItemDescription>
-                      {item["description"].length > 100
-                        ? item["description"].substring(0, 100) + "..."
-                        : item["description"]}
-                    </TextResultItemDescription>
-                    <Rating value={item["rating"]} readOnly precision={0.5} />
-                  </FlexColumnCenterBox>
-                  <FlexRightBox>
-                    <AiOutlineRight size={20} />
-                  </FlexRightBox>
-                </TableItem>
-              </StyledLink>
-            ))}
-          </TextSearchResultWrapper>
-        ) : (
-          <NoTextSearchResult currentTab={currentTab} />
-        )
-      ) : searchResult[currentTab]?.length > 0 ? (
-        <TextSearchResultWrapper className="contentArea">
-          {searchResult[currentTab].map((item, idx) => (
-            <StyledLink
-              to={`/cocktail/${item["cocktail_id"]}`}
-              key={`cocktail-${idx}`}
-            >
-              <TableItem>
-                {
-                  <TextSearchResultImage
-                    src={item["image_path"]}
-                    alt={`${item["cocktail_name"]} 이미지`}
-                  />
-                }
-                <FlexColumnCenterBox>
-                  <div>
-                    <TextResultItemTitle>
-                      {item["cocktail_name_kor"]}
-                    </TextResultItemTitle>
-                    <TextReusltItemSubtitle>
-                      {item["cocktail_name"]}
-                    </TextReusltItemSubtitle>
-                  </div>
-                  <TextResultItemDescription>
-                    {item["description"].length > 100
-                      ? item["description"].substring(0, 100) + "..."
-                      : item["description"]}
-                  </TextResultItemDescription>
-                </FlexColumnCenterBox>
-                <FlexRightBox>
-                  <AiOutlineRight size={20} />
-                </FlexRightBox>
-              </TableItem>
-            </StyledLink>
-          ))}
-        </TextSearchResultWrapper>
+      {isLoading ? (
+        <>
+          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>{" "}
+          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>{" "}
+          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>
+        </>
       ) : (
-        <NoTextSearchResult currentTab={currentTab} />
+        <>
+          <TextSearchInput haveMargin="80px" />
+          <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
+
+          {currentTab === "liquor" ? (
+            searchResult[currentTab]?.length > 0 ? (
+              <TextSearchResultWrapper className="contentArea">
+                {searchResult[currentTab].map((item, idx) => (
+                  <StyledLink
+                    to={`/liquor/${item["liquor_id"]}`}
+                    key={`liquor-${idx}`}
+                  >
+                    <TableItem>
+                      {
+                        <TextSearchResultImage
+                          src={item["image_path"]}
+                          alt={`${item["liquor_name"]} 이미지`}
+                        />
+                      }
+                      <FlexColumnCenterBox>
+                        <div>
+                          <TextResultItemTitle>
+                            {item["liquor_name_kor"]}
+                          </TextResultItemTitle>
+                          <TextReusltItemSubtitle>
+                            {item["liquor_name"]}
+                          </TextReusltItemSubtitle>
+                        </div>
+                        <TextResultItemPrice>
+                          {item["price"]}원
+                        </TextResultItemPrice>
+                        <TextResultItemDescription>
+                          {item["description"].length > 100
+                            ? item["description"].substring(0, 100) + "..."
+                            : item["description"]}
+                        </TextResultItemDescription>
+                        <Rating
+                          value={item["rating"]}
+                          readOnly
+                          precision={0.5}
+                        />
+                      </FlexColumnCenterBox>
+                      <FlexRightBox>
+                        <AiOutlineRight size={20} />
+                      </FlexRightBox>
+                    </TableItem>
+                  </StyledLink>
+                ))}
+              </TextSearchResultWrapper>
+            ) : (
+              <NoTextSearchResult currentTab={currentTab} />
+            )
+          ) : searchResult[currentTab]?.length > 0 ? (
+            <TextSearchResultWrapper className="contentArea">
+              {searchResult[currentTab].map((item, idx) => (
+                <StyledLink
+                  to={`/cocktail/${item["cocktail_id"]}`}
+                  key={`cocktail-${idx}`}
+                >
+                  <TableItem>
+                    {
+                      <TextSearchResultImage
+                        src={item["image_path"]}
+                        alt={`${item["cocktail_name"]} 이미지`}
+                      />
+                    }
+                    <FlexColumnCenterBox>
+                      <div>
+                        <TextResultItemTitle>
+                          {item["cocktail_name_kor"]}
+                        </TextResultItemTitle>
+                        <TextReusltItemSubtitle>
+                          {item["cocktail_name"]}
+                        </TextReusltItemSubtitle>
+                      </div>
+                      <TextResultItemDescription>
+                        {item["description"].length > 100
+                          ? item["description"].substring(0, 100) + "..."
+                          : item["description"]}
+                      </TextResultItemDescription>
+                    </FlexColumnCenterBox>
+                    <FlexRightBox>
+                      <AiOutlineRight size={20} />
+                    </FlexRightBox>
+                  </TableItem>
+                </StyledLink>
+              ))}
+            </TextSearchResultWrapper>
+          ) : (
+            <NoTextSearchResult currentTab={currentTab} />
+          )}
+        </>
       )}
     </>
   );

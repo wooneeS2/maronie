@@ -12,6 +12,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { BsPencilSquare } from "react-icons/bs";
 import { IoTrashOutline, IoFlagSharp } from "react-icons/io5";
 import { Chip } from "@mui/material";
+import NoItem from "./NoItem";
 function RecipeItems({ list }) {
   const [user, setUser] = useRecoilState(userState);
   const [isOpen, setIsOpen] = React.useState([]);
@@ -143,6 +144,6 @@ function RecipeItems({ list }) {
         </RecipeItemsContainer>
       </>
     );
-  } else return <>에러</>;
+  } else return <NoItem />;
 }
 export default RecipeItems;

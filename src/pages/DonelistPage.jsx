@@ -45,7 +45,7 @@ function DonelistPage() {
             <p style={{ color: "gray" }}>{countComment}</p>
           </div>
           <WishItems
-            list={donelistData[currentTab] || []}
+            list2={donelistData[currentTab] || []}
             currentTab={currentTab}
             page="donelist"
           />

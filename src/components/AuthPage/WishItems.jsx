@@ -8,15 +8,17 @@ import {
   WishItemsImage,
 } from "../../design/AuthPage/WishlistPageStyles";
 import { StyledLink } from "../../design/commonStyles";
-function WishItems({ currentTab, list, page }) {
+function WishItems({ currentTab, list2, page }) {
   const [user, setUser] = useRecoilState(userState);
-  const handleDelete = async (e, id) => {
+  const [list, setList] = React.useState(list2);
+  console.log(list);
+  const handleDelete = async (e, cocktailId) => {
     e.stopPropagation();
     if (window.confirm("정말 삭제하시겠습니까?")) {
       await axios
         .delete(
           process.env.REACT_APP_DB_HOST +
-            `mypage/${page}/delete/${user["id"]}/${currentTab}/${id}`
+            `mypage/${page}/delete/${user["id"]}/${currentTab}/${cocktailId}`
         )
         .then(() => alert("삭제 성공!"))
         .catch(() => alert("오류가 발생했습니다, 잠시후에 다시 시도해주세요!"));
