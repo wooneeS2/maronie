@@ -3,5 +3,4 @@ export const searchRecommendKeywords = [
   "앱솔루트",
   "스미노프",
   "피치크러쉬",
-  "진토닉",
 ];

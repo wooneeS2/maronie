@@ -5,8 +5,9 @@ import {
   SearchTitle,
   Stack,
   SearchHistoryDeleteButton,
+  StyledChip,
 } from "../../design/SearchPage/SearchPageStyles";
-import { Chip } from "@mui/material";
+
 import TextSearchInput from "../../components/SearchPage/TextSearchInput";
 import { searchRecommendKeywords } from "../../data/searchRecommendKeyword";
 function TextSearch() {
@@ -42,15 +43,14 @@ function TextSearch() {
           양주와 칵테일 이름을 검색할 수 있어요!
         </SearchDescription>
         <TextSearchInput />
-        {/* TODO: 간격 수정하기 */}
 
         <h4>최근 검색어</h4>
         <Stack>
           {searchTextList.map((item, idx) => (
-            <Chip
+            <StyledChip
               key={`text-${idx}`}
               label={item}
-              size="small"
+              sx={{ padding: "5px", margin: "0 2px" }}
               variant="outlined"
               onDelete={() => handleDeleteSearchKeyword(idx)}
               onClick={() =>
@@ -70,11 +70,10 @@ function TextSearch() {
         <h4>추천 검색어</h4>
         <Stack>
           {searchRecommendKeywords.map((item, idx) => (
-            <Chip
+            <StyledChip
               component="a"
               key={`recommend-${idx}`}
               label={item}
-              size="small"
               variant="outlined"
               href={`/text-search-result/${item}`}
             />

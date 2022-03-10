@@ -1,7 +1,6 @@
 import React from "react";
 import ImageSearch from "../components/SearchPage/ImageSearch";
 import TextSearch from "../components/SearchPage/TextSearch";
-
 import {
   TabButton,
   TabComponent,
@@ -11,7 +10,7 @@ import { BsCardImage, BsChatTextFill, BsHash } from "react-icons/bs";
 function SearchPage() {
   const [curSearchTab, setCurSearchTab] = React.useState("image");
 
-  const handleTabClick = React.useCallback(e => {
+  const handleTabClick = React.useCallback((e) => {
     const target = e.target;
     const value = target.getAttribute("data-value");
     setCurSearchTab(value);
@@ -42,10 +41,10 @@ function SearchPage() {
           <BsChatTextFill size="20" />
           텍스트
         </TabButton>
-        <TabButton isSelected={curSearchTab === "theme"} data-value="theme">
+        {/* <TabButton isSelected={curSearchTab === "theme"} data-value="theme">
           <BsHash size="20" />
           테마
-        </TabButton>
+        </TabButton> */}
       </TabComponent>
 
       <SearchContentsWrapper className="contentArea">

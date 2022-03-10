@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { mainWhite } from "./colorPalette";
+import { mainWhite, mainBlack } from "./colorPalette";
 const GlobalStyles = createGlobalStyle`
   body {
     margin: 0 auto;

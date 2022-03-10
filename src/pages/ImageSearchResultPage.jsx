@@ -22,10 +22,8 @@ function ImageSearchResultPage() {
 
   const resetSearchResult = () => {
     resetSearchImage();
-    resetSearchResult();
+    resetResultImage();
   };
-  // console.log(searchImage);
-  console.log(resultImage);
   return (
     <>
       <ImageResultWrapper>
