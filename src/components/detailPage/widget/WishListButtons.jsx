@@ -1,8 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import { ButtonBox, ChipButton } from "design/detailPage/ButtonBox";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import LocalBarOutlinedIcon from "@mui/icons-material/LocalBarOutlined";
-import { Chip } from "@mui/material";
 import { RowDiv } from "../../../design/commonStyles";
 import { mainRed } from "../../../design/colorPalette";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -14,69 +13,37 @@ import { useRecoilState } from "recoil";
 import { userState } from "data/state";
 import { useNavigate } from "react-router-dom";
 
-export const ButtonBox = styled.button`
-  display: flex;
-  width: 100%;
-  min-width: 250px;
-  padding: 5px;
-  margin: 0 auto;
-  margin-top: 5px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  text-align: center;
-  justify-content: space-between;
-  border: 0;
-  outline: 0;
-  background-color: white;
-  span {
-    margin-left: 10px;
-  }
-  &:hover {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  }
-`;
-
-const ChipButton = ({ label, avatar }) => {
-  return <Chip label={label} variant="outlined" avatar={avatar} />;
-};
-
 const url = process.env.REACT_APP_DB_HOST;
 
 export const AddWishList = ({ wishCount, itemId, type }) => {
+  const [user] = useRecoilState(userState);
+  const userId = user ? user.id : 0;
   const navigate = useNavigate();
-  const [user, setUser] = useRecoilState(userState);
   const whatType = type === "liquor" ? "liquor" : "cocktail";
 
   const postData = {
-    user_id: user.id,
+    user_id: userId,
     [whatType + "_id"]: itemId,
   };
 
-  const deleteWishList = async () => {
+  const onClick = async () => {
+    if (userId === 0) {
+      navigate("/signin");
+    }
     try {
-      const deletewishList = await axios.delete(
-        `${url}/mypage/wishlist/delete/${user.id}/${whatType}/${itemId}`
+      const patch = await axios.post(
+        `${url}mypage/wishlist/create/${whatType}`,
+        postData
       );
-      if (deletewishList.status == 200) {
-        window.alert("즐겨찾기 해제되었습니다.");
+
+      if (patch.status === 201) {
+        window.alert("즐겨찾기에 등록되었습니다.");
+      }
+      if (patch.status === 200) {
+        window.alert("이미 즐겨찾기에 등록되었습니다.");
       }
     } catch (error) {
-      window.alert("즐겨찾기 해제 실패");
-    }
-  };
-
-  const onClick = async () => {
-    const patch = await axios
-      .post(`${url}mypage/wishlist/create/${whatType}`, postData)
-      .catch(function (error) {
-        console.log(error.response.status);
-        if (error.response.status == 409) {
-          console.log("중복");
-          deleteWishList();
-        }
-      });
-    if (patch.status === 201) {
-      window.alert("즐겨찾기에 등록되었습니다.");
+      window.alert("즐겨찾기 등록 실패");
     }
   };
   return (
@@ -95,44 +62,36 @@ export const AddWishList = ({ wishCount, itemId, type }) => {
 
 export const AddDoneList = ({ doneCount, itemId, type }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useRecoilState(userState);
+  const [user] = useRecoilState(userState);
+  const userId = user ? user.id : 0;
+
   const whatType = type === "liquor" ? "liquor" : "cocktail";
 
   const postData = {
-    user_id: user.id,
+    user_id: userId,
     [whatType + "_id"]: itemId,
   };
 
-  const deleteDoneList = async () => {
-    try {
-      const deleteDoneList = await axios.delete(
-        `${url}/mypage/donelist/delete/${user.id}/${whatType}/${itemId}`
-      );
-      if (deleteDoneList.status == 200) {
-        window.alert("마셔봤어요 해제되었습니다.");
-      }
-    } catch (error) {
-      window.alert("마셔봤어요 해제 실패");
-    }
-  };
-
   const onClick = async () => {
-    const patch = await axios
-      .post(`${url}mypage/donelist/create/${whatType}`, postData)
-      .catch(function (error) {
-        console.log(error.response.status);
-        if (error.response.status == 409) {
-          deleteDoneList();
-        }
-      });
+    if (userId === 0) {
+      navigate("/signin");
+    }
     try {
+      const patch = await axios.post(
+        `${url}mypage/donelist/create/${whatType}`,
+        postData
+      );
       if (patch.status === 201) {
         window.alert("마셔봤어요에 등록되었습니다.");
       }
+      if (patch.status === 200) {
+        window.alert("이미 마셔봤어요에 등록되었습니다.");
+      }
     } catch (error) {
-      console.log(error);
+      window.alert("마셔봤어요 등록 실패");
     }
   };
+
   return (
     <ButtonBox onClick={onClick}>
       <RowDiv>
@@ -148,8 +107,10 @@ export const AddDoneList = ({ doneCount, itemId, type }) => {
 };
 
 export const AddRecipeButton = () => {
+  const [user] = useRecoilState(userState);
+  const userId = user ? user.id : 0;
   return (
-    <StyledLink to="/cocktail/register">
+    <StyledLink to={userId === 0 ? "/signin" : "/cocktail/register"}>
       <ButtonBox>
         <RowDiv>
           <AddBoxOutlinedIcon />

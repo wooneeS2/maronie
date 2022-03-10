@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   RatingBox,
   DescriptionBox,
@@ -13,6 +13,10 @@ import {
   AddRecipeButton,
 } from "./widget/WishListButtons";
 import { ImgWrapper, ColumnDiv } from "../../design/commonStyles";
+import { DeleteWishList, DeleteDoneList } from "./widget/deleteButtons";
+import { useRecoilState } from "recoil";
+import { userState } from "data/state";
+import axios from "axios";
 
 const liquorRatingMessage = {
   1: "매니아들만 찾아요.",
@@ -31,10 +35,25 @@ const liquorClassification = {
   6: "리큐르",
   7: "진",
 };
+const url = process.env.REACT_APP_DB_HOST;
 
-//TODO 유저 상태에 따라 버튼 표시 다르게하기
 export function LiquorInformation({ liquor, liquorId }) {
   let liquorRating = Math.round(parseFloat(liquor.rating));
+  const [user, setUser] = useRecoilState(userState);
+  const [isWish, setIsWish] = React.useState(0);
+  const [isDone, setIsDone] = React.useState(0);
+  const getLiquorInformation = async () => {
+    const response = await axios.get(
+      `${url}/liquor/check_mark?user_id=${user.id}&beverage_id=${liquorId}`
+    );
+    console.log(response.data);
+    setIsWish(response.data.is_wish);
+    setIsDone(response.data.is_done);
+  };
+
+  useEffect(() => {
+    getLiquorInformation();
+  }, []);
 
   if (liquor === null) {
     return null;
@@ -71,16 +90,25 @@ export function LiquorInformation({ liquor, liquorId }) {
           )}
         </RatingBox>
         <ImgWrapper style={{ flexDirection: "column", marginBottom: "1rem" }}>
-          <AddWishList
-            wishCount={liquor.total_bookmark}
-            type="liquor"
-            itemId={liquorId}
-          />
-          <AddDoneList
-            doneCount={liquor.total_bookmark}
-            type="liquor"
-            itemId={liquorId}
-          />
+          {Boolean(isWish) ? (
+            <DeleteWishList type="liquor" itemId={isWish} />
+          ) : (
+            <AddWishList
+              wishCount={liquor.total_bookmark}
+              type="liquor"
+              itemId={liquorId}
+            />
+          )}
+
+          {Boolean(isDone) ? (
+            <DeleteDoneList type="liquor" itemId={isDone} />
+          ) : (
+            <AddDoneList
+              doneCount={liquor.total_bookmark}
+              type="liquor"
+              itemId={liquorId}
+            />
+          )}
           <AddRecipeButton />
         </ImgWrapper>
       </ColumnDiv>

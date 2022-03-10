@@ -49,7 +49,7 @@ export function LiquorReview({
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
       const value = ratings[key];
-      ratingsWithNewType.push({ rating: i + 1, count: value });
+      ratingsWithNewType.push({ rating: keys.length - i, count: value });
     }
   }
 
@@ -73,12 +73,9 @@ export function LiquorReview({
           </CenterAlignmentDiv>
 
           <ColumnDiv>
-            {ratingsWithNewType
-              .slice(0)
-              .reverse()
-              .map((i, index) => {
-                return <RatingChartBar key={i + index} ratingCount={i} />;
-              })}
+            {ratingsWithNewType.map((i, index) => {
+              return <RatingChartBar key={i + index} ratingCount={i} />;
+            })}
           </ColumnDiv>
           <HorizontalLine style={{ width: "60%", marginTop: "1rem" }} />
         </ColumnDiv>
