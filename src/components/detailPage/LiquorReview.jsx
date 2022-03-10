@@ -25,14 +25,33 @@ const ratingCount = [
 ];
 
 export function LiquorReview({
+  reviewSummary,
   liquorReviews,
   liquorId,
   liquorImg,
   liquorName,
+  liquorRating,
 }) {
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
   const navigate = useNavigate();
+  let ratings = reviewSummary.rating_distribution;
+  const [liquorRatingValue, setLiquorRatingValue] = React.useState(null);
+
+  React.useEffect(() => {
+    setLiquorRatingValue(liquorRating);
+  }, [ratings]);
+
+  let ratingsWithNewType = [];
+  if (reviewSummary.rating_distribution) {
+    const keys = Object.keys(ratings);
+
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      const value = ratings[key];
+      ratingsWithNewType.push({ rating: i + 1, count: value });
+    }
+  }
 
   return (
     <>
@@ -40,21 +59,21 @@ export function LiquorReview({
         <ColumnDiv>
           <PageTitle>유저 리뷰</PageTitle>
 
+          <CenterAlignmentDiv>{liquorRating}</CenterAlignmentDiv>
           <CenterAlignmentDiv>
-            {liquorReviews[0].liquorRating}
-          </CenterAlignmentDiv>
-          <CenterAlignmentDiv>
-            <ReadOnlyRating
-              ratingValue={liquorReviews[0].liquorRating}
-              fontSize={"1rem"}
-            />
+            {liquorRatingValue && (
+              <ReadOnlyRating
+                ratingValue={parseFloat(liquorRating)}
+                fontSize={"1rem"}
+              />
+            )}
           </CenterAlignmentDiv>
           <CenterAlignmentDiv style={grayFontStyle}>
-            234개의 후기
+            {reviewSummary.total_reviews}개의 후기
           </CenterAlignmentDiv>
 
           <ColumnDiv>
-            {ratingCount
+            {ratingsWithNewType
               .slice(0)
               .reverse()
               .map((i, index) => {
@@ -64,7 +83,7 @@ export function LiquorReview({
           <HorizontalLine style={{ width: "60%", marginTop: "1rem" }} />
         </ColumnDiv>
         {liquorReviews.map((i, index) => {
-          return <UserReviewBox key={i.userName + index} userReview={i} />;
+          return <UserReviewBox key={i.nickname + index} userReview={i} />;
         })}
         <MoreReviewButton>리뷰 더 보기</MoreReviewButton>
         <CenterAlignmentDiv style={{ marginBottom: "1rem" }}>

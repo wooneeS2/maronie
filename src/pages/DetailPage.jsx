@@ -40,12 +40,16 @@ export function DetailPage() {
   const [liquorInfo, setLiquorInfo] = useState([]);
   const [paringInfo, setParingInfo] = useState([]);
   const [cocktailInfo, setCocktailInfo] = useState([]);
+  const [reviewList, setReviewList] = useState([]);
+  const [reviewSummary, setReviewSummary] = useState([]);
 
   const getLiquorInformation = async liquorId => {
     const response = await axios.get(`${GET_API}/liquor/${liquorId}`);
     setLiquorInfo(response.data.liquor);
     setParingInfo(response.data.paring);
     setCocktailInfo(response.data.cocktail);
+    setReviewList(response.data.review);
+    setReviewSummary(response.data.review_summary);
   };
 
   useEffect(() => {
@@ -60,10 +64,12 @@ export function DetailPage() {
           <ParingInformation parings={paringInfo} />
           <CocktailImformation cocktails={cocktailInfo} />
           <LiquorReview
-            liquorReviews={liquorReviewInfo}
+            liquorReviews={reviewList}
+            reviewSummary={reviewSummary}
             liquorId={liquorId.item}
             liquorImg={liquorInfo.liquor_image}
             liquorName={liquorInfo.liquor_name_kor}
+            liquorRating={liquorInfo.rating}
           />
         </>
       ) : (
