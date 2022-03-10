@@ -1,22 +1,24 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   CenterItem,
   AddItemStyle,
+  MinusItemStyle,
   RecipeInputStyle,
   MuiInputStyle,
   ChipIngredientsList,
   ChipIngredientDivStyle,
 } from "../../design/detailPage/RecipeRegistrationStyles";
-import AddCocktailPhoto from "../detailPage/widget/AddCocktailPhoto";
 import { ColumnDiv, RowDiv, RegisterButton } from "../../design/commonStyles";
+import AddCocktailPhoto from "../detailPage/widget/AddCocktailPhoto";
+import SelectLiquorClassification from "../detailPage/widget/SelectLiquorClassification";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Input } from "@mui/material";
-import SelectLiquorClassification from "../detailPage/widget/SelectLiquorClassification";
 import Slider from "@mui/material/Slider";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
-import { useNavigate } from "react-router-dom";
+import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 
 const marks = [
   {
@@ -230,7 +232,9 @@ function RecipeRegistration({ userId }) {
         />
         {step.map((item, i) => (
           <div key={i}>
-            <p>레시피 {i + 2}.</p>
+            <RowDiv>
+              <p>레시피 {i + 2}.</p>
+            </RowDiv>
             <div>{item}</div>
           </div>
         ))}
@@ -240,6 +244,25 @@ function RecipeRegistration({ userId }) {
             onClick={() => {
               addStep();
               setCocktailStepList([...cockatailStepList, cocktailStep]);
+            }}
+          />
+          <IndeterminateCheckBoxOutlinedIcon
+            style={MinusItemStyle}
+            onClick={() => {
+              setCocktailStepList(current => {
+                if (current.length === 1) {
+                  console.log(cockatailStepList);
+                  return current;
+                }
+                const temp = [...current];
+                temp.pop();
+                return temp;
+              });
+              setStep(current => {
+                const temp = [...current];
+                temp.pop();
+                return temp;
+              });
             }}
           />
         </CenterItem>
