@@ -42,8 +42,6 @@ const ChipButton = ({ label, avatar }) => {
 
 const url = process.env.REACT_APP_DB_HOST;
 
-//칵테일인지 술인지 구분 필요
-//뭔지에 따라 달라짐!
 export const AddWishList = ({ wishCount, itemId, type }) => {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
@@ -53,18 +51,32 @@ export const AddWishList = ({ wishCount, itemId, type }) => {
     user_id: user.id,
     [whatType + "_id"]: itemId,
   };
-  const onClick = async () => {
+
+  const deleteWishList = async () => {
     try {
-      const patch = await axios.post(
-        `${url}mypage/wishlist/create/${whatType}`,
-        postData
+      const deletewishList = await axios.delete(
+        `${url}/mypage/wishlist/delete/${user.id}/${whatType}/${itemId}`
       );
-      if (patch.status === 200) {
-        window.alert("즐겨찾기에 등록되었습니다.");
+      if (deletewishList.status == 200) {
+        window.alert("즐겨찾기 해제되었습니다.");
       }
     } catch (error) {
-      window.alert("즐겨찾기 등록에 실패했습니다.");
-      console.log(error);
+      window.alert("즐겨찾기 해제 실패");
+    }
+  };
+
+  const onClick = async () => {
+    const patch = await axios
+      .post(`${url}mypage/wishlist/create/${whatType}`, postData)
+      .catch(function (error) {
+        console.log(error.response.status);
+        if (error.response.status == 409) {
+          console.log("중복");
+          deleteWishList();
+        }
+      });
+    if (patch.status === 201) {
+      window.alert("즐겨찾기에 등록되었습니다.");
     }
   };
   return (
@@ -80,6 +92,7 @@ export const AddWishList = ({ wishCount, itemId, type }) => {
     </ButtonBox>
   );
 };
+
 export const AddDoneList = ({ doneCount, itemId, type }) => {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
@@ -89,17 +102,34 @@ export const AddDoneList = ({ doneCount, itemId, type }) => {
     user_id: user.id,
     [whatType + "_id"]: itemId,
   };
-  const onClick = async () => {
+
+  const deleteDoneList = async () => {
     try {
-      const patch = await axios.post(
-        `${url}mypage/donelist/create/${whatType}`,
-        postData
+      const deleteDoneList = await axios.delete(
+        `${url}/mypage/donelist/delete/${user.id}/${whatType}/${itemId}`
       );
-      if (patch.status === 200) {
+      if (deleteDoneList.status == 200) {
+        window.alert("마셔봤어요 해제되었습니다.");
+      }
+    } catch (error) {
+      window.alert("마셔봤어요 해제 실패");
+    }
+  };
+
+  const onClick = async () => {
+    const patch = await axios
+      .post(`${url}mypage/donelist/create/${whatType}`, postData)
+      .catch(function (error) {
+        console.log(error.response.status);
+        if (error.response.status == 409) {
+          deleteDoneList();
+        }
+      });
+    try {
+      if (patch.status === 201) {
         window.alert("마셔봤어요에 등록되었습니다.");
       }
     } catch (error) {
-      window.alert("마셔봤어요에 등록에 실패했습니다.");
       console.log(error);
     }
   };
@@ -116,6 +146,7 @@ export const AddDoneList = ({ doneCount, itemId, type }) => {
     </ButtonBox>
   );
 };
+
 export const AddRecipeButton = () => {
   return (
     <StyledLink to="/cocktail/register">
