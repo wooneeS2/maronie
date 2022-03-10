@@ -47,6 +47,33 @@ function App() {
         </RecoilRoot>
       </BrowserRouter>
 
+            <Route exact path="/search" element={<SearchPage />} />
+            <Route
+              exact
+              path="/text-search-result/:keyword"
+              element={<TextSearchResultPage />}
+            />
+            <Route
+              exact
+              path="/image-search-result"
+              element={<ImageSearchResultPage />}
+            />
+            <Route
+              exact
+              path="/mypage/recipe/edit/:id"
+              element={<RecipeEditPage />}
+            ></Route>
+            <Route
+              exact
+              path="/mypage/review/edit/:id"
+              element={<ReviewEditPage />}
+            ></Route>
+            {/* <Route exact path="/signup" element={<SignUpPage />}/>
+          <Route exact path="/signin" element={<SignInPage />}/> */}
+            {/* <Route path="*" element={<ErrorPage />}/> */}
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
       <footer></footer>
     </>
   );

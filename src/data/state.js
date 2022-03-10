@@ -14,8 +14,19 @@ export const sessionStorageEffect =
     });
   };
 
-export const userState = atom({
-  key: "userState",
-  default: {},
-  effects: [sessionStorageEffect("userInfo")],
+export const searchImageState = atom({
+  key: "searchImage",
+  default: null,
+  effects: [sessionStorageEffect("searchImage")],
+});
+
+export const resultImageState = atom({
+  key: "resultImage",
+  default: null,
+  effects: [sessionStorageEffect("resultImage")],
+});
+
+export const headerHeightState = atom({
+  key: "headerHeight",
+  default: 0,
 });

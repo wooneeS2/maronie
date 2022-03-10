@@ -4,13 +4,18 @@ const GlobalStyles = createGlobalStyle`
   body {
     margin: 0 auto;
     background-color: ${mainWhite};
-    width: 100vw;
-    @media screen and (min-width: 786px) {
-        max-width: 786px;
-    }
-    p {
-      margin:0;
-    }
+    max-width: 786px;
+    word-break:keep-all;
+  }
+  ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  ul {
+    list-style:none;
+    margin:0;
+    padding:0;
   }
 `;
 
