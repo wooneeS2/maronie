@@ -35,6 +35,10 @@ const liquorClassification = {
 //TODO 유저 상태에 따라 버튼 표시 다르게하기
 export function LiquorInformation({ liquor, liquorId }) {
   let liquorRating = Math.round(parseFloat(liquor.rating));
+
+  if (liquor === null) {
+    return null;
+  }
   return (
     <>
       <ColumnDiv style={{ paddingTop: "80px" }}>
@@ -77,7 +81,7 @@ export function LiquorInformation({ liquor, liquorId }) {
             type="liquor"
             itemId={liquorId}
           />
-          <AddRecipeButton userId={4} />
+          <AddRecipeButton />
         </ImgWrapper>
       </ColumnDiv>
     </>

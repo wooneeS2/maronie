@@ -5,6 +5,8 @@ import {
   EachMenuBtn,
   MenuBtn,
 } from "../../design/header/MenuListDesign";
+import { useRecoilState } from "recoil";
+import { userState } from "data/state";
 
 const menuList = [
   {
@@ -28,15 +30,18 @@ const menuList = [
     path: "",
   },
 ];
-export default function MenuList({ isLogin, userName, LogOut, visible }) {
+export default function MenuList({ visible }) {
+  const [user, setUser] = useRecoilState(userState);
+  //TODO 로그인 로그아웃 버튼 수정...
+  //TODO 로그아웃 기능 만들기
   return (
     <>
       <OpenMenu>
         {visible && (
           <MenuBtn>
-            {(isLogin === true
-              ? menuList.filter(x => x.label !== "LogIn")
-              : menuList.filter(x => x.label !== "LogOut")
+            {(user === true
+              ? menuList.filter(x => x.label !== "Log Out")
+              : menuList.filter(x => x.label !== "Log In")
             ).map(x => {
               return (
                 <EachMenuBtn key={x.id + x.label}>
