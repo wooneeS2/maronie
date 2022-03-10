@@ -8,30 +8,29 @@ import {
   WishItemsImage,
 } from "../../design/AuthPage/WishlistPageStyles";
 import { StyledLink } from "../../design/commonStyles";
-function WishItems({ currentTab, list2, page }) {
+function WishItems({ currentTab, wishlistData }) {
+  // console.log(currentTab);
   const [user, setUser] = useRecoilState(userState);
-  const [list, setList] = React.useState(list2);
-  console.log(list);
-  const handleDelete = async (e, cocktailId) => {
+  const [list, setList] = React.useState(wishlistData);
+  const handleDelete = async (e, id) => {
     e.stopPropagation();
     if (window.confirm("정말 삭제하시겠습니까?")) {
       await axios
         .delete(
           process.env.REACT_APP_DB_HOST +
-            `mypage/${page}/delete/${user["id"]}/${currentTab}/${cocktailId}`
+            `mypage/wishlist/delete/${user["id"]}/${currentTab}/${id}`
         )
         .then(() => alert("삭제 성공!"))
-        .catch(() => alert("오류가 발생했습니다, 잠시후에 다시 시도해주세요!"));
+        .catch((e) => {
+          console.log(e);
+          alert("오류가 발생했습니다, 잠시후에 다시 시도해주세요!");
+        });
     }
   };
-
-  if (list.length === 0) {
-    // TODO 결과 없음 컴포넌트 삽입 예정
-    return <div>없어</div>;
-  }
+  console.log(list);
   return (
     <WishItemsContainer>
-      {list.map((item) => (
+      {list[currentTab]?.map((item) => (
         <div
           style={{
             borderRadius: "5px",
@@ -46,11 +45,11 @@ function WishItems({ currentTab, list2, page }) {
               size={20}
               style={{ position: "absolute", right: 13, top: 13 }}
               onClick={(e) => {
-                handleDelete(e, item[`${currentTab}_id`]);
+                handleDelete(e, item[`id`]);
               }}
             />
           </div>
-
+          <p>{item[`id`]}</p>
           <StyledLink to={`/${currentTab}/` + item[`${currentTab}_id`]}>
             <WishItemsImage
               src={item["image_path"]}

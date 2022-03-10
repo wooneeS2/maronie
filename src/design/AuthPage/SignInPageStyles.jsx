@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { TextField } from "@mui/material";
 
 export const StyledLink = styled(Link)`
+  color: black;
   text-decoration: none;
   &:focus,
   &:hover,
@@ -10,6 +11,7 @@ export const StyledLink = styled(Link)`
   &:link,
   &:active {
     text-decoration: none;
+    color: black;
   }
 `;
 export const SubmitButton = styled.button`
