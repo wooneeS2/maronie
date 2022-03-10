@@ -11,7 +11,7 @@ import SearchPage from "./pages/SearchPage";
 import IntroPage from "./pages/IntroPage";
 import Header from "./components/header/Hearder";
 import RecipeEditPage from "pages/RecipeEditPage";
-
+import ReviewEditPage from "pages/ReviewEditPage";
 function App() {
   return (
     <>
@@ -47,6 +47,11 @@ function App() {
               exact
               path="/mypage/recipe/edit/:id"
               element={<RecipeEditPage />}
+            ></Route>
+            <Route
+              exact
+              path="/mypage/review/edit/:id"
+              element={<ReviewEditPage />}
             ></Route>
             {/* <Route exact path="/signup" element={<SignUpPage />}/>
           <Route exact path="/signin" element={<SignInPage />}/> */}

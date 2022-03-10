@@ -24,19 +24,19 @@ import SelectLiquorClassification from "../detailPage/widget/SelectLiquorClassif
 function RecipeRegistration({ cocktail }) {
   const [step, setStep] = useState([]);
   const addStep = () => {
-    setStep(step => [...step, <RecipeInput />]);
+    setStep((step) => [...step, <RecipeInput />]);
   };
 
   const [ingredientsList, setIngredientsList] = useState([]);
   const [ingredient, setIngredient] = useState("");
 
-  const addIngredients = value => {
+  const addIngredients = (value) => {
     const newList = ingredientsList.concat(value);
     setIngredientsList(newList);
     setIngredient("");
   };
-  const deleteIngredients = value => {
-    const newList = ingredientsList.filter(word => word !== value);
+  const deleteIngredients = (value) => {
+    const newList = ingredientsList.filter((word) => word !== value);
     setIngredientsList(newList);
   };
 
@@ -67,9 +67,9 @@ function RecipeRegistration({ cocktail }) {
         <Input
           id="input-with-icon-adornment"
           sx={MuiInputStyle}
-          placeholder={"재료를 입력하고  + 버튼을 눌러주세요."}
+          placeholder={"재료를 입력하고 + 버튼을 눌러주세요."}
           value={ingredient}
-          onChange={e => {
+          onChange={(e) => {
             setIngredient(e.target.value);
           }}
           endAdornment={
