@@ -4,13 +4,15 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import LocalBarOutlinedIcon from "@mui/icons-material/LocalBarOutlined";
 import { Chip } from "@mui/material";
 import { RowDiv } from "../../../design/commonStyles";
-import { mainOrange, mainRed } from "../../../design/colorPalette";
+import { mainRed } from "../../../design/colorPalette";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import { StyledLink } from "design/commonStyles";
 export const ButtonBox = styled.div`
   display: flex;
   width: 100%;
+  min-width: 250px;
   padding: 5px;
   margin: 0 auto;
   margin-top: 5px;
@@ -56,5 +58,17 @@ export const AddDoneList = ({ value }) => {
         avatar={<CheckCircleIcon style={{ color: `${mainRed}` }} />}
       />
     </ButtonBox>
+  );
+};
+export const AddRecipeButton = ({ userId }) => {
+  return (
+    <StyledLink to="/cocktail/register">
+      <ButtonBox>
+        <RowDiv>
+          <AddBoxOutlinedIcon />
+          <span>칵테일 레시피 추가하기 </span>
+        </RowDiv>
+      </ButtonBox>
+    </StyledLink>
   );
 };

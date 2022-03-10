@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
 import axios from "axios";
 import {
   CenterItem,
@@ -11,17 +10,13 @@ import {
   ChipIngredientDivStyle,
 } from "../../design/detailPage/RecipeRegistrationStyles";
 import AddCocktailPhoto from "../detailPage/widget/AddCocktailPhoto";
-import {
-  ColumnDiv,
-  RowDiv,
-  RegisterButton,
-  BoldTitle,
-} from "../../design/commonStyles";
+import { ColumnDiv, RowDiv, RegisterButton } from "../../design/commonStyles";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Input } from "@mui/material";
 import SelectLiquorClassification from "../detailPage/widget/SelectLiquorClassification";
 import Slider from "@mui/material/Slider";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import { useNavigate } from "react-router-dom";
 
 const marks = [
   {
@@ -74,6 +69,7 @@ function RecipeRegistration({ userId }) {
     description: "",
   });
   let formData = new FormData();
+  const navigate = useNavigate();
 
   const setRecipe = (value, category) => {
     setCocktailInfo(current => {
@@ -101,8 +97,6 @@ function RecipeRegistration({ userId }) {
     setIngredientsList(newList);
   };
 
-  const navigate = Navigate();
-
   const createFormData = () => {
     formData.append("file", cocktailImage);
     formData.append("author_id", userId);
@@ -113,9 +107,6 @@ function RecipeRegistration({ userId }) {
     formData.append("description", cocktailInfo.description);
     formData.append("ingredients", ingredientsList.join("\\n"));
     formData.append("recipe", cockatailStepList.join("\\n"));
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
   };
 
   return (
@@ -262,7 +253,7 @@ function RecipeRegistration({ userId }) {
 
               try {
                 const patch = await axios.post(
-                  `${url}cocktail/recipe`,
+                  `${url}cocktail/recipe/create`,
                   formData,
                   {
                     headers: {
@@ -275,6 +266,7 @@ function RecipeRegistration({ userId }) {
                   navigate(-1);
                 }
               } catch (error) {
+                window.alert("레시피 작성을 실패했습니다.");
                 console.log(error);
               }
             }}

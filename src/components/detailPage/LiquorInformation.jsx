@@ -7,7 +7,11 @@ import {
   LiquorRatingLabel,
 } from "../../design/detailPage/LiquorInformationStyles";
 import { ReadOnlyRating } from "./widget/ReviewRating";
-import { AddWishList, AddDoneList } from "./widget/WishListButtons";
+import {
+  AddWishList,
+  AddDoneList,
+  AddRecipeButton,
+} from "./widget/WishListButtons";
 import { ImgWrapper, ColumnDiv } from "../../design/commonStyles";
 
 const liquorRatingMessage = {
@@ -65,6 +69,7 @@ export function LiquorInformation({ liquor }) {
         <ImgWrapper style={{ flexDirection: "column", marginBottom: "1rem" }}>
           <AddWishList value={liquor.total_bookmark} />
           <AddDoneList value={liquor.total_done} />
+          <AddRecipeButton userId={4} />
         </ImgWrapper>
       </ColumnDiv>
     </>

@@ -46,8 +46,8 @@ function CocktailDetail({ cocktail }) {
           <ItalicTitle>by @{cocktail.author}</ItalicTitle>
           <CenterAlignmentDiv style={{ width: "60%" }}>
             {/* TODO 좋아요수, 마셔봤어요 수 추가 */}
-            <AddWishList value={cocktail.wishList} />
-            <AddDoneList value={cocktail.doneList} />
+            <AddWishList value={cocktail.total_bookmark} />
+            <AddDoneList value={cocktail.total_done} />
           </CenterAlignmentDiv>
         </div>
 

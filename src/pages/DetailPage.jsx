@@ -42,7 +42,7 @@ export function DetailPage() {
   const [cocktailInfo, setCocktailInfo] = useState([]);
 
   const getLiquorInformation = async liquorId => {
-    const response = await axios.get(`${GET_API}/liquor=${liquorId}`);
+    const response = await axios.get(`${GET_API}/liquor/${liquorId}`);
     setLiquorInfo(response.data.liquor);
     setParingInfo(response.data.paring);
     setCocktailInfo(response.data.cocktail);
