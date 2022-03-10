@@ -10,6 +10,7 @@ import ImageSearchResultPage from "./pages/ImageSearchResultPage";
 import SearchPage from "./pages/SearchPage";
 import IntroPage from "./pages/IntroPage";
 import Header from "./components/header/Hearder";
+import RecipeEditPage from "pages/RecipeEditPage";
 
 function App() {
   return (
@@ -42,6 +43,11 @@ function App() {
               path="/image-search-result"
               element={<ImageSearchResultPage />}
             />
+            <Route
+              exact
+              path="/mypage/recipe/edit/:id"
+              element={<RecipeEditPage />}
+            ></Route>
             {/* <Route exact path="/signup" element={<SignUpPage />}/>
           <Route exact path="/signin" element={<SignInPage />}/> */}
             {/* <Route path="*" element={<ErrorPage />}/> */}

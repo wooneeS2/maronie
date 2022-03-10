@@ -10,7 +10,8 @@ const liquorClassification = [
   "기타",
 ];
 
-function SelectLiquorClassification() {
+function SelectLiquorClassification({ num }) {
+  console.log(num);
   return (
     <FormControl
       variant="standard"
@@ -21,6 +22,7 @@ function SelectLiquorClassification() {
         labelId="demo-simple-select-standard-label"
         id="demo-simple-select-standard"
         label="술 종류"
+        defaultValue={num}
       >
         {liquorClassification.map((i, index) => {
           return (
