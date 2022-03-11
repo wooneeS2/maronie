@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 import { mainWhite, mainBlack } from "./colorPalette";
 const GlobalStyles = createGlobalStyle`
+button {
+  color: #000000;
+
+}
   body {
     margin: 0 auto;
     background-color: ${mainWhite};
