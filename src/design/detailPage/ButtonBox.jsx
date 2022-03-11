@@ -26,3 +26,7 @@ export const ButtonBox = styled.button`
 export const ChipButton = ({ label, avatar }) => {
   return <Chip label={label} variant="outlined" avatar={avatar} />;
 };
+
+export const ButtonTitle = styled.p`
+  padding-top: 5px;
+`;
