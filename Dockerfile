@@ -24,7 +24,7 @@ FROM nginx:latest
 #RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 
 # COPY frontend-nginx.conf /etc/nginx/sites-available/frontend-nginx.conf
-COPY frontend-nginx.conf /etc/ngnix/conf.d/
+COPY frontend-nginx.conf /etc/ngnix/conf.d/default.conf
 # RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 
 WORKDIR /app
