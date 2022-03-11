@@ -59,7 +59,12 @@ function DonelistPage() {
             </h1>
             <p style={{ color: "gray" }}>{countComment}</p>
           </div>
-          <DoneItems currentTab={currentTab} donelistData={donelistData} />
+          <DoneItems
+            currentTab={currentTab}
+            donelistData={donelistData}
+            setDonelistData={setDonelistData}
+            setCountComment={setCountComment}
+          />
         </div>
       )}
     </>

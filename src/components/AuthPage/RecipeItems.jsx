@@ -14,8 +14,7 @@ import { BsPencilSquare } from "react-icons/bs";
 import { IoTrashOutline, IoFlagSharp } from "react-icons/io5";
 import { Chip } from "@mui/material";
 import NoItem from "./NoItem";
-function RecipeItems({ recipeData }) {
-  // TODO ...으로 줄이기
+function RecipeItems({ recipeData, setRecipeData }) {
   const [user, setUser] = useRecoilState(userState);
   const [isOpen, setIsOpen] = React.useState([]);
   let navigate = useNavigate();
@@ -46,7 +45,13 @@ function RecipeItems({ recipeData }) {
           process.env.REACT_APP_DB_HOST +
             `cocktail/recipe/delete/${user["id"]}/cocktail/${cocktailId}`
         )
-        .then(() => alert("삭제 성공!"))
+        .then(() => {
+          alert("삭제 성공!");
+          const newRecipeData = recipeData.filter(
+            (item) => item["cocktail_id"] !== cocktailId
+          );
+          setRecipeData(newRecipeData);
+        })
         .catch(() => alert("오류가 발생했습니다, 잠시후에 다시 시도해주세요!"));
     }
   };

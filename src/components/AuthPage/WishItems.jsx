@@ -9,10 +9,12 @@ import {
 } from "../../design/AuthPage/WishlistPageStyles";
 import { StyledLink } from "../../design/commonStyles";
 import NoItem from "./NoItem";
-function WishItems({ currentTab, wishlistData }) {
+import Loading from "../../components/Loading";
+function WishItems({ currentTab }) {
   const [user, setUser] = useRecoilState(userState);
-  const [list, setList] = React.useState(wishlistData);
-  console.log(list[currentTab]);
+  const [isLoading, setIsLoading] = React.useState(null);
+  const [wishlistData, setWishlistData] = React.useState({});
+
   const handleDelete = async (e, id) => {
     e.stopPropagation();
     if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -23,7 +25,14 @@ function WishItems({ currentTab, wishlistData }) {
         )
         .then(() => {
           alert("삭제 성공!");
-          window.location.reload();
+          let newCurrentList = wishlistData[currentTab].filter(
+            (item) => item["id"] !== id
+          );
+          const newWishlistData = {
+            ...wishlistData,
+            [currentTab]: [...newCurrentList],
+          };
+          setWishlistData(newWishlistData);
         })
         .catch((e) => {
           console.log(e);
@@ -31,12 +40,35 @@ function WishItems({ currentTab, wishlistData }) {
         });
     }
   };
-  if (list[currentTab]?.length === 0) {
+  React.useEffect(() => {
+    if (user === null) {
+      alert("회원 전용 기능입니다, 로그인 해주세요!");
+      return;
+    }
+    const call = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios
+          .get(process.env.REACT_APP_DB_HOST + `mypage/wishlist/${user["id"]}`)
+          .then((res) => res.data);
+        setWishlistData(response);
+      } catch (e) {
+        console.log(e);
+      }
+      setIsLoading(false);
+    };
+    call();
+  }, [currentTab]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (wishlistData[currentTab]?.length === 0) {
     return <NoItem page="wishlist" />;
   }
   return (
     <WishItemsContainer>
-      {list[currentTab]?.map((item) => (
+      {wishlistData[currentTab]?.map((item, idx) => (
         <div
           style={{
             borderRadius: "5px",
@@ -45,6 +77,7 @@ function WishItems({ currentTab, wishlistData }) {
             padding: "10px",
             boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 10px 0px",
           }}
+          key={`wishlist-${idx}`}
         >
           <div style={{ position: "relative" }}>
             <IoTrashOutline

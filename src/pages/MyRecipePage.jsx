@@ -33,7 +33,13 @@ function MyRecipePage() {
     return <Navigate to="/signin" replace={true} />;
   }
   return (
-    <>{isLoading ? <Loading /> : <RecipeItems recipeData={recipeData} />}</>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <RecipeItems recipeData={recipeData} setRecipeData={setRecipeData} />
+      )}
+    </>
   );
 }
 export default MyRecipePage;

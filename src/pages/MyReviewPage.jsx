@@ -8,7 +8,7 @@ import Loading from "components/Loading";
 function MyReviewPage() {
   const [user, setUser] = useRecoilState(userState);
   const [isLoading, setIsLoading] = React.useState(null);
-  const [reviewData, setReviewData] = React.useState({});
+  const [reviewData, setReviewData] = React.useState([]);
 
   React.useEffect(() => {
     if (user === null) {
@@ -39,7 +39,10 @@ function MyReviewPage() {
       ) : (
         <>
           <div style={{ marginTop: "81px" }}>
-            <ReviewItems list={reviewData} />
+            <ReviewItems
+              reviewData={reviewData}
+              setReviewData={setReviewData}
+            />
           </div>
         </>
       )}

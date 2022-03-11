@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { ItemsContainer } from "../commonStyles";
 
-export const ReviewItemsContainer = styled(ItemsContainer)``;
+export const ReviewItemsContainer = styled(ItemsContainer)`
+  align-items: center;
+`;
 export const ReviewItemThumbnail = styled.img`
   width: 80px;
 `;

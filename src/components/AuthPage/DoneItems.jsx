@@ -7,11 +7,16 @@ import {
   WishItemsContainer,
   WishItemsImage,
 } from "../../design/AuthPage/WishlistPageStyles";
+import { DonelistComment } from "../../data/DonelistComment";
 import { StyledLink } from "../../design/commonStyles";
 import NoItem from "./NoItem";
-function DoneItems({ currentTab, donelistData }) {
+function DoneItems({
+  currentTab,
+  donelistData,
+  setDonelistData,
+  setCountComment,
+}) {
   const [user, setUser] = useRecoilState(userState);
-  const [list, setList] = React.useState([]);
   const handleDelete = async (e, id) => {
     e.stopPropagation();
     if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -22,21 +27,31 @@ function DoneItems({ currentTab, donelistData }) {
         )
         .then(() => {
           alert("삭제 성공!");
-          window.location.reload();
+          let newCurrentList = donelistData[currentTab].filter(
+            (item) => item["id"] !== id
+          );
+          const newDonelistData = {
+            ...donelistData,
+            [currentTab]: [...newCurrentList],
+          };
+          const newCommentResult = DonelistComment(
+            newDonelistData[currentTab].length,
+            currentTab
+          );
+          setCountComment(newCommentResult);
+          setDonelistData(newDonelistData);
         })
         .catch(() => alert("오류가 발생했습니다, 잠시후에 다시 시도해주세요!"));
     }
   };
-  React.useEffect(() => {
-    setList(donelistData);
-  });
-  if (list[currentTab]?.length === 0) {
+
+  if (donelistData[currentTab]?.length === 0) {
     return <NoItem page="donelist" />;
   }
   return (
     <WishItemsContainer>
-      {list[currentTab] &&
-        list[currentTab].map((item) => (
+      {donelistData[currentTab] &&
+        donelistData[currentTab].map((item) => (
           <div
             style={{
               borderRadius: "5px",

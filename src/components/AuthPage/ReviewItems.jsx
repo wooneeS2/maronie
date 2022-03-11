@@ -13,11 +13,11 @@ import { StyledLink } from "../../design/commonStyles";
 import { BsPencilSquare } from "react-icons/bs";
 import { IoTrashOutline } from "react-icons/io5";
 import NoItem from "./NoItem";
-function ReviewItems({ list }) {
+function ReviewItems({ reviewData, setReviewData }) {
   let navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
   const [user, setUser] = useRecoilState(userState);
-
+  console.log(reviewData);
   const handleDelete = async (e, reviewId) => {
     e.stopPropagation();
     if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -26,7 +26,13 @@ function ReviewItems({ list }) {
           process.env.REACT_APP_DB_HOST +
             `review/delete/${reviewId}/user/${user["id"]}`
         )
-        .then(() => alert("삭제 성공!"))
+        .then(() => {
+          alert("삭제 성공!");
+          let newReviewData = reviewData.filter(
+            (item) => item["review_id"] !== reviewId
+          );
+          setReviewData(newReviewData);
+        })
         .catch(() => alert("오류가 발생했습니다, 잠시후에 다시 시도해주세요!"));
     }
   };
@@ -35,11 +41,11 @@ function ReviewItems({ list }) {
     e.stopPropagation();
     navigate(`edit/${reviewId}`);
   };
-  if (list.length > 0) {
+  if (reviewData.length > 0) {
     return (
       <>
         <ReviewItemsContainer>
-          {list.map((item) => (
+          {reviewData.map((item) => (
             <ReviewItemWrapper>
               <div style={{ position: "absolute", right: 13, top: 13 }}>
                 <BsPencilSquare
@@ -60,13 +66,14 @@ function ReviewItems({ list }) {
 
               <div style={{ display: "flex", borderBottom: "1px solid #ddd" }}>
                 <StyledLink
-                  to={`/cocktail/` + item[`cocktail_id`]}
-                  key={`cocktail-` + item[`cocktail_id`]}
-                ></StyledLink>
-                <ReviewItemThumbnail
-                  src={item["image_path"]}
-                  alt={item[`cocktail_name_kor`] + " 이미지"}
-                />
+                  to={`/review/` + item[`review_id`]}
+                  key={`review-` + item[`review_id`]}
+                >
+                  <ReviewItemThumbnail
+                    src={item["image_path"]}
+                    alt={item[`liquor_name_kor`] + " 이미지"}
+                  />
+                </StyledLink>
                 <div>
                   <p
                     style={{
@@ -75,7 +82,7 @@ function ReviewItems({ list }) {
                       marginBottom: 0,
                     }}
                   >
-                    {item[`cocktail_name_kor`]}
+                    {item[`liquor_name_kor`]}
                   </p>
                   <p style={{ marginTop: "5px" }}>{item[`post_date`]}</p>
                 </div>
