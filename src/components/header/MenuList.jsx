@@ -4,30 +4,41 @@ import {
   OpenMenu,
   EachMenuBtn,
   MenuBtn,
+  MenuIconStyle,
 } from "../../design/header/MenuListDesign";
 import { useRecoilState } from "recoil";
 import { userState } from "data/state";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 
 const menuList = [
   {
     label: "Home",
     path: "",
+    icon: <HomeOutlinedIcon style={MenuIconStyle} />,
   },
   {
     label: "Search",
     path: "search",
+    icon: <SearchOutlinedIcon />,
   },
   {
     label: "My Page",
     path: "mypage",
+    icon: <PersonOutlineOutlinedIcon />,
   },
   {
     label: "Log In",
     path: "signin",
+    icon: <LockOpenOutlinedIcon />,
   },
   {
     label: "Log Out",
     path: "logout",
+    icon: <LoginOutlinedIcon />,
   },
 ];
 export default function MenuList({ visible }) {
@@ -53,7 +64,10 @@ export default function MenuList({ visible }) {
             ).map(x => {
               return (
                 <EachMenuBtn key={x.id + x.label}>
-                  <Link to={`/${x.path}`}>{x.label}</Link>
+                  <Link to={`/${x.path}`}>
+                    {x.icon}
+                    {x.label}
+                  </Link>
                 </EachMenuBtn>
               );
             })}
