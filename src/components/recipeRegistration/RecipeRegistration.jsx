@@ -64,17 +64,22 @@ function RecipeRegistration() {
   const [cocktailClassification, setCocktailClassification] = useState(0);
   const [cocktailImage, setCocktailImage] = useState("");
   const [cocktailStep, setCocktailStep] = useState("");
-  const [cockatailStepList, setCocktailStepList] = useState([]);
+  const [cocktailStepList, setCocktailStepList] = useState([]);
   const [cocktailInfo, setCocktailInfo] = useState({
     cocktail_name_kor: "",
     cocktail_name: "",
     classification_id: 0,
-    level: 0,
-    alcohol: 0,
+    level: 1,
+    alcohol: -1,
     description: "",
   });
   let formData = new FormData();
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    console.log(cocktailStep);
+    console.log(cocktailStepList);
+  }, [cocktailStep]);
 
   const setRecipe = (value, category) => {
     setCocktailInfo(current => {
@@ -101,6 +106,9 @@ function RecipeRegistration() {
     const newList = ingredientsList.filter(word => word !== value);
     setIngredientsList(newList);
   };
+  const addCocktailRecipeList = () => {
+    setCocktailStepList([...cocktailStepList, cocktailStep]);
+  };
 
   const createFormData = () => {
     formData.append("file", cocktailImage);
@@ -111,8 +119,12 @@ function RecipeRegistration() {
     formData.append("level", cocktailInfo.level);
     formData.append("description", cocktailInfo.description);
     formData.append("ingredients", ingredientsList.join("\\n"));
-    formData.append("recipe", cockatailStepList.join("\\n"));
+    formData.append("recipe", cocktailStepList.join("\\n"));
+    formData.append("alcohol", cocktailInfo.alcohol);
   };
+  React.useEffect(() => {
+    console.log(cocktailStepList);
+  }, [cocktailStep]);
 
   return (
     <>
@@ -246,7 +258,7 @@ function RecipeRegistration() {
             style={AddItemStyle}
             onClick={() => {
               addStep();
-              setCocktailStepList([...cockatailStepList, cocktailStep]);
+              addCocktailRecipeList();
             }}
           />
           <IndeterminateCheckBoxOutlinedIcon
@@ -254,7 +266,6 @@ function RecipeRegistration() {
             onClick={() => {
               setCocktailStepList(current => {
                 if (current.length === 1) {
-                  console.log(cockatailStepList);
                   return current;
                 }
                 const temp = [...current];
@@ -274,10 +285,9 @@ function RecipeRegistration() {
           <RegisterButton
             type="submit"
             onClick={async () => {
-              setCocktailStepList([...cockatailStepList, cocktailStep]);
-              createFormData();
-
+              addCocktailRecipeList();
               try {
+                createFormData();
                 const patch = await axios.post(
                   `${url}cocktail/recipe/create`,
                   formData,
