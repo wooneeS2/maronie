@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
 import { mainOrange, mainWhite } from "../colorPalette";
-import GlobalStyles from "design/GlobalStyles";
 
 export const MainTitle = styled.p`
   @font-face {
