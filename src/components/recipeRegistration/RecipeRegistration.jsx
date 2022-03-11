@@ -19,8 +19,9 @@ import { Input } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { userState } from "data/state";
+
 const marks = [
   {
     value: 1,
@@ -39,85 +40,128 @@ const marks = [
 const url = process.env.REACT_APP_DB_HOST;
 
 function RecipeRegistration() {
-  const [step, setStep] = useState([]);
-  const [user, setUser] = useRecoilState(userState);
-
-  const addStep = () => {
-    setStep(step => [
-      ...step,
-      <RecipeInputStyle
-        id="filled-multiline-static"
-        label=""
-        multiline
-        rows={3}
-        variant="filled"
-        placeholder="레시피를 입력해주세요."
-        onChange={e => {
-          setCocktailStep(e.target.value);
-        }}
-      />,
-    ]);
-  };
+  const user = useRecoilValue(userState);
+  const [recipeStepList, setRecipeStepList] = useState([{ text: "" }]);
 
   const [ingredientsList, setIngredientsList] = useState([]);
   const [ingredient, setIngredient] = useState("");
   const [cocktailClassification, setCocktailClassification] = useState(0);
   const [cocktailImage, setCocktailImage] = useState("");
-  const [cocktailStep, setCocktailStep] = useState("");
-  const [cockatailStepList, setCocktailStepList] = useState([]);
+
   const [cocktailInfo, setCocktailInfo] = useState({
     cocktail_name_kor: "",
     cocktail_name: "",
     classification_id: 0,
-    level: 0,
-    alcohol: 0,
+    level: 1,
+    alcohol: -1,
     description: "",
   });
-  let formData = new FormData();
   const navigate = useNavigate();
 
   const setRecipe = (value, category) => {
-    setCocktailInfo(current => {
+    setCocktailInfo((current) => {
       const temp = { ...current };
       temp[category] = value;
       return temp;
     });
   };
 
-  const setClassification = level => {
+  const setClassification = (level) => {
     setCocktailClassification(level);
   };
 
-  const setImage = image => {
+  const setImage = (image) => {
     setCocktailImage(image);
   };
 
-  const addIngredients = value => {
+  const addIngredients = (value) => {
     const newList = ingredientsList.concat(value);
     setIngredientsList(newList);
     setIngredient("");
   };
-  const deleteIngredients = value => {
-    const newList = ingredientsList.filter(word => word !== value);
+  const deleteIngredients = (value) => {
+    const newList = ingredientsList.filter((word) => word !== value);
     setIngredientsList(newList);
   };
 
-  const createFormData = () => {
-    formData.append("file", cocktailImage);
-    formData.append("author_id", user.id);
-    formData.append("cocktail_name", cocktailInfo.cocktail_name);
-    formData.append("cocktail_name_kor", cocktailInfo.cocktail_name_kor);
-    formData.append("classification_id", cocktailInfo.classification_id);
-    formData.append("level", cocktailInfo.level);
-    formData.append("description", cocktailInfo.description);
-    formData.append("ingredients", ingredientsList.join("\\n"));
-    formData.append("recipe", cockatailStepList.join("\\n"));
+  const addCocktailRecipeList = () => {
+    const newList = recipeStepList.concat({ text: "" });
+    setRecipeStepList(newList);
   };
+
+  const minusCocktailRecipeList = () => {
+    if (recipeStepList.length === 1) {
+      return;
+    }
+
+    const filteredList = recipeStepList.filter((recipe, idx) => {
+      if (idx + 1 === recipeStepList.length) {
+        return false;
+      }
+      return true;
+    });
+
+    setRecipeStepList(filteredList);
+  };
+
+  const handleRecipeTextChange = (idx) => (e) => {
+    const target = e.currentTarget;
+    recipeStepList[idx] = { text: target.value };
+    setRecipeStepList([...recipeStepList]);
+  };
+
+  const handleRegisterClick = React.useCallback(async () => {
+    if (!user.id) {
+      return alert("로그인을 해주세요.");
+    }
+
+    const createFormData = () => {
+      const formData = new FormData();
+      formData.append("file", cocktailImage);
+      formData.append("author_id", user.id);
+      formData.append("cocktail_name", cocktailInfo.cocktail_name);
+      formData.append("cocktail_name_kor", cocktailInfo.cocktail_name_kor);
+      formData.append("classification_id", cocktailInfo.classification_id);
+      formData.append("level", cocktailInfo.level);
+      formData.append("description", cocktailInfo.description);
+      formData.append("ingredients", ingredientsList.join("\\n"));
+      formData.append(
+        "recipe",
+        recipeStepList.map((obj) => obj.text).join("\\n")
+      );
+      formData.append("alcohol", cocktailInfo.alcohol);
+      return formData;
+    };
+
+    try {
+      const data = createFormData();
+      const patch = await axios.post(`${url}cocktail/recipe/create`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (patch.status === 201) {
+        window.alert("레시피 작성이 완료되었습니다.");
+        return navigate(-1);
+      }
+    } catch (error) {
+      window.alert("레시피 작성을 실패했습니다.");
+      console.log(error);
+    }
+  }, [
+    navigate,
+    cocktailImage,
+    cocktailInfo,
+    ingredientsList,
+    recipeStepList,
+    user,
+  ]);
 
   return (
     <>
       <ColumnDiv style={{ paddingTop: "81px" }}>
-        <AddCocktailPhoto passImage={img => setImage(img)} />
+        <AddCocktailPhoto passImage={(img) => setImage(img)} />
         <div
           style={{
             width: "50%",
@@ -142,7 +186,7 @@ function RecipeRegistration() {
         </div>
         <div>
           <SelectLiquorClassification
-            passLevel={level => setClassification(level)}
+            passLevel={(level) => setClassification(level)}
           />
         </div>
 
@@ -151,7 +195,7 @@ function RecipeRegistration() {
           label="칵테일 이름"
           variant="standard"
           placeholder="칵테일 이름을 입력해주세요."
-          onChange={e => {
+          onChange={(e) => {
             setRecipe(e.target.value, "cocktail_name_kor");
             setRecipe(cocktailClassification, "classification_id");
           }}
@@ -161,7 +205,7 @@ function RecipeRegistration() {
           label="칵테일 영어 이름(선택)"
           variant="standard"
           placeholder="영어 이름을 입력해주세요."
-          onChange={e => {
+          onChange={(e) => {
             setRecipe(e.target.value, "cocktail_name");
           }}
         />
@@ -171,7 +215,7 @@ function RecipeRegistration() {
           variant="standard"
           placeholder="숫자만 입력해주세요."
           type="number"
-          onChange={e => {
+          onChange={(e) => {
             setRecipe(e.target.value, "alcohol");
           }}
         />
@@ -182,9 +226,8 @@ function RecipeRegistration() {
           multiline
           rows={2}
           variant="standard"
-          onChange={e => {
+          onChange={(e) => {
             setRecipe(e.target.value, "description");
-            console.log(cocktailInfo);
           }}
         />
 
@@ -193,7 +236,7 @@ function RecipeRegistration() {
           sx={MuiInputStyle}
           placeholder={"재료를 입력하고 + 버튼을 눌러주세요."}
           value={ingredient}
-          onChange={e => {
+          onChange={(e) => {
             setIngredient(e.target.value);
           }}
           endAdornment={
@@ -209,94 +252,51 @@ function RecipeRegistration() {
         />
 
         <RowDiv style={ChipIngredientDivStyle}>
-          {ingredientsList.map((i, index) => (
-            <span key={i + index}>
+          {ingredientsList.map((ingred, index) => (
+            <span key={`${ingred} + ${index}`}>
               <ChipIngredientsList
-                label={i}
+                label={ingred}
                 onDelete={() => {
-                  deleteIngredients(i);
+                  deleteIngredients(ingred);
                 }}
               />
             </span>
           ))}
         </RowDiv>
 
-        <p>레시피 1.</p>
-        <RecipeInputStyle
-          id="filled-multiline-static"
-          label=""
-          multiline
-          rows={3}
-          variant="filled"
-          placeholder="레시피를 입력해주세요."
-          onChange={e => {
-            setCocktailStep(e.target.value);
-          }}
-        />
-        {step.map((item, i) => (
-          <div key={i}>
-            <RowDiv>
-              <p>레시피 {i + 2}.</p>
-            </RowDiv>
-            <div>{item}</div>
-          </div>
-        ))}
+        {recipeStepList.map((recipeStep, idx) => {
+          const { text } = recipeStep;
+          return (
+            <React.Fragment key={`recipe-${idx}`}>
+              <p>{`레시피 ${idx + 1}.`}</p>
+              <RecipeInputStyle
+                id="filled-multiline-static"
+                label=""
+                multiline
+                rows={3}
+                variant="filled"
+                placeholder="레시피를 입력해주세요."
+                value={text}
+                onChange={handleRecipeTextChange(idx)}
+              />
+            </React.Fragment>
+          );
+        })}
+
         <CenterItem>
           <AddBoxOutlinedIcon
             style={AddItemStyle}
-            onClick={() => {
-              addStep();
-              setCocktailStepList([...cockatailStepList, cocktailStep]);
-            }}
+            onClick={addCocktailRecipeList}
           />
+
           <IndeterminateCheckBoxOutlinedIcon
             style={MinusItemStyle}
-            onClick={() => {
-              setCocktailStepList(current => {
-                if (current.length === 1) {
-                  console.log(cockatailStepList);
-                  return current;
-                }
-                const temp = [...current];
-                temp.pop();
-                return temp;
-              });
-              setStep(current => {
-                const temp = [...current];
-                temp.pop();
-                return temp;
-              });
-            }}
+            onClick={minusCocktailRecipeList}
           />
         </CenterItem>
 
         <CenterItem>
-          <RegisterButton
-            type="submit"
-            onClick={async () => {
-              setCocktailStepList([...cockatailStepList, cocktailStep]);
-              createFormData();
-
-              try {
-                const patch = await axios.post(
-                  `${url}cocktail/recipe/create`,
-                  formData,
-                  {
-                    headers: {
-                      "Content-Type": "multipart/form-data",
-                    },
-                  }
-                );
-                if (patch.status === 201) {
-                  window.alert("레시피 작성이 완료되었습니다.");
-                  navigate(-1);
-                }
-              } catch (error) {
-                window.alert("레시피 작성을 실패했습니다.");
-                console.log(error);
-              }
-            }}
-          >
+          <RegisterButton type="submit" onClick={handleRegisterClick}>
             등록하기
           </RegisterButton>
         </CenterItem>

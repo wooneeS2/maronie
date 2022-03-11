@@ -19,7 +19,7 @@ import { useRecoilState } from "recoil";
 import { userState } from "data/state";
 
 const url = process.env.REACT_APP_DB_HOST;
-
+const imgUrl = process.env.REACT_APP_DB_IMG;
 function ReviewRegistration({ liquorImage, liqourName, liquorId }) {
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
@@ -48,7 +48,7 @@ function ReviewRegistration({ liquorImage, liqourName, liquorId }) {
       <ColumnDiv style={{ paddingTop: "81px" }}>
         <div>
           <ImgWrapper>
-            <img src={liquorImage} alt="liquor" style={imageStyle} />
+            <img src={imgUrl + liquorImage} alt="liquor" style={imageStyle} />
           </ImgWrapper>
           <BoldTitle>{liqourName}</BoldTitle>
         </div>

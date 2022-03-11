@@ -15,14 +15,11 @@ import ratingLabels from "../../data/ratingLabels";
 import RatingChartBar from "./widget/RatingChartBar";
 import UserReviewBox from "./widget/UserReviewBox";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userState } from "data/state";
+import axios from "axios";
 
-const ratingCount = [
-  { rating: 1, count: 10 },
-  { rating: 2, count: 20 },
-  { rating: 3, count: 50 },
-  { rating: 4, count: 25 },
-  { rating: 5, count: 15 },
-];
+const GET_API = process.env.REACT_APP_DB_HOST;
 
 export function LiquorReview({
   reviewSummary,
@@ -32,14 +29,19 @@ export function LiquorReview({
   liquorName,
   liquorRating,
 }) {
+  const navigate = useNavigate();
+  const [user] = useRecoilState(userState);
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
-  const navigate = useNavigate();
-  let ratings = reviewSummary.rating_distribution;
   const [liquorRatingValue, setLiquorRatingValue] = React.useState(null);
+  const [liquorReviewList, setLiquorReviewList] = React.useState(liquorReviews);
+  const [lastReviewId, setLastReviewId] = React.useState(0);
+  let ratings = reviewSummary.rating_distribution;
 
   React.useEffect(() => {
     setLiquorRatingValue(liquorRating);
+    setLiquorReviewList(liquorReviews);
+    setLastReviewId(reviewSummary.last_review_id);
   }, [ratings]);
 
   let ratingsWithNewType = [];
@@ -55,11 +57,13 @@ export function LiquorReview({
 
   return (
     <>
-      <div id="liquorReview">
+      <div id="liquorReview" style={{ paddingTop: "2rem" }}>
         <ColumnDiv>
           <PageTitle>유저 리뷰</PageTitle>
 
-          <CenterAlignmentDiv>{liquorRating}</CenterAlignmentDiv>
+          <CenterAlignmentDiv>
+            {liquorRating && liquorRating.toFixed(2)}
+          </CenterAlignmentDiv>
           <CenterAlignmentDiv>
             {liquorRatingValue && (
               <ReadOnlyRating
@@ -77,14 +81,45 @@ export function LiquorReview({
               return <RatingChartBar key={i + index} ratingCount={i} />;
             })}
           </ColumnDiv>
-          <HorizontalLine style={{ width: "60%", marginTop: "1rem" }} />
+
+          {liquorReviewList && (
+            <div>
+              <HorizontalLine style={{ width: "60%", marginTop: "1rem" }} />
+              {liquorReviewList.map((i, index) => {
+                return (
+                  <UserReviewBox key={i.nickname + index} userReview={i} />
+                );
+              })}
+            </div>
+          )}
         </ColumnDiv>
-        {liquorReviews.map((i, index) => {
-          return <UserReviewBox key={i.nickname + index} userReview={i} />;
-        })}
-        <MoreReviewButton>리뷰 더 보기</MoreReviewButton>
-        <CenterAlignmentDiv style={{ marginBottom: "1rem" }}>
-          <BoldTitle>이 술, 000님은 어땠나요?</BoldTitle>
+
+        <MoreReviewButton
+          onClick={async () => {
+            if (lastReviewId === null) {
+              return setLiquorReviewList([...liquorReviewList]);
+            }
+            try {
+              const response = await axios.get(
+                `${GET_API}review/liquor/${liquorId}/more_reviews/${lastReviewId}`
+              );
+
+              const moreReviews = response.data.reviews;
+              const lastId = response.data.last_review_id;
+              setLastReviewId(lastId);
+              setLiquorReviewList([...liquorReviewList, ...moreReviews]);
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        >
+          리뷰 더 보기
+        </MoreReviewButton>
+
+        <CenterAlignmentDiv style={{ marginBottom: "1rem", marginTop: "1rem" }}>
+          <BoldTitle>
+            이 술, {user ? user.nickname : "회원"}님은 어땠나요?
+          </BoldTitle>
           <div style={{ fontStyle: "italic" }}>
             {value !== null && (
               <p>〔 {ratingLabels[hover !== -1 ? hover : value]} 〕</p>
@@ -93,14 +128,16 @@ export function LiquorReview({
           <ReviewRating
             onChange={(event, newValue) => {
               setValue(newValue);
-              navigate("/liquor/create/review", {
-                state: {
-                  liquorId: liquorId,
-                  ratingValue: newValue,
-                  liquorImg: liquorImg,
-                  liquorName: liquorName,
-                },
-              });
+              user
+                ? navigate("/liquor/create/review", {
+                    state: {
+                      liquorId: liquorId,
+                      ratingValue: newValue,
+                      liquorImg: liquorImg,
+                      liquorName: liquorName,
+                    },
+                  })
+                : navigate("/signin");
             }}
             onChangeActive={(event, newHover) => {
               setHover(newHover);

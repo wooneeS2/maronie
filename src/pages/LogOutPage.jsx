@@ -8,9 +8,7 @@ export default function LogOutPage() {
   const [user, setUser] = useRecoilState(userState);
   const handleLogOut = async () => {
     const logOut = await axios.post(`${url}auth/logout`);
-
     setUser(null);
-    console.log(user);
   };
   return (
     <div style={{ paddingTop: "80px" }}>

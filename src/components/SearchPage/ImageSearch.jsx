@@ -11,10 +11,12 @@ import {
   SearchTitle,
 } from "../../design/SearchPage/SearchPageStyles";
 import { FaWineBottle, FaCocktail } from "react-icons/fa";
+import Loading from "../../components/Loading";
 
 function ImageSearch() {
   const navigate = useNavigate();
   const [isDragging, setIsDragging] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(null);
   const dragRef = React.useRef(null);
   const [searchImage, setSearchImage] = useRecoilState(searchImageState);
   const [resultImage, setResultImage] = useRecoilState(resultImageState);
@@ -46,7 +48,7 @@ function ImageSearch() {
         setSearchImage(base64.toString());
       }
     };
-
+    setIsLoading(true);
     const result = await axios
       .post(
         process.env.REACT_APP_DB_HOST + `search/file-upload`,
@@ -55,7 +57,7 @@ function ImageSearch() {
       )
       .then((res) => res.data)
       .catch(() => null);
-
+    setIsLoading(false);
     setResultImage(result);
     navigate(`/image-search-result`);
   };
@@ -109,6 +111,9 @@ function ImageSearch() {
   React.useEffect(() => {
     initDragEvents();
   }, [initDragEvents]);
+
+  if (isLoading) return <Loading />;
+
   return (
     <>
       <DragFileSpace isDragging={isDragging} ref={dragRef}>
@@ -130,12 +135,14 @@ function ImageSearch() {
           <FaWineBottle size={60} />
           <FaCocktail size={60} />
         </div>
-        <SearchTitle>이미지를 업로드해서 검색</SearchTitle>
-        <SearchDescription>
-          갤러리에서 사진을 선택하거나, 직접 촬영해서 검색해보세요! 한 번에 한
-          장씩, 이미지 파일만 검색 가능합니다 🔍
-        </SearchDescription>
-
+        <div style={{ margin: "10px" }}>
+          <SearchTitle>이미지를 업로드해서 검색</SearchTitle>
+          <SearchDescription>갤러리에서 사진을 선택하거나,</SearchDescription>
+          <SearchDescription>직접 촬영해서 검색해보세요!</SearchDescription>
+          <SearchDescription>
+            한 번에 한 장씩, 이미지 파일만 검색 가능합니다 🔍
+          </SearchDescription>
+        </div>
         <FileUploadButton htmlFor="imageUpload">
           사진 선택하기
           <input

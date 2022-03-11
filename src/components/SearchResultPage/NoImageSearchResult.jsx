@@ -1,4 +1,3 @@
-import { Image } from "@mui/icons-material";
 import { NoImageResultWrapper } from "../../design/SearchResultPage/ImageSearchResultStyles";
 import BetterSearchTip from "./BetterSearchTip";
 

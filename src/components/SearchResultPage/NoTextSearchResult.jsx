@@ -11,19 +11,20 @@ function NoSearchResult({ currentTab }) {
     <NoTextResultWrapper>
       <p style={{ fontSize: "100px", margin: 0 }}>😨</p>
       <div>
-        <p>
+        <p style={{ margin: "10px" }}>
           <b>{searchKeyword}</b>에 대한{" "}
           {currentTab === "liquor" ? "술" : "칵테일"} 검색 결과가 없습니다
         </p>
         <BetterSearchTip type="text" />
-        <p>마로니에가 추천하는 다음 검색어는 어떠세요?</p>
+        <p style={{ margin: "10px" }}>
+          마로니에가 추천하는 다음 검색어는 어떠세요?
+        </p>
         <Stack>
           {searchRecommendKeywords.map((item, idx) => (
             <Chip
               component="a"
               key={`recommend-${idx}`}
               label={item}
-              size="small"
               variant="outlined"
               href={`/text-search-result/${item}`}
             />

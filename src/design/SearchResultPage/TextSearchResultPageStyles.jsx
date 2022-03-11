@@ -4,7 +4,7 @@ import { FlexColumnCenterBox } from "../commonStyles";
 export const TextResultItemTitle = styled.h3`
   font-size: 1.3rem;
   color: black;
-  margin-bottom: 0;
+  margin: 0 auto;
 `;
 export const TextReusltItemSubtitle = styled.p`
   color: gray;
@@ -17,6 +17,8 @@ export const TextResultItemPrice = styled.p`
 `;
 export const TextResultItemDescription = styled.p`
   font-size: 0.8rem;
+  max-width: 350px;
+  width: 100%;
   color: gray;
 `;
 export const TextSearchResultImage = styled.img`
@@ -44,4 +46,5 @@ export const BetterSearchResultItem = styled.li`
     vertical-align: 3px;
     background-color: #aaa;
   }
+  margin: 5px;
 `;
