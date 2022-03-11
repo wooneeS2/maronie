@@ -1,7 +1,20 @@
 import styled from "styled-components";
 import { mainRed } from "../colorPalette";
+import { Link } from "react-router-dom";
 
 //TODO safari 설정 추가하기
+export const CocktailLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  text-decoration: inherit;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
 
 export const CocktailImg = styled.img`
   width: 300px;

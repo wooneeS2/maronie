@@ -21,6 +21,7 @@ import DonelistPage from "./pages/DonelistPage";
 import MyReviewPage from "./pages/MyReviewPage";
 import MyRecipePage from "./pages/MyRecipePage";
 import ErrorPage from "./pages/ErrorPage";
+import LogOutPage from "pages/LogOutPage";
 function App() {
   return (
     <>
@@ -29,13 +30,13 @@ function App() {
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route path="/" element={<IntroPage />} />
-            <Route path="/liquor" element={<DetailPage />} />
+            <Route exact path="/" element={<IntroPage />} />
+            <Route path="/liquor/:item" element={<DetailPage />} />
             <Route
               path="/liquor/create/review"
               element={<ReviewRegistrationPage />}
             />
-            <Route path="/cocktail/detail" element={<CocktailDetailPage />} />
+            <Route path="/cocktail/:item" element={<CocktailDetailPage />} />
             <Route
               path="/cocktail/register"
               element={<RecipeRegistrationPage />}
@@ -43,6 +44,7 @@ function App() {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/signin" element={<SignInPage />} />
+            <Route path="/logout" element={<LogOutPage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mypage/wishlist" element={<WishlistPage />} />
             <Route path="/mypage/donelist" element={<DonelistPage />} />

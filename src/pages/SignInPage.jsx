@@ -20,13 +20,12 @@ function SignInPage() {
         email,
         password,
       })
-      .then((res) => {
+      .then(res => {
         setUser(() => res.data);
         alert(res.data.nickname + "님! 안녕하세요 :)");
-        // TODO: 이전 페이지 주소 가져와서 그곳으로 이동 or 인트로 페이지
-        navigate("/");
+        navigate(-1);
       })
-      .catch((e) => {
+      .catch(e => {
         let errorMsg = e.response.data.message;
         if (errorMsg === "User Not Found") {
           alert("가입되지 않은 이메일입니다");
@@ -38,16 +37,16 @@ function SignInPage() {
       });
   };
   return (
-    <FlexColumnCenterBox>
+    <FlexColumnCenterBox style={{ paddingTop: "80px" }}>
       <SignInInput
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value)}
         label="이메일"
         autoComplete="off"
         margin="normal"
       />
 
       <SignInInput
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={e => setPassword(e.target.value)}
         label="비밀번호"
         autoComplete="off"
         margin="normal"

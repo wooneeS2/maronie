@@ -15,10 +15,10 @@ function MyPage() {
   ];
   // TODO 디자인 업데이트
   return (
-    <div>
+    <div style={{ paddingTop: "80px" }}>
       <GreetingMember />
       <ul style={{ margin: 0, padding: 0 }}>
-        {myPageItemList.map((item) => (
+        {myPageItemList.map(item => (
           <Link to={item["link"]}>
             <MyPageMenuItem>
               <MyPageMenuItemTitle>

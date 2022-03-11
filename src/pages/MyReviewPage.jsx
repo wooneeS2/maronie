@@ -15,9 +15,8 @@ function MyReviewPage() {
     const call = async () => {
       const response = await axios
         .get(process.env.REACT_APP_DB_HOST + `mypage/review/${user["id"]}`)
-        .then((res) => res.data);
+        .then(res => res.data);
       setReviewData(response);
-      console.log(response);
       setIsLoading(false);
     };
     call();
