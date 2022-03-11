@@ -23,6 +23,10 @@ FROM nginx:latest
 #COPY nginx/snowball-frontend.conf /etc/nginx/sites-available/snowball-frontend.conf
 #RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 
+COPY nginx/nginx.conf /etc/nginx
+COPY nginx/team11-default /etc/nginx/sites-available/default
+RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
+
 WORKDIR /app
 COPY --from=builder /usr/src/app/build /app/build
 
