@@ -14,6 +14,7 @@ const path = {
   "/": "마로니에",
   "/signup": "회원가입",
   "/signin": "로그인",
+  "/logout": "로그아웃",
   "/liquor": "상세 정보",
   "/search": "술 검색",
   "/image-search-result": "검색 결과",
@@ -41,7 +42,7 @@ export function Header() {
     setVisible(!visible);
   };
 
-  const setPathName = (pathName) => {
+  const setPathName = pathName => {
     if (Object.keys(path).includes(pathName) === false) {
       return path["etc"];
     }
