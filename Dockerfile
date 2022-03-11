@@ -23,7 +23,7 @@ FROM nginx:latest
 #COPY nginx/snowball-frontend.conf /etc/nginx/sites-available/snowball-frontend.conf
 #RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 
-COPY frontend-nginx.conf /etc/nginx/sites-available
+COPY frontend-nginx.conf /etc/nginx/sites-available/
 RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 
 WORKDIR /app
