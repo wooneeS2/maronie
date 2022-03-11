@@ -36,7 +36,7 @@ function ImageSearchResultPage() {
                 alt="이미지 검색 대상"
               />
               <ImageSearchImg
-                src={resultImage["image_path"]}
+                src={process.env.REACT_APP_DB_IMG + resultImage["image_path"]}
                 alt="결과 이미지"
               />
             </FlexRowCenterBox>

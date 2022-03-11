@@ -11,11 +11,11 @@ function NoItem({ page }) {
       emoji = "✊";
       comment = "마신 술을 체크하면 여기서 확인할 수 있어요!";
       break;
-    case "myreview":
+    case "review":
       emoji = "✏️";
       comment = `작성하신 리뷰가 없어요`;
       break;
-    case "myrecipe":
+    case "recipe":
       emoji = "👨‍🍳";
       comment = "작성하신 칵테일 레시피가 없어요";
       break;

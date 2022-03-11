@@ -14,6 +14,7 @@ import { BsPencilSquare } from "react-icons/bs";
 import { IoTrashOutline } from "react-icons/io5";
 import NoItem from "./NoItem";
 function ReviewItems({ reviewData, setReviewData }) {
+  console.log(reviewData);
   let navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
   const [user, setUser] = useRecoilState(userState);
@@ -69,10 +70,10 @@ function ReviewItems({ reviewData, setReviewData }) {
                   to={`/review/` + item[`review_id`]}
                   key={`review-` + item[`review_id`]}
                 >
-                  <ReviewItemThumbnail
-                    src={item["image_path"]}
+                  {/* <ReviewItemThumbnail
+                    src={process.env.REACT_APP_DB_IMG + item["image_path"]}
                     alt={item[`liquor_name_kor`] + " 이미지"}
-                  />
+                  /> */}
                 </StyledLink>
                 <div>
                   <p
@@ -97,7 +98,7 @@ function ReviewItems({ reviewData, setReviewData }) {
       </>
     );
   } else {
-    return <NoItem page="myreview" />;
+    return <NoItem page="review" />;
   }
 }
 export default ReviewItems;

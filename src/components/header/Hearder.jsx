@@ -19,8 +19,6 @@ const path = {
   "/image-search-result": "검색 결과",
   "/cocktail/register": "칵테일 레시피 추가하기",
   "/liquor/create/review": "리뷰 작성",
-  "/signup": "회원가입",
-  "/signin": "로그인",
   "/mypage": "마이페이지",
   "/mypage/wishlist": "즐겨찾기",
   "/mypage/donelist": "마셔봤어요",
@@ -43,7 +41,7 @@ export function Header() {
     setVisible(!visible);
   };
 
-  const setPathName = pathName => {
+  const setPathName = (pathName) => {
     if (Object.keys(path).includes(pathName) === false) {
       return path["etc"];
     }

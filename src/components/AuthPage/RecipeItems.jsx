@@ -59,8 +59,11 @@ function RecipeItems({ recipeData, setRecipeData }) {
     return (
       <>
         <RecipeItemsContainer style={{ marginTop: "81px" }}>
-          {recipeData.map((item) => (
-            <RecipeItemWrapper onClick={() => handleOpen(item["cocktail_id"])}>
+          {recipeData.map((item, idx) => (
+            <RecipeItemWrapper
+              onClick={() => handleOpen(item["cocktail_id"])}
+              key={`recipe-${idx}`}
+            >
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <div style={{ position: "absolute", right: 13, top: 13 }}>
                   <BsPencilSquare
@@ -81,7 +84,7 @@ function RecipeItems({ recipeData, setRecipeData }) {
 
                 <StyledLink to={`/cocktail/` + item[`cocktail_id`]}>
                   <ReviewItemThumbnail
-                    src={item["image_path"]}
+                    src={process.env.REACT_APP_DB_IMG + item["image_path"]}
                     alt={item[`cocktail_name_kor`] + " 이미지"}
                   />
                 </StyledLink>

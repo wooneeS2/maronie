@@ -79,7 +79,9 @@ function TextSearchResultPage() {
                     <TableItem>
                       {
                         <TextSearchResultImage
-                          src={item["image_path"]}
+                          src={
+                            process.env.REACT_APP_DB_IMG + item["image_path"]
+                          }
                           alt={`${item["liquor_name"]} 이미지`}
                         />
                       }

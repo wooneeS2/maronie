@@ -72,7 +72,7 @@ function DoneItems({
             </div>
             <StyledLink to={`/${currentTab}/` + item[`${currentTab}_id`]}>
               <WishItemsImage
-                src={item["image_path"]}
+                src={process.env.REACT_APP_DB_IMG + item["image_path"]}
                 alt={item[`${currentTab}_name_kor`] + " 이미지"}
               />
             </StyledLink>
