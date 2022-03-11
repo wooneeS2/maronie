@@ -14,7 +14,6 @@ import {
   TopMenuButton,
 } from "../../design/IntroPage/IntroPage";
 import { FaChevronDown } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { mainOrange } from "../../design/colorPalette";
 import MenuList from "../header/MenuList";

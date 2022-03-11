@@ -29,13 +29,13 @@ export const UserReviewBox = ({ userReview }) => {
             }}
             id="userRating"
           >
-            ★{userReview.userRating}
+            ★{userReview.rating}
           </span>
           <span
             id="reviewContent"
             style={{ padding: "4px", wordBreak: "keep-all" }}
           >
-            {userReview.reviewContent}
+            {userReview.content}
           </span>
         </div>
       </div>
@@ -49,7 +49,7 @@ export const UserReviewBox = ({ userReview }) => {
             padding: "4px",
           }}
         >
-          {userReview.userName}
+          {userReview.nickname}
         </span>
         <span
           style={{
@@ -58,7 +58,7 @@ export const UserReviewBox = ({ userReview }) => {
             padding: "4px",
           }}
         >
-          {userReview.reviewDate}
+          {userReview.review_date}
         </span>
       </div>
     </CenterAlignmentDiv>

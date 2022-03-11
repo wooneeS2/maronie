@@ -19,8 +19,6 @@ function RecipeItems({ recipeData }) {
   const [user, setUser] = useRecoilState(userState);
   const [isOpen, setIsOpen] = React.useState([]);
   let navigate = useNavigate();
-  console.log(isOpen);
-  console.log(recipeData);
   const handleOpen = (cocktailId) => {
     let newIsOpen;
     if (isOpen.includes(cocktailId)) {
@@ -55,7 +53,7 @@ function RecipeItems({ recipeData }) {
   if (recipeData.length > 0) {
     return (
       <>
-        <RecipeItemsContainer>
+        <RecipeItemsContainer style={{ marginTop: "81px" }}>
           {recipeData.map((item) => (
             <RecipeItemWrapper onClick={() => handleOpen(item["cocktail_id"])}>
               <div style={{ display: "flex", flexDirection: "row" }}>

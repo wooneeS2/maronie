@@ -82,7 +82,10 @@ export const Introduction3 = () => {
         <br /> 언제 어디서나 맛있는 술을 드실 수 있게 마로니에가 도와드릴게요.
       </IntroductionContent>
       <StyledLink to="/search" style={{ width: "100%", cursor: "pointer" }}>
-        <LandingPageButton backgroundColor={mainOrange}>
+        <LandingPageButton
+          backgroundColor={mainOrange}
+          style={{ fontSize: "1rem", width: "40%" }}
+        >
           여기를 눌러서 마로니에 시작하기
         </LandingPageButton>
       </StyledLink>

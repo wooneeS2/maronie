@@ -13,11 +13,11 @@ function NoItem({ page }) {
       break;
     case "myreview":
       emoji = "✏️";
-      comment = "의 리뷰가 다른 사람에게 도움이 될거예요";
+      comment = `작성하신 리뷰가 없어요`;
       break;
     case "myrecipe":
       emoji = "👨‍🍳";
-      comment = "님만의 칵테일 레시피를 등록해보세요!";
+      comment = "작성하신 칵테일 레시피가 없어요";
       break;
     default:
       emoji = "😵";

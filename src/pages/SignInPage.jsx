@@ -20,12 +20,12 @@ function SignInPage() {
         email,
         password,
       })
-      .then((res) => {
+      .then(res => {
         setUser(() => res.data);
         alert(res.data.nickname + "님! 안녕하세요 :)");
-        navigate("/search");
+        navigate(-1);
       })
-      .catch((e) => {
+      .catch(e => {
         let errorMsg = e.response.data.message;
         if (errorMsg === "User Not Found") {
           alert("가입되지 않은 이메일입니다");
@@ -39,14 +39,14 @@ function SignInPage() {
   return (
     <FlexColumnCenterBox style={{ marginTop: "81px" }}>
       <SignInInput
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value)}
         label="이메일"
         autoComplete="off"
         margin="normal"
       />
 
       <SignInInput
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={e => setPassword(e.target.value)}
         label="비밀번호"
         autoComplete="off"
         margin="normal"

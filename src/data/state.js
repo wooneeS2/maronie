@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 export const sessionStorageEffect =
-  (key) =>
+  key =>
   ({ setSelf, onSet }) => {
     const savedValue = sessionStorage.getItem(key);
     if (savedValue !== null) {
@@ -31,6 +31,6 @@ export const headerHeightState = atom({
 });
 export const userState = atom({
   key: "userState",
-  default: {},
+  default: null,
   effects: [sessionStorageEffect("userInfo")],
 });

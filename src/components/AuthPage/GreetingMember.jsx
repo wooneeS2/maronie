@@ -9,10 +9,9 @@ function SignInMemberInfo() {
 
   return (
     <>
-      {" "}
       <GreetingMemberWrapper>
         {/* TODO 로그아웃 로직에 따라 수정 필요 */}
-        {Object.keys(user).length > 2 ? (
+        {user !== null && Object.keys(user)?.length > 2 ? (
           <>
             <p>{user["nickname"]}님 안녕하세요!</p>
             <p>오늘도 좋은 하루 되세요🥂</p>

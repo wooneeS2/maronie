@@ -115,10 +115,12 @@ export const IntroductionDiv = styled.div`
   flex-direction: column;
   background-color: ${mainWhite};
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const IntroductionContent = styled.p`
-  padding: 20px;
+  padding: 15px;
   margin: 20px;
   text-align: center;
 `;
@@ -130,5 +132,6 @@ export const OrangeTitle = fontSize => {
     fontWeight: "bold",
     display: "block",
     textAlign: "center",
+    paddingTop: "30px",
   };
 };

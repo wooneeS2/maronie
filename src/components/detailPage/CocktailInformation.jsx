@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
+
 import {
   SliderContainer,
   CocktailImg,
   CocktailSliderContainer,
   CocktailNextButton,
+  CocktailLink,
 } from "../../design/detailPage/CocktailInformationStyles";
 import CocktailLevel from "./widget/CocktailLevel";
 import { LiquorSubTitle, ColumnDiv, RowDiv } from "../../design/commonStyles";
@@ -58,19 +60,24 @@ function CocktailImformation({ cocktails }) {
             <SliderContainer ref={slideRef}>
               {cocktails.map(i => {
                 return (
-                  <div
-                    style={{
-                      maxWidth: "350px",
-                      width: "100%",
-                      margin: "0 auto",
-                      textAlign: "center",
-                    }}
-                    key={i.img}
+                  <CocktailLink
+                    to={`/cocktail/${i.cocktail_id}`}
+                    key={i.cocktail_name_kor}
                   >
-                    <CocktailImg src={i.img} />
-                    <span>{i.name}</span>
-                    <CocktailLevel level={i.level} />
-                  </div>
+                    <div
+                      style={{
+                        maxWidth: "350px",
+                        width: "100%",
+                        margin: "0 auto",
+                        textAlign: "center",
+                      }}
+                    >
+                      <CocktailImg src={i.cocktail_image} />
+                      <span>{i.cocktail_name_kor}</span>
+
+                      <CocktailLevel level={parseInt(i.level)} />
+                    </div>
+                  </CocktailLink>
                 );
               })}
             </SliderContainer>

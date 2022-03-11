@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userState } from "../data/state";
@@ -12,6 +13,10 @@ function WishlistPage() {
   const [wishlistData, setWishlistData] = React.useState({});
 
   React.useEffect(() => {
+    if (user === null) {
+      alert("회원 전용 기능입니다, 로그인 해주세요!");
+      return;
+    }
     const call = async () => {
       try {
         setIsLoading(true);
@@ -25,13 +30,14 @@ function WishlistPage() {
       setIsLoading(false);
     };
     call();
-  }, []);
+  }, [currentTab]);
+  if (user === null) {
+    return <Navigate to="/signin" replace={true} />;
+  }
   return (
     <>
       {isLoading ? (
-        <>
-          <Loading />
-        </>
+        <Loading />
       ) : (
         <>
           <div style={{ marginTop: "81px" }}>
