@@ -51,7 +51,6 @@ export function LiquorInformation({ liquor, liquorId }) {
     const response = await axios.get(
       `${url}/liquor/check_mark?user_id=${userId}&beverage_id=${liquorId}`
     );
-    console.log(response.data);
     setIsWish(response.data.is_wish);
     setIsDone(response.data.is_done);
   };
@@ -78,7 +77,7 @@ export function LiquorInformation({ liquor, liquorId }) {
           </LiquorName>
           <LiquorDescription>
             <span>
-              도수 :{liquor.alcohol === -1 ? "알 수 없음" : liquor.alchol}
+              도수 : {liquor.alcohol == -1 ? "알 수 없음" : liquor.alcohol}
             </span>
             {liquor.description}
           </LiquorDescription>

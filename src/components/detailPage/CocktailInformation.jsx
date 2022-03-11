@@ -48,10 +48,10 @@ function CocktailImformation({ cocktails }) {
         }}
       >
         <RowDiv>
-          <LevelGuideTooltip />
           <LiquorSubTitle>
-            방금 검색한 그 술, 이렇게 마셔보는건 어때요? 😉
+            방금 검색한 그 술, 이렇게 마셔보는건 어때요?
           </LiquorSubTitle>
+          <LevelGuideTooltip />
         </RowDiv>
         <RowDiv>
           <CocktailNextButton onClick={prevSlide}>

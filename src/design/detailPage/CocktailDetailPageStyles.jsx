@@ -7,6 +7,7 @@ export const CocktailName = styled.span`
   font-weight: bold;
   margin-right: 8px;
   padding: 10px;
+  font-size: 1.5rem;
 `;
 
 export const CocktailLevel = styled.span`

@@ -14,7 +14,7 @@ export function ParingInformation({ parings }) {
     <ParingBox>
       <hr width="65%" />
       <div className="title">
-        <LiquorSubTitle>마로니에가 추천하는 어울리는 안주✨</LiquorSubTitle>
+        <LiquorSubTitle>마로니에가 추천하는 어울리는 안주</LiquorSubTitle>
         <div className="paringImage">
           {parings.map((i, index) => {
             return (

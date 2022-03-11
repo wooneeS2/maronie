@@ -1,16 +1,26 @@
 import styled, { keyframes } from "styled-components";
 import { mainOrange, mainWhite } from "../colorPalette";
+import GlobalStyles from "design/GlobalStyles";
 
 export const MainTitle = styled.p`
+  @font-face {
+    font-family: "ROEHOE-CHAN";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/ROEHOE-CHAN.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
   font-weight: bold;
   font-size: 2.5rem;
   text-shadow: 0 0 10px white;
+  font-family: ROEHOE-CHAN;
 `;
 
 export const SubTitle = styled.p`
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 2rem;
+  font-family: GimpoGothicBold00;
 
   margin: 8px;
 `;
@@ -133,5 +143,6 @@ export const OrangeTitle = fontSize => {
     display: "block",
     textAlign: "center",
     paddingTop: "30px",
+    fontFamily: "GimpoGothicBold00",
   };
 };
