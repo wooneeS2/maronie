@@ -12,6 +12,7 @@ import CocktailLevel from "./widget/CocktailLevel";
 import { LiquorSubTitle, ColumnDiv, RowDiv } from "../../design/commonStyles";
 import { LevelGuideTooltip } from "./widget/LevelGuideTooltip";
 
+const imgUrl = process.env.REACT_APP_DB_IMG;
 function CocktailImformation({ cocktails }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
@@ -72,7 +73,7 @@ function CocktailImformation({ cocktails }) {
                         textAlign: "center",
                       }}
                     >
-                      <CocktailImg src={i.cocktail_image} />
+                      <CocktailImg src={imgUrl + i.cocktail_image} />
                       <span>{i.cocktail_name_kor}</span>
 
                       <CocktailLevel level={parseInt(i.level)} />

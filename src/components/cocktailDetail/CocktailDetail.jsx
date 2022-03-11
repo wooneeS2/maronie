@@ -27,6 +27,7 @@ import { userState } from "data/state";
 import { useNavigate } from "react-router-dom";
 
 const url = process.env.REACT_APP_DB_HOST;
+const imgUrl = process.env.REACT_APP_DB_IMG;
 function CocktailDetail({ cocktail, cocktailId }) {
   const [user] = useRecoilState(userState);
   const [isWish, setIsWish] = React.useState(0);
@@ -59,7 +60,11 @@ function CocktailDetail({ cocktail, cocktailId }) {
     <ColumnDiv style={{ paddingTop: "80px" }}>
       <CenterAlignmentDiv>
         <ImgWrapper>
-          <img src={cocktail.image_path} alt="cocktail" style={imageStyle} />
+          <img
+            src={imgUrl + cocktail.image_path}
+            alt="cocktail"
+            style={imageStyle}
+          />
         </ImgWrapper>
         <div>
           <CocktailName>{cocktail.cocktail_name_kor}</CocktailName>

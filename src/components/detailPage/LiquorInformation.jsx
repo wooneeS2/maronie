@@ -37,6 +37,7 @@ const liquorClassification = {
   7: "진",
 };
 const url = process.env.REACT_APP_DB_HOST;
+const imgUrl = process.env.REACT_APP_DB_IMG;
 
 export function LiquorInformation({ liquor, liquorId }) {
   let liquorRating = Math.round(parseFloat(liquor.rating));
@@ -64,7 +65,7 @@ export function LiquorInformation({ liquor, liquorId }) {
         <div>
           <ImgWrapper>
             <img
-              src={liquor.liquor_image}
+              src={imgUrl + liquor.liquor_image}
               alt="liquor"
               style={{ width: "80%" }}
             />

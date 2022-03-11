@@ -5,6 +5,9 @@ import {
   ParingImgWrapper,
 } from "../../design/detailPage/ParingInformationStyles";
 import { LiquorSubTitle } from "../../design/commonStyles";
+const imgUrl = process.env.REACT_APP_DB_IMG;
+const defaultImg =
+  "https://freepikpsd.com/file/2019/10/galeri-icon-png-1-Transparent-Images-Free.png";
 
 export function ParingInformation({ parings }) {
   return (
@@ -17,9 +20,9 @@ export function ParingInformation({ parings }) {
             return (
               <div key={i.menu_image} className="imageList">
                 {i.menu_image === "" ? (
-                  <ParingImgWrapper image="https://freepikpsd.com/file/2019/10/galeri-icon-png-1-Transparent-Images-Free.png" />
+                  <ParingImgWrapper image={defaultImg} />
                 ) : (
-                  <ParingImgWrapper image={i.menu_image} />
+                  <ParingImgWrapper image={imgUrl + i.menu_image} />
                 )}
                 <p sx={{ textAlign: "center" }} id={`parings${index + 1}`}>
                   {i.menu_name}
