@@ -39,12 +39,12 @@ export function LandingPage() {
           <MenuList isLogin={true} visible={visible} />
         </TopMenuButton>
         <MainPageTextDiv>
-          <div>
+          <span>
             <MainTitle>Maronie</MainTitle>
-            <SubTitle>
+            <SubTitle style={{ marginTop: "2rem" }}>
               양주 라벨 검색 및<br /> 칵테일 레시피 공유 서비스
             </SubTitle>
-          </div>
+          </span>
           <div>
             <StyledLink to={"/search"}>
               <LandingPageButton backgroundColor={mainOrange}>

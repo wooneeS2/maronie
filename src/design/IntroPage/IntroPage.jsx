@@ -14,6 +14,7 @@ export const MainTitle = styled.p`
   font-size: 2.5rem;
   text-shadow: 0 0 10px white;
   font-family: ROEHOE-CHAN;
+  margin-top: 7rem;
 `;
 
 export const SubTitle = styled.p`
@@ -32,7 +33,8 @@ export const MainPageTextDiv = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  justify-content: space-evenly;
+
+  justify-content: space-around;
 `;
 
 export const MainPageDiv = styled.div`
@@ -77,17 +79,18 @@ export const LandingPageButton = styled.button`
 export const MoreInfoText = styled.span`
   display: block;
   font-size: 0.8rem;
+  padding-bottom: 2rem;
 `;
 
 const iconMotion = keyframes`
 0% {
-  top: -2px;
+  top: -20px;
 }
 50% {
-  top: 2px;
+  top: 20px;
 }
 100% {
-  top: -2px;
+  top: -20px;
 }
 `;
 

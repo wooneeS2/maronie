@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
 
 button {
   color: #000000;
+  font-family:KOTRA_GOTHIC;
   
 }
 body {
