@@ -19,17 +19,19 @@ import {
 } from "../../design/commonStyles";
 import { Input, InputAdornment } from "@mui/material";
 import SelectLiquorClassification from "../detailPage/widget/SelectLiquorClassification";
+const liquorClassification = [
+  "진",
+  "럼",
+  "위스키",
+  "보드카",
+  "테킬라",
+  "리큐르",
+  "기타",
+];
 
 function RecipeEdit({ cocktailId }) {
-  const dummy = {
-    cocktail_name: "1번 칵테일",
-    image_path:
-      "https://www.brit.co/media-library/quick-and-easy-cocktail-recipes.jpg?id=21488888&width=645&height=645",
-    level: 3,
-    classification_id: 1,
-  };
   const [cocktailInfo, setCocktailInfo] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(null);
   const [step, setStep] = React.useState(cocktailInfo["cocktail_name"] || []);
   const addStep = () => {
     setStep(step => [...step, <RecipeInput />]);
@@ -51,21 +53,26 @@ function RecipeEdit({ cocktailId }) {
   };
 
   React.useEffect(() => {
-    setIsLoading(true);
     const call = async () => {
+      try {
+        setIsLoading(true);
+      } catch (e) {
+        console.log(e);
+      }
       const response = await axios
         .get(process.env.REACT_APP_DB_HOST + `cocktail/${cocktailId}`)
         .then(res => res.data);
       setCocktailInfo(response);
-      setIsLoading(false);
     };
+    setIsLoading(false);
     call();
   }, []);
-
   return (
     <>
       <ColumnDiv style={{ paddingTop: "81px" }}>
-        <BoldTitle>리큐르 이름(//TODO 수정해야댐)</BoldTitle>
+        <BoldTitle>
+          {liquorClassification[cocktailInfo["classification_id"]]}
+        </BoldTitle>
         <AddCocktailPhoto />
 
         <div>
