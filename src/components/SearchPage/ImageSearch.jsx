@@ -11,11 +11,12 @@ import {
   SearchTitle,
 } from "../../design/SearchPage/SearchPageStyles";
 import { FaWineBottle, FaCocktail } from "react-icons/fa";
+import Loading from "../../components/Loading";
 
 function ImageSearch() {
   const navigate = useNavigate();
   const [isDragging, setIsDragging] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(null);
   const dragRef = React.useRef(null);
   const [searchImage, setSearchImage] = useRecoilState(searchImageState);
   const [resultImage, setResultImage] = useRecoilState(resultImageState);
@@ -113,7 +114,7 @@ function ImageSearch() {
   if (isLoading)
     return (
       <>
-        <p>// TODO 로딩중 컴포넌트가 들어갈 자리 임미다...</p>
+        <Loading />
       </>
     );
   return (

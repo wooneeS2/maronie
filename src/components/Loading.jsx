@@ -1,11 +1,10 @@
+import { FlexColumnCenterBox } from "design/commonStyles";
+import icon from "../assets/loading-icon.gif";
 function Loading() {
   return (
-    <>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis modi
-      aspernatur quia culpa delectus. Laudantium, quis vel! Quae magnam ex
-      voluptatum repudiandae, corporis molestias ipsam inventore at accusantium
-      incidunt delectus!
-    </>
+    <FlexColumnCenterBox style={{ height: "85vh" }}>
+      <img src={icon} alt="loading icon" />
+    </FlexColumnCenterBox>
   );
 }
 export default Loading;

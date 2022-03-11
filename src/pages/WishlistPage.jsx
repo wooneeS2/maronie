@@ -4,20 +4,24 @@ import { useRecoilState } from "recoil";
 import { userState } from "../data/state";
 import MenuTabs from "../components/SearchPage/MenuTabs";
 import WishItems from "../components/AuthPage/WishItems";
-
+import Loading from "../components/Loading";
 function WishlistPage() {
   const [currentTab, setCurrentTab] = React.useState("liquor");
   const [user, setUser] = useRecoilState(userState);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(null);
   const [wishlistData, setWishlistData] = React.useState({});
 
   React.useEffect(() => {
-    setIsLoading(true);
     const call = async () => {
-      const response = await axios
-        .get(process.env.REACT_APP_DB_HOST + `mypage/wishlist/${user["id"]}`)
-        .then((res) => res.data);
-      setWishlistData(response);
+      try {
+        setIsLoading(true);
+        const response = await axios
+          .get(process.env.REACT_APP_DB_HOST + `mypage/wishlist/${user["id"]}`)
+          .then((res) => res.data);
+        setWishlistData(response);
+      } catch (e) {
+        console.log(e);
+      }
       setIsLoading(false);
     };
     call();
@@ -25,22 +29,18 @@ function WishlistPage() {
   return (
     <>
       {isLoading ? (
-        // TODO 로딩중 컴포넌트 넣기
         <>
-          <div>로딩중</div>
-          <div>로딩중</div>
-          <div>로딩중</div>
-          <div>로딩중</div>
-          <div>로딩중</div>
-          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>
-          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>
-          <div>로딩중</div>
+          <Loading />
         </>
       ) : (
         <>
-          <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
-          <div>
-            <WishItems currentTab={currentTab} wishlistData={wishlistData} />
+          <div style={{ marginTop: "81px" }}>
+            <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
+            <WishItems
+              currentTab={currentTab}
+              wishlistData={wishlistData}
+              setWishlistData={setWishlistData}
+            />
           </div>
         </>
       )}

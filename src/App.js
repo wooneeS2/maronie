@@ -21,7 +21,6 @@ import DonelistPage from "./pages/DonelistPage";
 import MyReviewPage from "./pages/MyReviewPage";
 import MyRecipePage from "./pages/MyRecipePage";
 import ErrorPage from "./pages/ErrorPage";
-import Loading from "components/Loading";
 function App() {
   return (
     <>

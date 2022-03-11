@@ -35,8 +35,8 @@ function MyPage() {
     <div style={{ marginTop: "81px" }}>
       <GreetingMember />
       <ul style={{ margin: "15px", padding: 0 }}>
-        {myPageItemList.map((item) => (
-          <StyledLink to={item["link"]}>
+        {myPageItemList.map((item, idx) => (
+          <StyledLink to={item["link"]} key={`mypage-menu-${idx}`}>
             <MyPageMenuItem>
               <MyPageMenuItemTitle>
                 <div style={{ marginRight: "5px" }}>{item["icon"]}</div>
