@@ -20,12 +20,13 @@ import {
   StyledLink,
 } from "../design/commonStyles";
 import { AiOutlineRight } from "react-icons/ai";
+import Loading from "components/Loading";
 function TextSearchResultPage() {
   const params = useParams();
   const searchKeyword = params.keyword;
   const [currentTab, setCurrentTab] = React.useState("liquor");
   const [searchResult, setSearchResult] = React.useState({});
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(null);
   React.useEffect(() => {
     /**
      * 검색 텍스트 초기화
@@ -40,14 +41,18 @@ function TextSearchResultPage() {
     );
   });
   React.useEffect(() => {
-    setIsLoading(true);
     const call = async () => {
-      const response = await axios
-        .get(process.env.REACT_APP_DB_HOST + `search`, {
-          params: { keyword: searchKeyword },
-        })
-        .then((res) => res.data);
-      setSearchResult(() => response);
+      try {
+        setIsLoading(true);
+        const response = await axios
+          .get(process.env.REACT_APP_DB_HOST + `search`, {
+            params: { keyword: searchKeyword },
+          })
+          .then((res) => res.data);
+        setSearchResult(response);
+      } catch (e) {
+        console.log(e);
+      }
       setIsLoading(false);
     };
     call();
@@ -56,9 +61,7 @@ function TextSearchResultPage() {
     <>
       {isLoading ? (
         <>
-          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>{" "}
-          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>{" "}
-          <div>로딩중</div> <div>로딩중</div> <div>로딩중</div>
+          <Loading />
         </>
       ) : (
         <>

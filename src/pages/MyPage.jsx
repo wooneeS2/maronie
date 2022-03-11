@@ -1,5 +1,4 @@
 import GreetingMember from "../components/AuthPage/GreetingMember";
-import { IoWaterOutline } from "react-icons/io5";
 import { AiOutlineRight } from "react-icons/ai";
 import {
   MyPageMenuItem,
@@ -12,6 +11,7 @@ import {
   MdOutlineReviews,
 } from "react-icons/md";
 import { AiFillHeart } from "react-icons/ai";
+
 function MyPage() {
   const myPageItemList = [
     {
@@ -31,12 +31,13 @@ function MyPage() {
       icon: <MdOutlineStickyNote2 size={20} />,
     },
   ];
+
   return (
     <div style={{ marginTop: "81px" }}>
       <GreetingMember />
       <ul style={{ margin: "15px", padding: 0 }}>
-        {myPageItemList.map(item => (
-          <StyledLink to={item["link"]}>
+        {myPageItemList.map((item, idx) => (
+          <StyledLink to={item["link"]} key={`mypage-menu-${idx}`}>
             <MyPageMenuItem>
               <MyPageMenuItemTitle>
                 <div style={{ marginRight: "5px" }}>{item["icon"]}</div>

@@ -43,7 +43,7 @@ function RecipeRegistration() {
   const [user, setUser] = useRecoilState(userState);
 
   const addStep = () => {
-    setStep(step => [
+    setStep((step) => [
       ...step,
       <RecipeInputStyle
         id="filled-multiline-static"
@@ -52,7 +52,7 @@ function RecipeRegistration() {
         rows={3}
         variant="filled"
         placeholder="레시피를 입력해주세요."
-        onChange={e => {
+        onChange={(e) => {
           setCocktailStep(e.target.value);
         }}
       />,
@@ -82,28 +82,28 @@ function RecipeRegistration() {
   }, [cocktailStep]);
 
   const setRecipe = (value, category) => {
-    setCocktailInfo(current => {
+    setCocktailInfo((current) => {
       const temp = { ...current };
       temp[category] = value;
       return temp;
     });
   };
 
-  const setClassification = level => {
+  const setClassification = (level) => {
     setCocktailClassification(level);
   };
 
-  const setImage = image => {
+  const setImage = (image) => {
     setCocktailImage(image);
   };
 
-  const addIngredients = value => {
+  const addIngredients = (value) => {
     const newList = ingredientsList.concat(value);
     setIngredientsList(newList);
     setIngredient("");
   };
-  const deleteIngredients = value => {
-    const newList = ingredientsList.filter(word => word !== value);
+  const deleteIngredients = (value) => {
+    const newList = ingredientsList.filter((word) => word !== value);
     setIngredientsList(newList);
   };
   const addCocktailRecipeList = () => {
@@ -129,7 +129,7 @@ function RecipeRegistration() {
   return (
     <>
       <ColumnDiv style={{ paddingTop: "81px" }}>
-        <AddCocktailPhoto passImage={img => setImage(img)} />
+        <AddCocktailPhoto passImage={(img) => setImage(img)} />
         <div
           style={{
             width: "50%",
@@ -154,7 +154,7 @@ function RecipeRegistration() {
         </div>
         <div>
           <SelectLiquorClassification
-            passLevel={level => setClassification(level)}
+            passLevel={(level) => setClassification(level)}
           />
         </div>
 
@@ -163,7 +163,7 @@ function RecipeRegistration() {
           label="칵테일 이름"
           variant="standard"
           placeholder="칵테일 이름을 입력해주세요."
-          onChange={e => {
+          onChange={(e) => {
             setRecipe(e.target.value, "cocktail_name_kor");
             setRecipe(cocktailClassification, "classification_id");
           }}
@@ -173,7 +173,7 @@ function RecipeRegistration() {
           label="칵테일 영어 이름(선택)"
           variant="standard"
           placeholder="영어 이름을 입력해주세요."
-          onChange={e => {
+          onChange={(e) => {
             setRecipe(e.target.value, "cocktail_name");
           }}
         />
@@ -183,7 +183,7 @@ function RecipeRegistration() {
           variant="standard"
           placeholder="숫자만 입력해주세요."
           type="number"
-          onChange={e => {
+          onChange={(e) => {
             setRecipe(e.target.value, "alcohol");
           }}
         />
@@ -194,7 +194,7 @@ function RecipeRegistration() {
           multiline
           rows={2}
           variant="standard"
-          onChange={e => {
+          onChange={(e) => {
             setRecipe(e.target.value, "description");
             console.log(cocktailInfo);
           }}
@@ -205,7 +205,7 @@ function RecipeRegistration() {
           sx={MuiInputStyle}
           placeholder={"재료를 입력하고 + 버튼을 눌러주세요."}
           value={ingredient}
-          onChange={e => {
+          onChange={(e) => {
             setIngredient(e.target.value);
           }}
           endAdornment={
@@ -241,7 +241,7 @@ function RecipeRegistration() {
           rows={3}
           variant="filled"
           placeholder="레시피를 입력해주세요."
-          onChange={e => {
+          onChange={(e) => {
             setCocktailStep(e.target.value);
           }}
         />
@@ -264,7 +264,7 @@ function RecipeRegistration() {
           <IndeterminateCheckBoxOutlinedIcon
             style={MinusItemStyle}
             onClick={() => {
-              setCocktailStepList(current => {
+              setCocktailStepList((current) => {
                 if (current.length === 1) {
                   return current;
                 }
@@ -272,7 +272,7 @@ function RecipeRegistration() {
                 temp.pop();
                 return temp;
               });
-              setStep(current => {
+              setStep((current) => {
                 const temp = [...current];
                 temp.pop();
                 return temp;
@@ -297,6 +297,7 @@ function RecipeRegistration() {
                     },
                   }
                 );
+                console.log(formData);
                 if (patch.status === 201) {
                   window.alert("레시피 작성이 완료되었습니다.");
                   navigate(-1);
