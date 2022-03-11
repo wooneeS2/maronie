@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../../data/state";
 import { Rating } from "@mui/material";
@@ -11,26 +12,28 @@ import {
 import { StyledLink } from "../../design/commonStyles";
 import { BsPencilSquare } from "react-icons/bs";
 import { IoTrashOutline } from "react-icons/io5";
+import NoItem from "./NoItem";
 function ReviewItems({ list }) {
+  let navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
   const [user, setUser] = useRecoilState(userState);
 
-  const handleDelete = async (e, liquorId) => {
+  const handleDelete = async (e, reviewId) => {
     e.stopPropagation();
     if (window.confirm("정말 삭제하시겠습니까?")) {
       await axios
         .delete(
           process.env.REACT_APP_DB_HOST +
-            `review/delete/${user["id"]}/cocktail/${liquorId}`
+            `review/delete/${reviewId}/user/${user["id"]}`
         )
         .then(() => alert("삭제 성공!"))
         .catch(() => alert("오류가 발생했습니다, 잠시후에 다시 시도해주세요!"));
     }
   };
 
-  const handleCorrection = (e) => {
+  const handleEdit = (e, reviewId) => {
     e.stopPropagation();
-    alert("수정");
+    navigate(`edit/${reviewId}`);
   };
   if (list.length > 0) {
     return (
@@ -43,7 +46,7 @@ function ReviewItems({ list }) {
                   size={20}
                   style={{ padding: "5px" }}
                   onClick={(e) => {
-                    handleCorrection(e);
+                    handleEdit(e, item["review_id"]);
                   }}
                 />
                 <IoTrashOutline
@@ -59,9 +62,7 @@ function ReviewItems({ list }) {
                 <StyledLink
                   to={`/cocktail/` + item[`cocktail_id`]}
                   key={`cocktail-` + item[`cocktail_id`]}
-                >
-                  {" "}
-                </StyledLink>
+                ></StyledLink>
                 <ReviewItemThumbnail
                   src={item["image_path"]}
                   alt={item[`cocktail_name_kor`] + " 이미지"}
@@ -89,7 +90,7 @@ function ReviewItems({ list }) {
       </>
     );
   } else {
-    return <p>리뷰 업써</p>;
+    return <NoItem page="myreview" />;
   }
 }
 export default ReviewItems;

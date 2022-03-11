@@ -37,7 +37,7 @@ function SignInPage() {
       });
   };
   return (
-    <FlexColumnCenterBox style={{ paddingTop: "80px" }}>
+    <FlexColumnCenterBox style={{ marginTop: "81px" }}>
       <SignInInput
         onChange={e => setEmail(e.target.value)}
         label="이메일"

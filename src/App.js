@@ -62,12 +62,12 @@ function App() {
               element={<ImageSearchResultPage />}
             />
             <Route
-              path="/mypage/recipe/edit/:id"
-              element={<RecipeEditPage />}
+              path="/mypage/review/edit/:reviewId"
+              element={<ReviewEditPage />}
             />
             <Route
-              path="/mypage/review/edit/:id"
-              element={<ReviewEditPage />}
+              path="/mypage/recipe/edit/:cocktailId"
+              element={<RecipeEditPage />}
             />
           </Routes>
         </BrowserRouter>

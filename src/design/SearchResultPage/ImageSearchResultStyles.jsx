@@ -10,8 +10,6 @@ export const ImageSearchTitle = styled.p`
 `;
 export const ImageResultWrapper = styled(FlexColumnCenterBox)`
   align-items: center;
-  height: 100vh;
+  height: 85vh;
 `;
-export const NoImageResultWrapper = styled(FlexColumnCenterBox)`
-  margin: 30% 10%;
-`;
+export const NoImageResultWrapper = styled(FlexColumnCenterBox)``;

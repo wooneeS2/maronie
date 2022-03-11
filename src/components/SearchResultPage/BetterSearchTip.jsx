@@ -17,7 +17,9 @@ function BetterTextSearchTip({ type }) {
     return (
       <ul>
         <BetterSearchResultItem>밝은 곳에서 찍어보세요</BetterSearchResultItem>
-        <BetterSearchResultItem>음...아무튼</BetterSearchResultItem>
+        <BetterSearchResultItem>
+          선명한 화질을 위해서 렌즈를 닦고 촬영해 보세요
+        </BetterSearchResultItem>
       </ul>
     );
   }

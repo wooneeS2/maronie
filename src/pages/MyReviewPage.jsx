@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userState } from "../data/state";
-import MenuTabs from "../components/SearchPage/MenuTabs";
 import ReviewItems from "../components/AuthPage/ReviewItems";
 function MyReviewPage() {
   const [user, setUser] = useRecoilState(userState);

@@ -15,7 +15,6 @@ function MyRecipePage() {
         .get(process.env.REACT_APP_DB_HOST + `mypage/recipe/${user["id"]}`)
         .then((res) => res.data);
       setRecipeData(response);
-      console.log(response);
       setIsLoading(false);
     };
     call();
@@ -33,7 +32,7 @@ function MyRecipePage() {
           <div>로딩중</div>
         </>
       ) : (
-        <RecipeItems list={recipeData} />
+        <RecipeItems recipeData={recipeData} />
       )}
     </>
   );

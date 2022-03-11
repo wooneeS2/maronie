@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { mainOrange, mainWhite } from "../colorPalette";
-import { TextField } from "@mui/material";
+import { TextField, Chip } from "@mui/material";
 
 export const TabComponent = styled.ul`
   padding-left: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -25,6 +25,7 @@ export const SearchTitle = styled.h2`
 
 export const SearchDescription = styled.p`
   color: gray;
+  line-height: 1.5;
 `;
 
 export const DragFileSpace = styled.div`
@@ -61,14 +62,19 @@ export const TabButton = styled.li`
   justify-content: center;
 `;
 export const FileUploadButton = styled.label`
-  padding: 5%;
-  border-radius: 30px;
+  padding: 20px;
+  margin: 13px auto;
+  width: 60%;
+  border-radius: 8px;
   background-color: ${mainOrange};
   z-index: 1000;
   cursor: pointer;
+  box-sizing: border-box;
+  font-weight: 500;
+  border-style: none;
 `;
 export const SearchContentsWrapper = styled.div`
-  height: 100vh;
+  height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,4 +113,8 @@ export const TextInputWrapper = styled.div`
   justify-content: center;
   text-align: center;
   margin-top: ${(props) => props.haveMargin || "0px"};
+`;
+export const StyledChip = styled(Chip)`
+  margin: 0 2px;
+  padding: 5px;
 `;

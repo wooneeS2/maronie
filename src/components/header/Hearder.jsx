@@ -12,8 +12,11 @@ import {
 
 const path = {
   "/": "마로니에",
+  "/signup": "회원가입",
+  "/signin": "로그인",
   "/liquor": "상세 정보",
   "/search": "술 검색",
+  "/image-search-result": "검색 결과",
   "/cocktail/register": "칵테일 레시피 추가하기",
   "/liquor/create/review": "리뷰 작성",
   "/signup": "회원가입",

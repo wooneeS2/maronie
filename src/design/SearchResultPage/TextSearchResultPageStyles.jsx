@@ -44,4 +44,5 @@ export const BetterSearchResultItem = styled.li`
     vertical-align: 3px;
     background-color: #aaa;
   }
+  margin: 5px;
 `;

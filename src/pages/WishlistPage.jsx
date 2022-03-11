@@ -40,11 +40,7 @@ function WishlistPage() {
         <>
           <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
           <div>
-            <WishItems
-              currentTab={currentTab}
-              list={wishlistData[currentTab] || []}
-              page="wishlist"
-            />
+            <WishItems currentTab={currentTab} wishlistData={wishlistData} />
           </div>
         </>
       )}

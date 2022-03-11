@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userState } from "../data/state";
 import MenuTabs from "../components/SearchPage/MenuTabs";
-import WishItems from "../components/AuthPage/WishItems";
+import DoneItems from "../components/AuthPage/DoneItems";
 import { DonelistComment } from "../data/DonelistComment";
 function DonelistPage() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -44,11 +44,7 @@ function DonelistPage() {
             <h1>{donelistData[currentTab]?.length}</h1>
             <p style={{ color: "gray" }}>{countComment}</p>
           </div>
-          <WishItems
-            list={donelistData[currentTab] || []}
-            currentTab={currentTab}
-            page="donelist"
-          />
+          <DoneItems currentTab={currentTab} donelistData={donelistData} />
         </>
       )}
     </>

@@ -1,6 +1,6 @@
 import React from "react";
+import axios from "axios";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
-import { useState } from "react";
 import {
   RecipeInput,
   CenterItem,
@@ -17,29 +17,28 @@ import {
   RegisterButton,
   BoldTitle,
 } from "../../design/commonStyles";
-import InputAdornment from "@mui/material/InputAdornment";
-import { Input } from "@mui/material";
+import { Input, InputAdornment } from "@mui/material";
 import SelectLiquorClassification from "../detailPage/widget/SelectLiquorClassification";
 
-function RecipeEdit() {
+function RecipeEdit({ cocktailId }) {
   const dummy = {
     cocktail_name: "1번 칵테일",
     image_path:
       "https://www.brit.co/media-library/quick-and-easy-cocktail-recipes.jpg?id=21488888&width=645&height=645",
-    description: "개존맛입니다 다들 먹어보세용",
-    ingredients: ["A", "B", "C", "D", "E", "F"],
-    recipe: ["물을 담는다", "어쩌구", "냠냠"],
     level: 3,
     classification_id: 1,
   };
-
-  const [step, setStep] = useState(dummy["recipe"]);
+  const [cocktailInfo, setCocktailInfo] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [step, setStep] = React.useState(cocktailInfo["cocktail_name"] || []);
   const addStep = () => {
     setStep(step => [...step, <RecipeInput />]);
   };
 
-  const [ingredientsList, setIngredientsList] = useState(dummy["ingredients"]);
-  const [ingredient, setIngredient] = useState("");
+  const [ingredientsList, setIngredientsList] = React.useState(
+    cocktailInfo["ingredients"] || []
+  );
+  const [ingredient, setIngredient] = React.useState("");
 
   const addIngredients = value => {
     const newList = ingredientsList.concat(value);
@@ -50,6 +49,19 @@ function RecipeEdit() {
     const newList = ingredientsList.filter(word => word !== value);
     setIngredientsList(newList);
   };
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    const call = async () => {
+      const response = await axios
+        .get(process.env.REACT_APP_DB_HOST + `cocktail/${cocktailId}`)
+        .then((res) => res.data);
+      setCocktailInfo(response);
+      setIsLoading(false);
+    };
+    call();
+  }, []);
+  console.log(cocktailInfo);
   return (
     <>
       <ColumnDiv style={{ paddingTop: "81px" }}>
@@ -57,14 +69,14 @@ function RecipeEdit() {
         <AddCocktailPhoto />
 
         <div>
-          <SelectLiquorClassification num={dummy["classification_id"]} />
+          <SelectLiquorClassification num={cocktailInfo["classification_id"]} />
         </div>
 
         <RecipeInputStyle
           id="standard-basic"
           label="칵테일 이름"
           variant="standard"
-          defaultValue={dummy["cocktail_name"]}
+          defaultValue={cocktailInfo["cocktail_name"]}
         />
         <RecipeInputStyle
           id="standard-multiline-static"
@@ -72,7 +84,7 @@ function RecipeEdit() {
           multiline
           rows={2}
           variant="standard"
-          defaultValue={dummy["description"]}
+          defaultValue={cocktailInfo["description"]}
         />
 
         <Input
@@ -96,7 +108,7 @@ function RecipeEdit() {
         />
 
         <RowDiv style={ChipIngredientDivStyle}>
-          {ingredientsList.map((i, index) => (
+          {cocktailInfo["ingredients"]?.map((i, index) => (
             <span key={i + index}>
               <ChipIngredientsList
                 label={i}
@@ -108,7 +120,7 @@ function RecipeEdit() {
           ))}
         </RowDiv>
 
-        {step.map((item, idx) => (
+        {cocktailInfo["recipe"]?.map((item, idx) => (
           <>
             <p>레시피 {idx + 1}</p>
             <RecipeInput content={item} />

@@ -150,7 +150,10 @@ function SignUpPage() {
             password: signUpInputValues["password"],
             nickname: signUpInputValues["nickname"],
           })
-          .then(() => alert("회원가입이 완료 되었습니다!"))
+          .then(() => {
+            alert("회원가입이 완료 되었습니다!");
+            window.location.replace("/signin");
+          })
           .catch(() =>
             alert("회원가입이 완료되지 않았습니다. 잠시후에 다시 시도해주세요!")
           );
@@ -159,7 +162,7 @@ function SignUpPage() {
   };
 
   return (
-    <FlexColumnCenterBox style={{ paddingTop: "80px" }}>
+    <FlexColumnCenterBox style={{ marginTop: "81px" }}>
       <SignUpInput
         onChange={e =>
           setSignUpInputValues({
