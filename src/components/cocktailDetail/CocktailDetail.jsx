@@ -2,7 +2,6 @@ import React from "react";
 import {
   ColumnDiv,
   CenterAlignmentDiv,
-  BoldTitle,
   imageStyle,
   ImgWrapper,
 } from "../../design/commonStyles";
@@ -11,6 +10,8 @@ import {
   ItalicTitle,
   RecipeBox,
   IngredientChip,
+  CocktailSubTitle,
+  CocktailContent,
 } from "../../design/detailPage/CocktailDetailPageStyles";
 import { AddWishList, AddDoneList } from "../detailPage/widget/WishListButtons";
 import CocktailLevel from "../detailPage/widget/CocktailLevel";
@@ -30,6 +31,7 @@ function CocktailDetail({ cocktail, cocktailId }) {
   const [user] = useRecoilState(userState);
   const [isWish, setIsWish] = React.useState(0);
   const [isDone, setIsDone] = React.useState(0);
+
   const navigate = useNavigate();
   let userId = user ? user.id : 0;
 
@@ -64,10 +66,10 @@ function CocktailDetail({ cocktail, cocktailId }) {
 
           <CocktailLevel level={cocktail.level} />
           <LevelGuideTooltip />
-          <p>{cocktail.description}</p>
-          <span>
-            도수 :{cocktail.alcohol === -1 ? "알 수 없음" : cocktail.alchol}
-          </span>
+          <CocktailContent>{cocktail.description}</CocktailContent>
+          {cocktail.alcohol !== -1 && (
+            <CocktailContent>도수 :{cocktail.alcohol}</CocktailContent>
+          )}
           <ItalicTitle>by @{cocktail.author}</ItalicTitle>
           <CenterAlignmentDiv style={{ width: "60%" }}>
             {Boolean(isWish) ? (
@@ -172,10 +174,10 @@ function CocktailDetail({ cocktail, cocktailId }) {
         </div>
 
         <div>
-          <BoldTitle>칵테일 레시피</BoldTitle>
+          <CocktailSubTitle>칵테일 레시피</CocktailSubTitle>
           {isIngredentsRecipeLengthOverZero ? (
             <RecipeBox>
-              <BoldTitle>재료</BoldTitle>
+              <CocktailSubTitle>재료</CocktailSubTitle>
               {cocktail.ingredients.map((ingredient, index) => {
                 return (
                   <IngredientChip
@@ -188,7 +190,7 @@ function CocktailDetail({ cocktail, cocktailId }) {
               {cocktail.recipe.map((r, index) => {
                 return (
                   <div key={`${r + index}`}>
-                    <BoldTitle>{index + 1}단계</BoldTitle>
+                    <CocktailSubTitle>{index + 1}단계</CocktailSubTitle>
                     <p>{r}</p>
                   </div>
                 );
