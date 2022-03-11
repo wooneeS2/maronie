@@ -55,13 +55,13 @@ function RecipeEdit({ cocktailId }) {
     const call = async () => {
       const response = await axios
         .get(process.env.REACT_APP_DB_HOST + `cocktail/${cocktailId}`)
-        .then((res) => res.data);
+        .then(res => res.data);
       setCocktailInfo(response);
       setIsLoading(false);
     };
     call();
   }, []);
-  console.log(cocktailInfo);
+
   return (
     <>
       <ColumnDiv style={{ paddingTop: "81px" }}>

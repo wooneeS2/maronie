@@ -40,7 +40,6 @@ function CocktailDetail({ cocktail, cocktailId }) {
     const response = await axios.get(
       `${url}/cocktail/check_mark?user_id=${user.id}&beverage_id=${cocktailId}`
     );
-    console.log(response.data);
     setIsWish(response.data.is_wish);
     setIsDone(response.data.is_done);
   };
