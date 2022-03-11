@@ -50,7 +50,7 @@ function TextSearchResultPage() {
           .get(process.env.REACT_APP_DB_HOST + `search`, {
             params: { keyword: searchKeyword },
           })
-          .then((res) => res.data);
+          .then(res => res.data);
         setSearchResult(response);
       } catch (e) {
         console.log(e);
@@ -72,49 +72,49 @@ function TextSearchResultPage() {
           {currentTab === "liquor" ? (
             searchResult[currentTab]?.length > 0 ? (
               <TextSearchResultWrapper className="contentArea">
-                {searchResult[currentTab].map((item, idx) => (
-                  <StyledLink
-                    to={`/liquor/${item["liquor_id"]}`}
-                    key={`liquor-${idx}`}
-                  >
-                    <TableItem>
-                      {
-                        <TextSearchResultImage
-                          src={
-                            process.env.REACT_APP_DB_IMG + item["image_path"]
-                          }
-                          alt={`${item["liquor_name"]} 이미지`}
-                        />
-                      }
-                      <FlexColumnCenterBox>
-                        <div>
-                          <TextResultItemTitle>
-                            {item["liquor_name_kor"]}
-                          </TextResultItemTitle>
-                          <TextReusltItemSubtitle>
-                            {item["liquor_name"]}
-                          </TextReusltItemSubtitle>
-                        </div>
-                        <TextResultItemPrice>
-                          {item["price"]}원
-                        </TextResultItemPrice>
-                        <TextResultItemDescription>
-                          {item["description"].length > 100
-                            ? item["description"].substring(0, 100) + "..."
-                            : item["description"]}
-                        </TextResultItemDescription>
-                        <Rating
-                          value={item["rating"]}
-                          readOnly
-                          precision={0.5}
-                        />
-                      </FlexColumnCenterBox>
-                      <FlexRightBox>
-                        <AiOutlineRight size={20} />
-                      </FlexRightBox>
-                    </TableItem>
-                  </StyledLink>
-                ))}
+                {searchResult[currentTab].map((item, idx) => {
+                  return (
+                    <StyledLink
+                      to={`/liquor/${item["liquor_id"]}`}
+                      key={`liquor-${idx}`}
+                    >
+                      <TableItem>
+                        {
+                          <TextSearchResultImage
+                            src={
+                              process.env.REACT_APP_DB_IMG + item["image_path"]
+                            }
+                            alt={`${item["liquor_name"]} 이미지`}
+                          />
+                        }
+                        <FlexColumnCenterBox style={{ marginLeft: "2rem" }}>
+                          <div>
+                            <TextResultItemTitle>
+                              {item["liquor_name_kor"]}
+                            </TextResultItemTitle>
+                            <TextReusltItemSubtitle>
+                              {item["liquor_name"]} · {item["price"]}원
+                            </TextReusltItemSubtitle>
+                            <Rating
+                              value={item["rating"]}
+                              readOnly
+                              precision={0.5}
+                              style={{ fontSize: "1rem" }}
+                            />
+                            <TextResultItemDescription>
+                              {item["description"].length > 100
+                                ? item["description"].substring(0, 100) + "..."
+                                : item["description"]}
+                            </TextResultItemDescription>
+                          </div>
+                        </FlexColumnCenterBox>
+                        <FlexRightBox>
+                          <AiOutlineRight size={20} />
+                        </FlexRightBox>
+                      </TableItem>
+                    </StyledLink>
+                  );
+                })}
               </TextSearchResultWrapper>
             ) : (
               <NoTextSearchResult currentTab={currentTab} />
@@ -126,14 +126,14 @@ function TextSearchResultPage() {
                   to={`/cocktail/${item["cocktail_id"]}`}
                   key={`cocktail-${idx}`}
                 >
-                  <TableItem>
+                  <TableItem style={{ justifyContent: "space-between" }}>
                     {
                       <TextSearchResultImage
-                        src={item["image_path"]}
+                        src={process.env.REACT_APP_DB_IMG + item["image_path"]}
                         alt={`${item["cocktail_name"]} 이미지`}
                       />
                     }
-                    <FlexColumnCenterBox>
+                    <FlexColumnCenterBox style={{ marginLeft: "2rem" }}>
                       <div>
                         <TextResultItemTitle>
                           {item["cocktail_name_kor"]}
@@ -141,12 +141,12 @@ function TextSearchResultPage() {
                         <TextReusltItemSubtitle>
                           {item["cocktail_name"]}
                         </TextReusltItemSubtitle>
+                        <TextResultItemDescription>
+                          {item["description"].length > 60
+                            ? item["description"].substring(0, 60) + "..."
+                            : item["description"]}
+                        </TextResultItemDescription>
                       </div>
-                      <TextResultItemDescription>
-                        {item["description"].length > 100
-                          ? item["description"].substring(0, 100) + "..."
-                          : item["description"]}
-                      </TextResultItemDescription>
                     </FlexColumnCenterBox>
                     <FlexRightBox>
                       <AiOutlineRight size={20} />
