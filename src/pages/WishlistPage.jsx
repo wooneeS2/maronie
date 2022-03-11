@@ -31,6 +31,7 @@ function WishlistPage() {
     };
     call();
   }, [currentTab]);
+
   if (user === null) {
     return <Navigate to="/signin" replace={true} />;
   }

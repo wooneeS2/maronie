@@ -111,12 +111,9 @@ function ImageSearch() {
   React.useEffect(() => {
     initDragEvents();
   }, [initDragEvents]);
-  if (isLoading)
-    return (
-      <>
-        <Loading />
-      </>
-    );
+
+  if (isLoading) return <Loading />;
+
   return (
     <>
       <DragFileSpace isDragging={isDragging} ref={dragRef}>

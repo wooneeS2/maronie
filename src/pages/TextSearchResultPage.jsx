@@ -27,6 +27,7 @@ function TextSearchResultPage() {
   const [currentTab, setCurrentTab] = React.useState("liquor");
   const [searchResult, setSearchResult] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(null);
+
   React.useEffect(() => {
     /**
      * 검색 텍스트 초기화
@@ -40,6 +41,7 @@ function TextSearchResultPage() {
       JSON.stringify(newTextSearchRecordList)
     );
   });
+
   React.useEffect(() => {
     const call = async () => {
       try {
@@ -57,12 +59,11 @@ function TextSearchResultPage() {
     };
     call();
   }, [searchKeyword]);
+
   return (
     <>
       {isLoading ? (
-        <>
-          <Loading />
-        </>
+        <Loading />
       ) : (
         <>
           <TextSearchInput haveMargin="80px" />
