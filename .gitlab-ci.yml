@@ -15,4 +15,4 @@ Deploy:
     - docker stop frontend || true 
     - docker system prune -af --volumes
     - docker build -t team-11-frontend .
-    - docker run -it -d --restart always --name frontend -p 10000:80 team-11-frontend
+    - docker run -it -d --restart always --name frontend team-11-frontend
