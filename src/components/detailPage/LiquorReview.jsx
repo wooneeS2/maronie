@@ -128,14 +128,16 @@ export function LiquorReview({
           <ReviewRating
             onChange={(event, newValue) => {
               setValue(newValue);
-              navigate("/liquor/create/review", {
-                state: {
-                  liquorId: liquorId,
-                  ratingValue: newValue,
-                  liquorImg: liquorImg,
-                  liquorName: liquorName,
-                },
-              });
+              user
+                ? navigate("/liquor/create/review", {
+                    state: {
+                      liquorId: liquorId,
+                      ratingValue: newValue,
+                      liquorImg: liquorImg,
+                      liquorName: liquorName,
+                    },
+                  })
+                : navigate("/signin");
             }}
             onChangeActive={(event, newHover) => {
               setHover(newHover);

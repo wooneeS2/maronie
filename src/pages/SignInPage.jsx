@@ -23,7 +23,7 @@ function SignInPage() {
       .then(res => {
         setUser(() => res.data);
         alert(res.data.nickname + "님! 안녕하세요 :)");
-        navigate("/search");
+        navigate(-1);
       })
       .catch(e => {
         let errorMsg = e.response.data.message;
