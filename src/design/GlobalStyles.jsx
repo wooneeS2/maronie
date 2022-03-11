@@ -6,12 +6,16 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${mainWhite};
     max-width: 786px;
     word-break:keep-all;
+    width: 100vw;
   }
   ul {
     list-style:none;
     margin:0;
     padding:0;
   }
+  p {
+      margin:0;
+    }
 `;
 
 export default GlobalStyles;

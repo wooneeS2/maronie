@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   ParingBox,
   ParingImgWrapper,
@@ -14,10 +15,14 @@ export function ParingInformation({ parings }) {
         <div className="paringImage">
           {parings.map((i, index) => {
             return (
-              <div key={i.img} className="imageList">
-                <ParingImgWrapper image={i.img} />
+              <div key={i.menu_image} className="imageList">
+                {i.menu_image === "" ? (
+                  <ParingImgWrapper image="https://freepikpsd.com/file/2019/10/galeri-icon-png-1-Transparent-Images-Free.png" />
+                ) : (
+                  <ParingImgWrapper image={i.menu_image} />
+                )}
                 <p sx={{ textAlign: "center" }} id={`parings${index + 1}`}>
-                  {i.name}
+                  {i.menu_name}
                 </p>
               </div>
             );

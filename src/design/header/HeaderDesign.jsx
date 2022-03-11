@@ -16,6 +16,7 @@ export const HeaderButton = styled.button`
 export const HeaderDiv = styled.div`
   display: flex;
   height: 8vh;
+  max-width: 768px;
   position: fixed;
   top: 0;
   left: 0;
@@ -28,6 +29,7 @@ export const HeaderDiv = styled.div`
   background: ${mainWhite};
   font-size: 1.2rem;
   z-index: 1;
+  margin: 0 auto;
 `;
 
 export const HeaderPageName = styled.p`

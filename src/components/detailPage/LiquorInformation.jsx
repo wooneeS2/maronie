@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   RatingBox,
   DescriptionBox,
@@ -7,8 +7,16 @@ import {
   LiquorRatingLabel,
 } from "../../design/detailPage/LiquorInformationStyles";
 import { ReadOnlyRating } from "./widget/ReviewRating";
-import { AddWishList, AddDoneList } from "./widget/WishListButtons";
+import {
+  AddWishList,
+  AddDoneList,
+  AddRecipeButton,
+} from "./widget/WishListButtons";
 import { ImgWrapper, ColumnDiv } from "../../design/commonStyles";
+import { DeleteWishList, DeleteDoneList } from "./widget/deleteButtons";
+import { useRecoilState } from "recoil";
+import { userState } from "data/state";
+import axios from "axios";
 
 const liquorRatingMessage = {
   1: "매니아들만 찾아요.",
@@ -18,33 +26,90 @@ const liquorRatingMessage = {
   5: "이 술 싫어하는 사람을 본적이 없어요!",
 };
 
-//TODO 유저 상태에 따라 버튼 표시 다르게하기
-export function LiquorInformation({ liquor }) {
-  let liquorRating = Math.round(liquor.rating);
+const liquorClassification = {
+  1: "진",
+  2: "럼",
+  3: "위스키",
+  4: "보드카",
+  5: "데킬라",
+  6: "리큐르",
+  7: "진",
+};
+const url = process.env.REACT_APP_DB_HOST;
+
+export function LiquorInformation({ liquor, liquorId }) {
+  let liquorRating = Math.round(parseFloat(liquor.rating));
+  const [user, setUser] = useRecoilState(userState);
+  const [isWish, setIsWish] = React.useState(0);
+  const [isDone, setIsDone] = React.useState(0);
+  const getLiquorInformation = async () => {
+    const response = await axios.get(
+      `${url}/liquor/check_mark?user_id=${user.id}&beverage_id=${liquorId}`
+    );
+    console.log(response.data);
+    setIsWish(response.data.is_wish);
+    setIsDone(response.data.is_done);
+  };
+
+  useEffect(() => {
+    getLiquorInformation();
+  }, []);
+
+  if (liquor === null) {
+    return null;
+  }
   return (
     <>
-      <ColumnDiv>
+      <ColumnDiv style={{ paddingTop: "80px" }}>
         <div>
           <ImgWrapper>
-            <img src={liquor.img} alt="liquor" style={{ width: "80%" }} />
+            <img
+              src={liquor.liquor_image}
+              alt="liquor"
+              style={{ width: "80%" }}
+            />
           </ImgWrapper>
         </div>
         <DescriptionBox>
           <LiquorName>
-            {liquor.name} · {liquor.classfication}
+            {liquor.liquor_name_kor} ·{" "}
+            {liquorClassification[liquor.classification_id]}
           </LiquorName>
           <LiquorDescription>{liquor.description}</LiquorDescription>
         </DescriptionBox>
         <RatingBox>
-          <LiquorName>{liquor.rating}</LiquorName>
+          {liquor.rating && <LiquorName>{liquor.rating.toFixed(1)}</LiquorName>}
           <LiquorRatingLabel>
             " {liquorRatingMessage[liquorRating]} "
           </LiquorRatingLabel>
-          <ReadOnlyRating ratingValue={liquor.rating} fontSize={"2rem"} />
+          {liquor.rating && (
+            <ReadOnlyRating
+              ratingValue={parseFloat(liquor.rating)}
+              fontSize={"2rem"}
+            />
+          )}
         </RatingBox>
         <ImgWrapper style={{ flexDirection: "column", marginBottom: "1rem" }}>
-          <AddWishList value={liquor.wishCount} />
-          <AddDoneList value={liquor.doneCount} />
+          {Boolean(isWish) ? (
+            <DeleteWishList type="liquor" itemId={isWish} />
+          ) : (
+            <AddWishList
+              wishCount={liquor.total_bookmark}
+              type="liquor"
+              itemId={liquorId}
+            />
+          )}
+
+          {Boolean(isDone) ? (
+            <DeleteDoneList type="liquor" itemId={isDone} />
+          ) : (
+            <AddDoneList
+              doneCount={liquor.total_bookmark}
+              type="liquor"
+              itemId={liquorId}
+            />
+          )}
+          <AddRecipeButton />
         </ImgWrapper>
       </ColumnDiv>
     </>

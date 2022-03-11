@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { styled as muiStyled } from "@mui/material/styles";
 import { TextField, Chip } from "@mui/material";
-import { mainOrange } from "../colorPalette";
+import { mainOrange, mainRed } from "../colorPalette";
 
 export const RecipeInputStyle = muiStyled(TextField)({
   width: "60%",
+  marginTop: "10px",
   margin: "0 auto",
   padding: "10px",
 });
@@ -60,6 +61,12 @@ export const AddItemStyle = {
   fontWeight: "bold",
   marginLeft: "0.5rem",
   color: `${mainOrange}`,
+};
+export const MinusItemStyle = {
+  fontSize: "2rem",
+  fontWeight: "bold",
+  marginLeft: "0.5rem",
+  color: `${mainRed}`,
 };
 
 export const MuiInputStyle = {
