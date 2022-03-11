@@ -32,14 +32,6 @@ function MyRecipePage() {
   if (user === null) {
     return <Navigate to="/signin" replace={true} />;
   }
-  return (
-    <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <RecipeItems recipeData={recipeData} setRecipeData={setRecipeData} />
-      )}
-    </>
-  );
+  return isLoading ? <Loading /> : <RecipeItems recipeData={recipeData} />;
 }
 export default MyRecipePage;
