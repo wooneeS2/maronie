@@ -25,13 +25,16 @@ export const CenterBox = styled.div`
 `;
 
 export const StyledButton = styled.button`
+  font-size: 1.1rem;
+  font-weight: 500;
   border: 0;
   outline: 0;
   background-color: ${mainOrange};
   color: ${mainWhite};
   border-radius: 10px;
   cursor: pointer;
-  padding: 10px;
+  padding: 10px 20px;
+  margin: 20px;
 `;
 export const StyledLink = styled(Link)`
   text-decoration: none;
