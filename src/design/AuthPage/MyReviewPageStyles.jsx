@@ -17,3 +17,7 @@ export const ReviewItemWrapper = styled.div`
   flex-direction: column;
   width: 60vw;
 `;
+
+export const ReviewItemSection = styled.div`
+  padding: 5px;
+`;

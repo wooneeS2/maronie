@@ -79,10 +79,9 @@ function WishItems({ currentTab }) {
           }}
           key={`wishlist-${idx}`}
         >
-          <div style={{ position: "relative" }}>
+          <div style={{ textAlign: "right" }}>
             <IoTrashOutline
               size={20}
-              style={{ position: "absolute", right: 13, top: 13 }}
               onClick={(e) => {
                 handleDelete(e, item[`id`]);
               }}
