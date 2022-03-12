@@ -1,23 +1,77 @@
-import { DetailPage } from "./pages/DetailPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
 import GlobalStyle from "./design/GlobalStyles";
+import DetailPage from "./pages/DetailPage";
+import ReviewRegistrationPage from "./pages/ReviewRegistrationPage";
+import CocktailDetailPage from "./pages/CocktailDetailPage";
+import RecipeRegistrationPage from "./pages/RecipeRegisterationPage";
+import TextSearchResultPage from "./pages/TextSearchResultPage";
+import ImageSearchResultPage from "./pages/ImageSearchResultPage";
+import SearchPage from "./pages/SearchPage";
+import IntroPage from "./pages/IntroPage";
+import Header from "./components/header/Hearder";
+import RecipeEditPage from "pages/RecipeEditPage";
+import ReviewEditPage from "pages/ReviewEditPage";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
+import MyPage from "./pages/MyPage";
+import WishlistPage from "./pages/WishlistPage";
+import DonelistPage from "./pages/DonelistPage";
+import MyReviewPage from "./pages/MyReviewPage";
+import MyRecipePage from "./pages/MyRecipePage";
+import ErrorPage from "./pages/ErrorPage";
+import LogOutPage from "pages/LogOutPage";
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <BrowserRouter>
-        <header className="App-header"></header>
-        <Routes>
-          <Route exact path="/" element={<IntroPage />}></Route>
-          <Route exact path="/search" element={<SearchPage />}></Route>
-          <Route path="/liquor" element={<DetailPage />}></Route>
-          <Route exact path="/sing-up" element={<SignUpPage />}></Route>
-          <Route exact path="/sing-in" element={<SignInPage />}></Route>
-          <Route path="*" element={<ErrorPage />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <RecoilRoot>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route exact path="/" element={<IntroPage />} />
+            <Route path="/liquor/:item" element={<DetailPage />} />
+            <Route
+              path="/liquor/create/review"
+              element={<ReviewRegistrationPage />}
+            />
+            <Route path="/cocktail/:item" element={<CocktailDetailPage />} />
+            <Route
+              path="/cocktail/register"
+              element={<RecipeRegistrationPage />}
+            />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/signin" element={<SignInPage />} />
+            <Route path="/logout" element={<LogOutPage />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/wishlist" element={<WishlistPage />} />
+            <Route path="/mypage/donelist" element={<DonelistPage />} />
+            <Route path="/mypage/review" element={<MyReviewPage />} />
+            <Route path="/mypage/recipe" element={<MyRecipePage />} />
+            <Route path="*" element={<ErrorPage />} />
 
+            <Route path="/search" element={<SearchPage />} />
+            <Route
+              path="/text-search-result/:keyword"
+              element={<TextSearchResultPage />}
+            />
+            <Route
+              path="/image-search-result"
+              element={<ImageSearchResultPage />}
+            />
+            <Route
+              path="/mypage/review/edit/:reviewId"
+              element={<ReviewEditPage />}
+            />
+            <Route
+              path="/mypage/recipe/edit/:cocktailId"
+              element={<RecipeEditPage />}
+            />
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
       <footer></footer>
     </>
   );
