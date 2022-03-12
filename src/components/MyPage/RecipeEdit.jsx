@@ -51,7 +51,6 @@ function RecipeEdit({ cocktailId }) {
     const newList = ingredientsList.filter((word) => word !== value);
     setIngredientsList(newList);
   };
-  console.log(cocktailInfo);
   React.useEffect(() => {
     const call = async () => {
       try {
