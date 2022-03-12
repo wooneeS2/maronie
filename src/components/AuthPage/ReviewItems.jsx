@@ -47,7 +47,14 @@ function ReviewItems({ reviewData, setReviewData }) {
         <ReviewItemsContainer>
           {reviewData.map((item) => (
             <ReviewItemWrapper>
-              <div style={{ position: "absolute", right: 13, top: 13 }}>
+              <div
+                style={{
+                  position: "absolute",
+                  right: 13,
+                  top: 13,
+                  padding: "10px",
+                }}
+              >
                 <BsPencilSquare
                   size={20}
                   style={{ padding: "5px" }}
