@@ -28,9 +28,7 @@ function ReviewEdit({ reviewId }) {
   const [review, setReview] = React.useState({});
   const [liquor, setLiquor] = React.useState({});
   const [value, setValue] = React.useState();
-  const [reviewContent, setReviewContent] = React.useState(
-    review["content"] || ""
-  );
+  const [reviewContent, setReviewContent] = React.useState("");
   const submitEdit = async () => {
     await axios
       .post(process.env.REACT_APP_DB_HOST + `review/update`, {
@@ -60,6 +58,7 @@ function ReviewEdit({ reviewId }) {
             process.env.REACT_APP_DB_HOST + `liquor/${reviewInfo["liquor_id"]}`
           )
           .then((res) => res.data);
+        setReviewContent(reviewInfo["content"]);
         setReview(reviewInfo);
         setLiquor(liquorInfo);
       } catch {}

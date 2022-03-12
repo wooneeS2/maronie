@@ -15,5 +15,9 @@ export const ReviewItemWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 60vw;
+  width: 80%;
+`;
+
+export const ReviewItemSection = styled.div`
+  padding: 5px;
 `;
