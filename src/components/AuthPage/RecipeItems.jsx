@@ -9,11 +9,12 @@ import {
   RecipeItemWrapper,
 } from "../../design/AuthPage/MyRecipePageStyles";
 import { ReviewItemThumbnail } from "../../design/AuthPage/MyReviewPageStyles";
+import CocktailLevel from "../../components/detailPage/widget/CocktailLevel";
+import { Chip } from "@mui/material";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import NoItem from "./NoItem";
 import { BsPencilSquare } from "react-icons/bs";
 import { IoTrashOutline, IoFlagSharp } from "react-icons/io5";
-import { Chip } from "@mui/material";
-import NoItem from "./NoItem";
 function RecipeItems({ recipeData, setRecipeData }) {
   const [user, setUser] = useRecoilState(userState);
   const [isOpen, setIsOpen] = React.useState([]);
@@ -100,7 +101,7 @@ function RecipeItems({ recipeData, setRecipeData }) {
                     {item[`cocktail_name_kor`]}
                   </span>
 
-                  <IoFlagSharp style={{ padding: "0 10px" }} />
+                  <CocktailLevel level={item["level"]} />
 
                   <p style={{ marginTop: "5px" }}>{item[`description`]}</p>
                 </div>

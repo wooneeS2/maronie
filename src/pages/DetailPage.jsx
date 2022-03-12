@@ -43,7 +43,7 @@ export function DetailPage() {
   const [reviewList, setReviewList] = useState([]);
   const [reviewSummary, setReviewSummary] = useState([]);
 
-  const getLiquorInformation = async liquorId => {
+  const getLiquorInformation = async (liquorId) => {
     const response = await axios.get(`${GET_API}/liquor/${liquorId}`);
     setLiquorInfo(response.data.liquor);
     setParingInfo(response.data.paring);
@@ -51,11 +51,9 @@ export function DetailPage() {
     setReviewList(response.data.review);
     setReviewSummary(response.data.review_summary);
   };
-
   useEffect(() => {
     getLiquorInformation(liquorId.item);
   }, []);
-
   return (
     <>
       {liquorInfo ? (

@@ -145,9 +145,9 @@ function RecipeRegistration() {
         window.alert("레시피 작성이 완료되었습니다.");
         return navigate(-1);
       }
-    } catch (error) {
+    } catch (e) {
       window.alert("레시피 작성을 실패했습니다.");
-      console.log(error);
+      console.log(e);
     }
   }, [
     navigate,

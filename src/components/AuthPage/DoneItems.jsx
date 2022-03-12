@@ -44,14 +44,13 @@ function DoneItems({
         .catch(() => alert("오류가 발생했습니다, 잠시후에 다시 시도해주세요!"));
     }
   };
-
   if (donelistData[currentTab]?.length === 0) {
     return <NoItem page="donelist" />;
   }
   return (
     <WishItemsContainer>
       {donelistData[currentTab] &&
-        donelistData[currentTab].map((item) => (
+        donelistData[currentTab].map((item, idx) => (
           <div
             style={{
               borderRadius: "5px",
@@ -60,11 +59,11 @@ function DoneItems({
               padding: "10px",
               boxShadow: "rgba(100, 100, 111, 0.2) 0px 1px 10px 0px",
             }}
+            key={`donelist-${currentTab}-${idx}`}
           >
-            <div style={{ position: "relative" }}>
+            <div style={{ textAlign: "right" }}>
               <IoTrashOutline
                 size={20}
-                style={{ position: "absolute", right: 13, top: 13 }}
                 onClick={(e) => {
                   handleDelete(e, item[`id`]);
                 }}

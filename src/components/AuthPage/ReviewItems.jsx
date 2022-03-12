@@ -8,8 +8,9 @@ import {
   ReviewItemThumbnail,
   ReviewItemsContainer,
   ReviewItemWrapper,
+  ReviewItemSection,
 } from "../../design/AuthPage/MyReviewPageStyles";
-import { StyledLink } from "../../design/commonStyles";
+import { StyledLink, FlexColumnCenterBox } from "../../design/commonStyles";
 import { BsPencilSquare } from "react-icons/bs";
 import { IoTrashOutline } from "react-icons/io5";
 import NoItem from "./NoItem";
@@ -45,7 +46,14 @@ function ReviewItems({ reviewData, setReviewData }) {
         <ReviewItemsContainer>
           {reviewData.map((item) => (
             <ReviewItemWrapper>
-              <div style={{ position: "absolute", right: 13, top: 13 }}>
+              <div
+                style={{
+                  position: "absolute",
+                  right: 13,
+                  top: 13,
+                  padding: "10px",
+                }}
+              >
                 <BsPencilSquare
                   size={20}
                   style={{ padding: "5px" }}
@@ -62,32 +70,42 @@ function ReviewItems({ reviewData, setReviewData }) {
                 />
               </div>
 
-              <div style={{ display: "flex", borderBottom: "1px solid #ddd" }}>
-                <StyledLink
-                  to={`/review/` + item[`review_id`]}
-                  key={`review-` + item[`review_id`]}
-                >
-                  <ReviewItemThumbnail
-                    src={process.env.REACT_APP_DB_IMG + item["image_path"]}
-                    alt={item[`liquor_name_kor`] + " 이미지"}
-                  />
-                </StyledLink>
-                <div>
-                  <p
-                    style={{
-                      fontWeight: 600,
-                      fontSize: "1.1rem",
-                      marginBottom: 0,
-                    }}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <FlexColumnCenterBox>
+                  <StyledLink
+                    to={`/liquor/` + item[`liquor_id`]}
+                    key={`review-` + item[`review_id`]}
                   >
-                    {item[`liquor_name_kor`]}
-                  </p>
-                  <p style={{ marginTop: "5px" }}>{item[`post_date`]}</p>
+                    <ReviewItemThumbnail
+                      src={process.env.REACT_APP_DB_IMG + item["image_path"]}
+                      alt={item[`liquor_name_kor`] + " 이미지"}
+                    />
+                  </StyledLink>
+                </FlexColumnCenterBox>
+
+                <div style={{ width: "100%" }}>
+                  <ReviewItemSection style={{ borderBottom: "1px solid #ddd" }}>
+                    <p
+                      style={{
+                        fontWeight: 600,
+                        fontSize: "1.1rem",
+                        marginBottom: 0,
+                      }}
+                    >
+                      {item[`liquor_name_kor`]}
+                    </p>
+                    <p style={{ marginTop: "5px" }}>{item[`review_date`]}</p>
+                  </ReviewItemSection>
+                  <ReviewItemSection>
+                    <Rating value={item["rating"]} readOnly />
+                    <p style={{ fontSize: "1.1rem" }}>{item[`content`]}</p>
+                  </ReviewItemSection>
                 </div>
-              </div>
-              <div style={{ padding: "10px" }}>
-                <Rating value={item["rating"]} readOnly />
-                <p style={{ fontSize: "1.1rem" }}>{item[`content`]}</p>
               </div>
             </ReviewItemWrapper>
           ))}

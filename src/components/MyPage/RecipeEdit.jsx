@@ -34,7 +34,7 @@ function RecipeEdit({ cocktailId }) {
   const [isLoading, setIsLoading] = React.useState(null);
   const [step, setStep] = React.useState(cocktailInfo["cocktail_name"] || []);
   const addStep = () => {
-    setStep(step => [...step, <RecipeInput />]);
+    setStep((step) => [...step, <RecipeInput />]);
   };
 
   const [ingredientsList, setIngredientsList] = React.useState(
@@ -42,13 +42,13 @@ function RecipeEdit({ cocktailId }) {
   );
   const [ingredient, setIngredient] = React.useState("");
 
-  const addIngredients = value => {
+  const addIngredients = (value) => {
     const newList = ingredientsList.concat(value);
     setIngredientsList(newList);
     setIngredient("");
   };
-  const deleteIngredients = value => {
-    const newList = ingredientsList.filter(word => word !== value);
+  const deleteIngredients = (value) => {
+    const newList = ingredientsList.filter((word) => word !== value);
     setIngredientsList(newList);
   };
 
@@ -61,7 +61,7 @@ function RecipeEdit({ cocktailId }) {
       }
       const response = await axios
         .get(process.env.REACT_APP_DB_HOST + `cocktail/${cocktailId}`)
-        .then(res => res.data);
+        .then((res) => res.data);
       setCocktailInfo(response);
     };
     setIsLoading(false);
@@ -99,7 +99,7 @@ function RecipeEdit({ cocktailId }) {
           sx={MuiInputStyle}
           placeholder={"재료를 입력하고  + 버튼을 눌러주세요."}
           value={ingredient}
-          onChange={e => {
+          onChange={(e) => {
             setIngredient(e.target.value);
           }}
           endAdornment={
@@ -144,7 +144,7 @@ function RecipeEdit({ cocktailId }) {
         </CenterItem>
 
         <CenterItem>
-          <RegisterButton type="submit">등록하기</RegisterButton>
+          <RegisterButton type="submit">수정하기</RegisterButton>
         </CenterItem>
       </ColumnDiv>
     </>
