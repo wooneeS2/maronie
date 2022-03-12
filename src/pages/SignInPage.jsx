@@ -1,6 +1,6 @@
 import React from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../data/state";
 import {
@@ -14,18 +14,19 @@ function SignInPage() {
   const [password, setPassword] = React.useState(null);
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
+
   const handleSubmitSignIn = () => {
     axios
       .post(process.env.REACT_APP_DB_HOST + "auth/login", {
         email,
         password,
       })
-      .then(res => {
+      .then((res) => {
         setUser(() => res.data);
         alert(res.data.nickname + "님! 안녕하세요 :)");
-        navigate(-1);
+        navigate("/");
       })
-      .catch(e => {
+      .catch((e) => {
         let errorMsg = e.response.data.message;
         if (errorMsg === "User Not Found") {
           alert("가입되지 않은 이메일입니다");
@@ -36,17 +37,20 @@ function SignInPage() {
         }
       });
   };
+  if (user) {
+    return <Navigate to="/" replace={true} />;
+  }
   return (
     <FlexColumnCenterBox style={{ marginTop: "81px" }}>
       <SignInInput
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         label="이메일"
         autoComplete="off"
         margin="normal"
       />
 
       <SignInInput
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
         label="비밀번호"
         autoComplete="off"
         margin="normal"

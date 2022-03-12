@@ -11,7 +11,9 @@ export const RecipeInputStyle = muiStyled(TextField)({
   padding: "10px",
 });
 
-export const RecipeInput = () => {
+export const RecipeInput = ({ content }) => {
+  console.log(22);
+  console.log(content + "!");
   return (
     <RecipeInputStyle
       id="filled-multiline-static"
@@ -19,6 +21,7 @@ export const RecipeInput = () => {
       multiline
       rows={4}
       variant="filled"
+      defaultValue={content}
       placeholder="레시피를 입력해주세요."
     />
   );

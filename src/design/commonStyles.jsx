@@ -151,3 +151,12 @@ export const LiquorSubTitle = styled.p`
   font-weight: bold;
   padding: 5px;
 `;
+export const TextSearchImageWrapper = styled.div`
+  width: 150px;
+  height: 200px;
+
+  img {
+    width: 150px;
+    height: 100%;
+  }
+`;
