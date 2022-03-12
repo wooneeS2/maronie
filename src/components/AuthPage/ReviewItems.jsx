@@ -44,8 +44,8 @@ function ReviewItems({ reviewData, setReviewData }) {
     return (
       <>
         <ReviewItemsContainer>
-          {reviewData.map((item) => (
-            <ReviewItemWrapper>
+          {reviewData.map((item, idx) => (
+            <ReviewItemWrapper key={`review-${idx}`}>
               <div
                 style={{
                   position: "absolute",

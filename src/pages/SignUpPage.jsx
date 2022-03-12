@@ -1,10 +1,15 @@
 import React from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 import { InputAdornment, IconButton } from "@mui/material";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { SubmitButton, SignUpInput } from "../design/AuthPage/SignUpPageStyles";
 import { FlexColumnCenterBox } from "../design/commonStyles";
+import { useRecoilState } from "recoil";
+import { userState } from "../data/state";
 function SignUpPage() {
+  const [user, setUser] = useRecoilState(userState);
+
   const [signUpInputValues, setSignUpInputValues] = React.useState({
     email: "",
     nickname: "",
@@ -27,21 +32,21 @@ function SignUpPage() {
     });
   };
 
-  const checkEmail = async email => {
+  const checkEmail = async (email) => {
     const regEmail =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
     try {
       // 빈 문자열 (2)
       if (email === "") {
-        setSignUpInputStatus(cur => {
+        setSignUpInputStatus((cur) => {
           return { ...cur, emailStatus: 2 };
         });
         return 2;
       }
       // 형식에 맞지 않는 이메일 (3)
       else if (!regEmail.test(email)) {
-        setSignUpInputStatus(cur => {
+        setSignUpInputStatus((cur) => {
           return { ...cur, emailStatus: 3 };
         });
         return 3;
@@ -52,25 +57,25 @@ function SignUpPage() {
       );
       //valid email(1)
       if (response.data.message === "Available email") {
-        setSignUpInputStatus(cur => {
+        setSignUpInputStatus((cur) => {
           return { ...cur, emailStatus: 1 };
         });
         return 1;
       }
     } catch {
       //duplicated email(4)
-      setSignUpInputStatus(cur => {
+      setSignUpInputStatus((cur) => {
         return { ...cur, emailStatus: 4 };
       });
       return 4;
     }
   };
 
-  const checkNickname = async nickname => {
+  const checkNickname = async (nickname) => {
     try {
       // 빈 문자열 (2)
       if (nickname === "") {
-        setSignUpInputStatus(cur => {
+        setSignUpInputStatus((cur) => {
           return { ...cur, nicknameStatus: 2 };
         });
         return 2;
@@ -81,14 +86,14 @@ function SignUpPage() {
       );
       //valid nickname(1)
       if (response.data.message === "Available nickname") {
-        setSignUpInputStatus(cur => {
+        setSignUpInputStatus((cur) => {
           return { ...cur, nicknameStatus: 1 };
         });
         return 1;
       }
     } catch {
       //duplicated nickname(4)
-      setSignUpInputStatus(cur => {
+      setSignUpInputStatus((cur) => {
         return { ...cur, nicknameStatus: 4 };
       });
       return 4;
@@ -96,26 +101,26 @@ function SignUpPage() {
     return signUpInputStatus["nicknameStatus"];
   };
 
-  const checkPassword = password => {
+  const checkPassword = (password) => {
     // 빈 문자열 (2)
     if (password === "") {
-      setSignUpInputStatus(cur => {
+      setSignUpInputStatus((cur) => {
         return { ...cur, passwordStatus: 2 };
       });
       return 2;
       // 빈 문자열이 아님 (1)
     } else if (password) {
-      setSignUpInputStatus(cur => {
+      setSignUpInputStatus((cur) => {
         return { ...cur, passwordStatus: 1 };
       });
       return 1;
     }
   };
 
-  const checkPassword2 = password2 => {
+  const checkPassword2 = (password2) => {
     // 빈 문자열 (2)
     if (password2 === "") {
-      setSignUpInputStatus(cur => {
+      setSignUpInputStatus((cur) => {
         return { ...cur, password2Status: 2 };
       });
     }
@@ -123,11 +128,11 @@ function SignUpPage() {
 
   const checkIsSamePassword = (password, password2) => {
     if (password !== password2) {
-      setSignUpInputStatus(cur => {
+      setSignUpInputStatus((cur) => {
         return { ...cur, password2Status: 3 };
       });
     } else {
-      setSignUpInputStatus(cur => {
+      setSignUpInputStatus((cur) => {
         return { ...cur, password2Status: 1 };
       });
     }
@@ -142,8 +147,8 @@ function SignUpPage() {
         signUpInputValues["password"],
         signUpInputValues["password2"]
       ),
-    ]).then(values => {
-      if (values.filter(item => item === 1).length === 4) {
+    ]).then((values) => {
+      if (values.filter((item) => item === 1).length === 4) {
         axios
           .post(process.env.REACT_APP_DB_HOST + "auth/register", {
             email: signUpInputValues["email"],
@@ -160,11 +165,13 @@ function SignUpPage() {
       } else return;
     });
   };
-
+  if (user) {
+    return <Navigate to="/" replace={true} />;
+  }
   return (
     <FlexColumnCenterBox style={{ marginTop: "81px" }}>
       <SignUpInput
-        onChange={e =>
+        onChange={(e) =>
           setSignUpInputValues({
             ...signUpInputValues,
             email: e.target.value,
@@ -190,7 +197,7 @@ function SignUpPage() {
 
       <SignUpInput
         autoComplete="off"
-        onChange={e =>
+        onChange={(e) =>
           setSignUpInputValues({
             ...signUpInputValues,
             nickname: e.target.value,
@@ -212,7 +219,7 @@ function SignUpPage() {
 
       <SignUpInput
         autoComplete="off"
-        onChange={e => {
+        onChange={(e) => {
           setSignUpInputValues({
             ...signUpInputValues,
             password: e.target.value,
@@ -248,7 +255,7 @@ function SignUpPage() {
 
       <SignUpInput
         autoComplete="off"
-        onChange={e => {
+        onChange={(e) => {
           setSignUpInputValues({
             ...signUpInputValues,
             password2: e.target.value,

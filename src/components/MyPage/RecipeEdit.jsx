@@ -51,7 +51,7 @@ function RecipeEdit({ cocktailId }) {
     const newList = ingredientsList.filter((word) => word !== value);
     setIngredientsList(newList);
   };
-
+  console.log(cocktailInfo);
   React.useEffect(() => {
     const call = async () => {
       try {
@@ -70,9 +70,6 @@ function RecipeEdit({ cocktailId }) {
   return (
     <>
       <ColumnDiv style={{ paddingTop: "81px" }}>
-        <BoldTitle>
-          {liquorClassification[cocktailInfo["classification_id"]]}
-        </BoldTitle>
         <AddCocktailPhoto />
 
         <div>

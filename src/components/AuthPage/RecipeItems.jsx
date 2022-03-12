@@ -14,7 +14,7 @@ import { Chip } from "@mui/material";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import NoItem from "./NoItem";
 import { BsPencilSquare } from "react-icons/bs";
-import { IoTrashOutline, IoFlagSharp } from "react-icons/io5";
+import { IoTrashOutline } from "react-icons/io5";
 function RecipeItems({ recipeData, setRecipeData }) {
   const [user, setUser] = useRecoilState(userState);
   const [isOpen, setIsOpen] = React.useState([]);
@@ -114,13 +114,17 @@ function RecipeItems({ recipeData, setRecipeData }) {
                 }}
               >
                 <h3>재료</h3>
-                {item["ingredients"].map((item) => (
-                  <Chip label={item} variant="outlined" />
+                {item["ingredients"].map((item, idx) => (
+                  <Chip
+                    label={item}
+                    variant="outlined"
+                    key={`ingredients-${idx}`}
+                  />
                 ))}
 
                 <h3>만드는 방법</h3>
                 {item["recipe"].map((item, idx) => (
-                  <p>
+                  <p key={`step-${idx}`}>
                     {idx + 1}
                     {")"} {item}
                   </p>
