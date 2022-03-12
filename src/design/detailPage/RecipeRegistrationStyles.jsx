@@ -12,8 +12,6 @@ export const RecipeInputStyle = muiStyled(TextField)({
 });
 
 export const RecipeInput = ({ content }) => {
-  console.log(22);
-  console.log(content + "!");
   return (
     <RecipeInputStyle
       id="filled-multiline-static"
