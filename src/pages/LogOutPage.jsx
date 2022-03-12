@@ -11,7 +11,6 @@ export default function LogOutPage() {
   const handleLogOut = async () => {
     const logOut = await axios.post(`${url}auth/logout`);
     setUser(null);
-    console.log(logOut);
     if (logOut.status == 200) {
       window.alert("로그아웃 되었습니다.");
       navigate("/");

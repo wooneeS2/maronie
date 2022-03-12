@@ -16,7 +16,6 @@ import { IoTrashOutline } from "react-icons/io5";
 import NoItem from "./NoItem";
 function ReviewItems({ reviewData, setReviewData }) {
   let navigate = useNavigate();
-  console.log(reviewData);
   const [user, setUser] = useRecoilState(userState);
   const handleDelete = async (e, reviewId) => {
     e.stopPropagation();
