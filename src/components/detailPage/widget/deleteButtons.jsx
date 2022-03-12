@@ -14,7 +14,7 @@ export function DeleteWishList({ type, wishCount, onClick }) {
       <ButtonBox onClick={onClick}>
         <RowDiv>
           <StarIcon style={{ fill: `${mainYellowDark}` }} />
-          <ButtonTitle>즐겨찾기 등록 완료 </ButtonTitle>
+          <ButtonTitle>즐겨찾기 등록 완료</ButtonTitle>
         </RowDiv>
         <ChipButton
           label={`${wishCount}명`}
@@ -30,7 +30,7 @@ export function DeleteDoneList({ doneCount, onClick }) {
     <ButtonBox onClick={onClick}>
       <RowDiv>
         <LocalBarIcon style={{ fill: `${mainYellowDark}` }} />
-        <ButtonTitle>마셔봤어요 </ButtonTitle>
+        <ButtonTitle>마셔봤어요 등록 완료</ButtonTitle>
       </RowDiv>
       <ChipButton
         label={`${doneCount}명`}
