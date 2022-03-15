@@ -1,0 +1,18 @@
+image: python:3.9
+variables:
+  WORK_DIR: .
+cache:
+  key: '$CI_COMMIT_REF_SLUG'
+stages:
+  - deploy
+Deploy:
+  stage: deploy
+  only:
+    - deploy 
+  tags:
+    - team-11-front 
+  script:
+    - docker stop frontend || true 
+    - docker system prune -af --volumes
+    - docker build -t team-11-frontend .
+    - docker run -it -d --restart always --name frontend -p 10000:80 team-11-frontend
