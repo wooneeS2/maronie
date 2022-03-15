@@ -10,7 +10,7 @@ Deploy:
   only:
     - deploy 
   tags:
-    - team-11-front 
+    - GCP-team11-FE
   script:
     - docker stop frontend || true 
     - docker system prune -af --volumes
