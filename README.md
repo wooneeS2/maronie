@@ -15,13 +15,13 @@
 ##  ⏯ 프로젝트 실행
 -  [여기를 눌러서 실행하기](http://elice-kdt-ai-3rd-team11.elicecoding.com/)   
 
--  Git Lab으로 실행하기
-```
-1. git clone  https://kdt-gitlab.elice.io/ai_track/class_03/ai_project/team11/frontend/project-template.git
-2. npm install
-3. npm start
-```
-
+-  Git Hub으로 실행하기
+   ```
+   1. git clone  https://github.com/wooneeS2/maronie.git
+   2. npm install
+   3. npm start
+   ```
+- [백엔드 Git Hub로 이동하기](https://github.com/whckdgma96/maronie_backend)
   
 
 
